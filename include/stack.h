@@ -11,6 +11,7 @@ protected:
 	ValType *pVector;
 	int Size;       // размер вектора
 	int StartIndex; // индекс первого элемента вектора
+	ValType& operator[](int pos) const;
 public:
 	TStack(int s = 10, int si = 0);
 	TStack(const TStack &v);                // конструктор копирования
@@ -19,7 +20,6 @@ public:
 	int GetStartIndex() const { return StartIndex; } // индекс первого элемента
 	void IncStartIndex() { StartIndex += 1; }
 	void DecStartIndex() { if (StartIndex != 0) StartIndex -= 1; else throw invalid_argument("Stack is empty"); }
-	ValType& operator[](int pos) const;
 	bool IsEmpty(void);
 	bool IsFull(void);
 	void SetElem(ValType n);
