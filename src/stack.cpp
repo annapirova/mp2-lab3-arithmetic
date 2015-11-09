@@ -26,13 +26,14 @@ Stack :: Stack(const Stack &s)
 			   
 void Stack :: Push( int x)
 {
-	st[Top + 1] = x;
 	Top++;
+	st[Top] = x; 
 }
 
 int Stack :: Get()
 {
-	int temp = st[Top];
+	//Stack res(st.N);
+	int temp = st[Top]; 
 	Top--;
 	return temp;
 }
@@ -58,17 +59,10 @@ Stack :: ~Stack()
 	delete []st;
 }
 
-int& Stack ::operator [](int i)
-{
-	if((i < 0) || (i >= N))
-		throw "Error";
-	else
-		return st[i];
-}
 
 std::ostream& operator<<(std::ostream &os, const Stack &s)
   {
-    for (int i = 0; i < s.Top + 1; i++)
-      os << s.st[i] << ' ';
+	  for( int i = 0; i < s.Top + 1; i++) 
+		os << s.st[i] << ' ';
     return os;
   }

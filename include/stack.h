@@ -11,8 +11,8 @@ class Stack
 	public:
 		int *st;
 		int N;  //  размер стекового поля
-		int Top;   //  индекс первого элемента
-		
+		int Top;  //  индекс первого элемента
+
 		
 		Stack(int Max);
 		Stack(const Stack &s);
@@ -21,7 +21,6 @@ class Stack
 		bool IsEmpty();  //  проверка пустоты
 		bool IsFull();  //  проверка полноты
 		~Stack();  //  деструктор
-		int& operator [](int i);
 		friend ostream& operator<<(ostream &os, const Stack &s);
 };		
 #endif
