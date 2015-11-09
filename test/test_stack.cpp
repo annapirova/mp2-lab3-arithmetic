@@ -16,10 +16,10 @@ TEST(Stack, throws_when_create_stack_with_negative_size)
 }
 
 
-TEST(Stack, new_stack_is_not_filled)
+TEST(Stack, new_stack_is_empty)
 {
   Stack a(100);
-  EXPECT_EQ(-1, a.Top);
+  EXPECT_EQ(true, a.IsEmpty());
 }
 
 TEST(Stack, can_get_index_of_first_element)
@@ -27,6 +27,12 @@ TEST(Stack, can_get_index_of_first_element)
   Stack a(100);
   a.Top = 6;
   EXPECT_EQ(6, a.Top);
+}
+
+TEST(Stack, can_get_size_of_stack)
+{
+  Stack a(100);
+  EXPECT_EQ(100, a.N);
 }
 
 TEST(Stack, can_push_element)
@@ -68,12 +74,6 @@ TEST(Stack, throws_when_set_element_with_too_negative_index)
 {
   Stack a(10);
   ASSERT_ANY_THROW( a[-1] );
-}
-
-TEST(Stack, new_stack_is_empty)
-{
-	Stack a(10);
-	EXPECT_EQ(true, a.IsEmpty());
 }
 
 
