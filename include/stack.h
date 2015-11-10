@@ -11,9 +11,8 @@ protected:
 	ValType *pVector;
 	int Size;       // размер вектора
 	int ActualIndex; // индекс первого элемента вектора
-	ValType& operator[](int pos) const;
 public:
-	TStack(int s = 10, int si = 0);
+	TStack(int s = 10);
 	TStack(const TStack &v);                // конструктор копирования
 	virtual ~TStack();
 	int GetSize() const { return Size; } // размер вектора
@@ -24,14 +23,6 @@ public:
 	bool IsFull(void);
 	void SetElem(ValType n);
 	ValType GetElem(void);
-
-	template <class ValType>
-	friend ostream& operator<<(ostream &out, const TStack &v) 
-	{
-		for (int i = 0; i < v.Size + v.ActualIndex; i++)
-			out << v[i] << ' ';
-		return out;
-	}
 };
 
 template <class ValType>
@@ -43,14 +34,9 @@ TStack<ValType>::TStack(int s)
 	if (s < 0) 
 		throw invalid_argument("CONSTRUCTOR: SIZE < 0");
 	
-	if (si < 0) 
-		throw invalid_argument("CONSTRUCTOR: START INDEX < 0");
-
-	if (!(si < s)) 
-		throw invalid_argument("CONSTRUCTOR: START INDEX >= SIZE");
-	
 	pVector = new ValType[s];
 	Size = s;
+	ActualIndex = 0;
 
 	for (int i = 0; i < Size; i++) 
 		pVector[i] = ValType();
@@ -74,17 +60,6 @@ TStack<ValType>::~TStack()
 	delete[] pVector;
 } /*-------------------------------------------------------------------------*/
 
-template <class ValType> // доступ
-ValType& TStack<ValType>::operator[](int pos) const 
-{
-	if (pos < 0) 
-		throw invalid_argument("[] ARGUMENT < 0");
-	
-	if (!(pos < Size)) 
-		throw invalid_argument("[] ARGUMENT > SIZE");
-	
-	return pVector[pos];
-} /*-------------------------------------------------------------------------*/
 
 template <class ValType>
 bool TStack<ValType>::IsEmpty(void)
@@ -98,7 +73,7 @@ bool TStack<ValType>::IsEmpty(void)
 template <class ValType>
 bool TStack<ValType>::IsFull(void)
 {
-	if (GetActualIndex() + 1 == GetSize())
+	if (GetActualIndex() == GetSize())
 		return true;
 	else
 		return false;
@@ -109,13 +84,9 @@ void TStack<ValType>::SetElem(ValType n)
 {
 	if (IsFull())
 		throw invalid_argument("Stackowerflow");
-	if (IsEmpty())
-	{
-		(*this)[GetActualIndex()] = n;
-		IncActualIndex();
-	}
-	else
-		throw invalid_argument("Crash actual index");
+
+	(*this).pVector[GetActualIndex()] = n;
+	IncActualIndex();
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType>
@@ -126,8 +97,8 @@ ValType TStack<ValType>::GetElem(void)
 
 	ValType temp;
 	DecActualIndex();
-	temp = (*this)[GetActualIndex()];
-	(*this)[GetActualIndex()] = ValType();
+	temp = (*this).pVector[GetActualIndex()];
+	(*this).pVector[GetActualIndex()] = ValType();
 
 	return temp;
 } /*-------------------------------------------------------------------------*/
