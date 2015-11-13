@@ -1,0 +1,17 @@
+﻿Build started 12.11.2015 23:33:00.
+     1>Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\gtest.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\gtest.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Lib:
+         All outputs are up-to-date.
+         gtest.vcxproj -> C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Release\gtest.lib
+       FinalizeBuildStatus:
+         Deleting file "Release\gtest.unsuccessfulbuild".
+         Touching "Release\gtest.lastbuildstate".
+     1>Done Building Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\gtest.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.08

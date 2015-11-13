@@ -1,0 +1,17 @@
+﻿Build started 12.11.2015 23:33:00.
+     1>Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\sample_utmatrix.vcxproj" on node 3 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\sample_arithmetic2.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         sample_utmatrix.vcxproj -> C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Release\sample_arithmetic2.exe
+       FinalizeBuildStatus:
+         Deleting file "Release\sample_arithmetic2.unsuccessfulbuild".
+         Touching "Release\sample_arithmetic2.lastbuildstate".
+     1>Done Building Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\sample_utmatrix.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.10

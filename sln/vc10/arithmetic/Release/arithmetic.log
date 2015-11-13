@@ -1,0 +1,12 @@
+﻿Build started 12.11.2015 23:04:37.
+     1>Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\arithmetic\arithmetic.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\arithmetic.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       FinalizeBuildStatus:
+         Deleting file "Release\arithmetic.unsuccessfulbuild".
+         Touching "Release\arithmetic.lastbuildstate".
+     1>Done Building Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\arithmetic\arithmetic.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.05
