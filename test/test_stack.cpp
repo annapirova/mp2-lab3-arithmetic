@@ -19,6 +19,18 @@ TEST(Stack, can_add_element)
 
 	ASSERT_NO_THROW(a.push(b));
 }
+TEST(Stack, stacks_empty) 
+{
+	Stack<int> a(10);
+	EXPECT_TRUE(a.IsEmpty());
+}
+TEST(Stack, stacks_full) 
+{
+	Stack<int> a(10);
+	for (int i=0;i<10;i++)
+		a.push(i);
+	EXPECT_TRUE(a.IsFull());
+}
 TEST(Stack, can_not_add_element_in_full_stack) {
 	Stack<int> a(10);
 	int b = 1;
@@ -28,6 +40,7 @@ TEST(Stack, can_not_add_element_in_full_stack) {
 	}
 	ASSERT_ANY_THROW(a.push(b));
 }
+
 TEST(Stack, can_pick_element) 
 {
 	Stack<int> a(10);
