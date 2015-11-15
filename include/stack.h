@@ -1,10 +1,9 @@
 #ifndef STACK_H
 #define STACK_H
 
-#include <cassert> // для assert
+
 #include <iostream>
 
-#include <iomanip> // для setw
 
 template <typename T>
 class Stack
@@ -20,11 +19,17 @@ public:
 
 	void push(const T &);     // поместить элемент в вершину стека
 	T pop();                   // удалить элемент из вершины стека и вернуть его
+	int Peek() ;
 	void printStack();         // вывод стека на экран
 	int getStackSize() const;  // получить размер стека
 	bool IsEmpty(void);         //ПУСТ?
 	bool IsFull(void);          //ПОЛОН?
 	int getTop() const;        // получить номер текущего элемента в стеке
+	Stack<T>& operator=(const Stack& s);//оператор равно
+	bool operator!=(const Stack<T> &s) const ;//сравнение 1
+	bool operator==(const Stack<T> &s) const ;//сравнение 1
+	void SetSize(int n);//изменение размера
+
 };
 
 // реализация методов шаблона класса STack
@@ -32,9 +37,9 @@ public:
 // конструктор Стека
 template <typename T>
 Stack<T>::Stack(int _size,int _top) 
-{	size = _size; // инициализация константы
+{	size = _size; 
 
-	stackPtr = new T[size]; // выделить память под стек
+	stackPtr = new T[size]; 
 	top = _top; // инициализируем текущий элемент нулем;
 	for (int i = 0; i < size; i++)
 		stackPtr[i] = T();
@@ -44,8 +49,8 @@ Stack<T>::Stack(int _size,int _top)
 template <typename T>
 Stack<T>::Stack(const Stack<T> & otherStack) 
 {
-	size = otherStack.size;// инициализация константы
-	stackPtr = new T[size]; // выделить память под новый стек
+	size = otherStack.size;
+	stackPtr = new T[size]; 
 	top = otherStack.top;
 	for (int i = 0; i < size; i++)
 		stackPtr[i] = T();
@@ -65,7 +70,8 @@ template <typename T>
 void Stack<T>::push(const T &value)
 {
 	// проверяем размер стека
-	assert(top < size); // номер текущего элемента должен быть меньше размера стека
+	if (top >= size) // номер текущего элемента должен быть меньше размера стека
+		throw ("stek zapolnen");
 
 	stackPtr[top++] = value; // помещаем элемент в стек
 }
@@ -75,12 +81,23 @@ template <typename T>
  T Stack<T>::pop()
 {
 	// проверяем размер стека
-	assert(top > 0); // номер текущего элемента должен быть больше 0
+	if (top <= 0)
+	throw ("stek pust");// номер текущего элемента должен быть больше 0
 		top--;
 	T temp = stackPtr[top];
 	stackPtr[top] = T();
 	return temp;// удаляем элемент из стека
 }
+template <typename T>
+ int Stack<T>::Peek()
+{
+	if (top == 0)
+	{
+		throw ("stek pust!");
+	}
+	return stackPtr[top];
+}
+
 
 // вывод стека на экран
 template <typename T>
@@ -107,7 +124,7 @@ template <typename T>
  template <class T>
  bool Stack<T>::IsFull(void)
  {
-	 if (top + 1 == size)
+	 if (top == size)
 		 return true;
 	 else
 		 return false;
@@ -116,9 +133,82 @@ template <typename T>
  template <class T>
  bool Stack<T>::IsEmpty(void)
  {
-	 if (top == NULL)
+	 if (top == 0)
 		 return true;
 	 else
 		 return false;
  }
+  template <class T>
+ Stack<T>& Stack<T>::operator=(const Stack& s)
+{
+	if (stackPtr == s.stackPtr)
+	{
+		return *this;
+	}
+	size = s.size;
+	top = s.top;
+	delete[]stackPtr;
+	stackPtr = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		stackPtr[i] = s.stackPtr[i];
+	}
+	return *this;
+}
+  template <class T>
+
+bool Stack<T>::operator==(const Stack<T>& s) const
+{
+	if ((size == s.size)&&(top == s.top))
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (stackPtr[i] != s.stackPtr[i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+ template <class T>
+bool Stack<T>::operator!=(const Stack<T> &s) const 
+{
+	if ((*this)==s)
+	{
+		return false;
+	}
+	return true;
+}
+ template <class T>
+void Stack<T>::SetSize(int n)
+{
+	if (n<0) 
+	{
+		throw ("new size < 0");
+	}
+	if (n<top)
+	{
+		throw ("new size < Top");
+	}
+
+	int *p = new int[top];
+	for (int i = 0; i < top; i++)
+	{
+		p[i] = stackPtr[i];
+	}
+
+	size = n;
+	delete []stackPtr;
+	stackPtr = new int[size];
+	for (int i = 0; i < top; i++)
+	{
+		stackPtr[i] = p[i];
+	}
+	for (int i = top; i < size;i++)
+	{
+		stackPtr[i] = 0;
+	}
+}
 #endif // STACK_H
