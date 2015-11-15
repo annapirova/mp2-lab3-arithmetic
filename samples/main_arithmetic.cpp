@@ -1,4 +1,6 @@
 int main()
 {
-  return 0;
+	char str [256]; 
+	int strlen;
+	return 0;
 }
