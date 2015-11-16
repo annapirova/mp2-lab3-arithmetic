@@ -21,7 +21,8 @@ public:
 	bool StFull (void) const;
 	
 	void PutElem(const ValType &el); //добавить элемент в вершину стека 
-	ValType GetElem();              //удалить элемент из стека
+	ValType GetElem();              //удалить элемент из стека и вернуть его значение
+	void ExcludeElem();             //удалить элемент
 
 
 };
@@ -94,6 +95,14 @@ ValType TStack<ValType>::GetElem()
 	pMem[--Index];
 
 	return a;
+}
+
+template <class ValType>
+void TStack<ValType>::ExcludeElem()
+{
+	if ((*this).StEmpty())
+		throw ("Empty stack");
+	pMem[--Index];
 }
 
 #endif
