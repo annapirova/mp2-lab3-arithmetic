@@ -1,14 +1,12 @@
-﻿Build started 15.11.2015 14:40:18.
-     1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" on node 3 (rebuild target(s)).
-     1>_PrepareForClean:
-         Deleting file "Release\stack.lastbuildstate".
-       InitializeBuildStatus:
+﻿Build started 17.11.2015 17:13:44.
+     1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" on node 3 (build target(s)).
+     1>InitializeBuildStatus:
          Creating "Release\stack.unsuccessfulbuild" because "AlwaysCreate" was specified.
        FinalizeBuildStatus:
          Deleting file "Release\stack.unsuccessfulbuild".
          Touching "Release\stack.lastbuildstate".
-     1>Done Building Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.04
+Time Elapsed 00:00:00.05

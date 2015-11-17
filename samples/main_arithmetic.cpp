@@ -1,6 +1,5 @@
+#include "C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h"
 int main()
 {
-	char str [256]; 
-	int strlen;
 	return 0;
 }

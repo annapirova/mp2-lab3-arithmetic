@@ -1,7 +1,7 @@
-﻿Build started 15.11.2015 17:23:10.
+﻿Build started 17.11.2015 17:13:35.
      1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\arithmetic\arithmetic.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Release\arithmetic.unsuccessfulbuild".
+         Creating "Release\arithmetic.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt arithmetic.cpp
          arithmetic.cpp
@@ -13,4 +13,4 @@
 
 Build FAILED.
 
-Time Elapsed 00:00:00.71
+Time Elapsed 00:00:02.99

@@ -9,5 +9,6 @@ using namespace std;
 
 bool CheckBrackets(char* s);
 bool CheckOperands(char* s);
+void PickOut(char *s, char *type0, char *type1, char *type2);
 
 #endif
