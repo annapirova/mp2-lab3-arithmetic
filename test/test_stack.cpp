@@ -31,7 +31,6 @@ TEST(TStack, can_not_put_from_empty_stack) {
 }
 
 
-
 TEST(TStack, can_pick_and_not_delete_element){
 	TStack<int> s(10);
 	int a=1;
@@ -42,22 +41,5 @@ TEST(TStack, can_pick_and_not_delete_element){
 }
 
 
-TEST(TStack, equal_stack) {
-	TStack<int> s1(2),s2(2);
-	s1.push(1);
-	s1.push(2);
-	s2=s1;
-	EXPECT_EQ(s1, s2);
 
-}
 
-TEST(TStack, different_stack_not_equal){
-	TStack <int> s1(10),s2(10);
-	s1.push(10);
-	EXPECT_NE(s1,s2);
-}
-
-TEST(TStack, stack_with_different_size_not_equal){
-	TStack <int> s1(5),s2(10);
-	EXPECT_NE(s1,s2);
-}

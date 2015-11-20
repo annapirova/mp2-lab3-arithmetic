@@ -1,7 +1,8 @@
 #pragma once
 #define mSize 50
 
-
+#include <iostream>
+using namespace std;
 
 template <typename T>
 class TStack {
@@ -17,8 +18,7 @@ public:
 	int getSize() const {return Size;}		//Взять размер стека
 	int getLastIndex() const {return LastIndex;}  //Взять последний элемент стека
 	TStack<T>& operator=(const TStack<T>& s);
-	bool operator==(const TStack<T>& s) const; 
-	bool operator!=(const TStack<T>& s) const ;
+
     //T* getPtr() const {return st;}	    // вернуть указатель на стек
 	
 	bool nFull(T* &St);						//проверка на то, что стек всё еще не полный
@@ -26,9 +26,19 @@ public:
 	void push(const T &value);				//Положить элемент в стек
 	int put ();								//изъять полследний элемент 
 	int peek ();							//посмотреть последний элемент
-	void printStack();						//Печать
 	
+	template <typename T>
+	friend ostream& operator<<(ostream &out, const TStack<T> &v);
 };
+
+	
+template <typename T>
+ostream& operator<<(ostream &out, const TStack<T> &v)
+{
+	for (int i = v.LastIndex-1; i >=0; i--)
+		out << v.st[i] << endl;
+	return out;
+}
 
 template <typename T>
 TStack<T>::TStack()
@@ -76,12 +86,6 @@ void TStack<T>::push(const T &value)
 		st[LastIndex++] = value; // помещаем элемент в стек
 }
  
-template <typename T>						
-void TStack<T>::printStack()
-{
-    for (int i = LastIndex-1; i >=0; i--)
-        cout << st[i] << endl;
-}
 
 template <typename T>
 bool TStack<T>::nFull(T* &St) {
@@ -129,29 +133,6 @@ TStack<T>& TStack<T>::operator=(const TStack<T>& s) {
 	return *this;
 }
 
-template <typename T>
-bool TStack<T>::operator==(const TStack<T>& s) const {
-	if ((Size == s.Size) && (LastIndex == s.LastIndex)) {
-		for (int i = 0; i < Size; i++) {
-			if (st[i] != s.st[i]) {
-				return false;
-			}
-		}
-		return true;
-	}
-	return false;
-}
-
-
-template <typename T>
-bool TStack<T>::operator!=(const TStack<T> &s) const 
-{
-	if ((*this)==s)
-	{
-		return false;
-	}
-	return true;
-}
 
 
 /*template <typename T>
