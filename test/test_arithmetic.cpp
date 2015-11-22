@@ -26,6 +26,17 @@ TEST(arithmetic,check_correctly_bracket)
 	b.SetFormula(a);
 	EXPECT_EQ(1,b.CheckFormula());
 }
+TEST(arithmetic, check_correctly_convert_to_post)
+{
+	string a = "a+b*(c+b)";
+	arithmetic formula;
+	formula.SetFormula(a);
+	formula.InfixToPost();
+	a=formula.GetPost();
+	string b = "a b c b + * + ";
+	EXPECT_EQ(a, b);
+}
+
 
 
 
