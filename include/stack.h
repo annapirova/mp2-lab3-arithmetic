@@ -95,7 +95,7 @@ template <typename T>
 	{
 		throw ("stek pust!");
 	}
-	return stackPtr[top];
+	return stackPtr[top-1];
 }
 
 
