@@ -1,15 +1,9 @@
-﻿Build started 12.11.2015 23:05:29.
-     1>Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\stack\stack.vcxproj" on node 3 (build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Debug\stack.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       ManifestResourceCompile:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\stack.exe.embed.manifest.res" Debug\stack_manifest.rc 
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\stack.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\stack.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\stack.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\stack.lib" /MACHINE:X86 Debug\stack.exe.embed.manifest.res
-     1>LINK : error LNK2001: unresolved external symbol _mainCRTStartup
-     1>C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\stack.exe : fatal error LNK1120: 1 unresolved externals
-     1>Done Building Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\stack\stack.vcxproj" (build target(s)) -- FAILED.
+﻿Build started 23.11.2015 23:03:51.
+     1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" on node 3 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\stack.lastbuildstate".
+     1>Done Building Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" (clean target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:03.29
+Time Elapsed 00:00:00.02

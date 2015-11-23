@@ -1,6 +1,6 @@
 //реализация стека
 //
-//#pragma once
+
 #ifndef __STACK_H
 #define __STACK_H
 

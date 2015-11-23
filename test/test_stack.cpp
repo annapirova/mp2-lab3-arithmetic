@@ -32,7 +32,7 @@ TEST(TStack, copied_stack_are_equal) {
 	TStack<int> c2(c1);
 
 	EXPECT_TRUE(c1.Get() == c2.Get()); 
-} /**/
+}
 
 TEST(TStack, can_add_element) {
  	TStack<int> c1(10);
@@ -59,19 +59,6 @@ TEST(TStack, stack_equal_itself) {
  	}
 
  	EXPECT_TRUE(c1.Get() == c1.Get());
-}
-
-TEST(TStack, stacks_whith_different_size_not_equal) {
- 	TStack<int> c1(10);
- 	TStack<int> c2(5);
-
-	int k = 5;
-	c2.Push(k);
-	for (int i = 0; i < 10; i++) {
- 		c1.Push(i);
- 	}
-
- 	EXPECT_FALSE(c1.Get() == c2.Get());
 }
  
  TEST(TStack, different_stacks_not_equal) {
@@ -142,11 +129,13 @@ TEST(TStack, new_stack_is_empty)
 }
 
 TEST(TStack, can_not_add_element_in_full_stack) {
- 	TStack<int> c1(10);
+ 	const int size = 5;
+	TStack<int> c1(size);
  	int k = 1;
- 	for (int i = 0; i < 10; i++)
+ 	for (int i = 0; i < size; i++)
  	{
  		c1.Push(i);
  	}
+
 	ASSERT_ANY_THROW(c1.Push(k));
 }

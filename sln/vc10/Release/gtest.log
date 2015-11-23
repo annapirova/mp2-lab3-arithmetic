@@ -1,12 +1,11 @@
-﻿Build started 17.11.2015 17:13:35.
+﻿Build started 24.11.2015 0:01:12.
      1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\gtest.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\gtest.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D GTEST_EXPORTS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt "..\..\gtest\gtest-all.cc"
-         gtest-all.cc
+         All outputs are up-to-date.
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\Release\gtest.lib" /NOLOGO /LTCG "Release\gtest-all.obj"
+         All outputs are up-to-date.
          gtest.vcxproj -> C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\Release\gtest.lib
        FinalizeBuildStatus:
          Deleting file "Release\gtest.unsuccessfulbuild".
@@ -15,4 +14,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.39
+Time Elapsed 00:00:00.95

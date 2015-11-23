@@ -7,8 +7,16 @@
 
 using namespace std;
 
-bool CheckBrackets(char* s);
-bool CheckOperands(char* s);
-void PickOut(char *s, char *type0, char *type1, char *type2);
+class Check
+{
+public:
+	char *s;
 
+	Check(char* s); 
+	bool CheckBrackets(Check br);
+	bool CheckOperands(Check br);
+	void PickOut(Check br, char *type0, char *type1, char *type2);
+	int Prioritet();
+
+};
 #endif

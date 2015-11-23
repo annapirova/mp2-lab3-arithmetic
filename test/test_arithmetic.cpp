@@ -1,16 +1,18 @@
 #include <gtest.h>
 #include "arithmetic.h"
 
+
 TEST(Arithmetic, can_pick_out)
 {
 	char type0[256];
 	char type1[256];
 	char type2[256];
-	char temp[] = "a-7";
-//	PickOut(temp, type0, type1, type2);
+	Check br("a-7");
 
- 	ASSERT_NO_THROW(PickOut(temp, type0, type1, type2));
-//	ASSERT_NO_THROW(CheckOperands(temp));
+	br.PickOut(br.s, type0, type1, type2);
+
+ 	ASSERT_NO_THROW(br.PickOut(br.s, type0, type1, type2));
+	ASSERT_NO_THROW(br.CheckOperands(br.s));
 
  	EXPECT_EQ(type1[0], 'a');
 	EXPECT_EQ(type2[0], '-');
@@ -19,16 +21,15 @@ TEST(Arithmetic, can_pick_out)
 
  TEST(Arithmetic, can_check_the_brackets)
 {
- 	char temp1[] = "(1+2)*3";
- 	char temp2[] = "(1+2)*3)";
- 	char temp3[] = "(1+2)*3(";
- 	char temp4[] = "((((1+2)*3()";
+	Check br1("(1+2)*3");
+	Check br2("(1+2)*3)");
+	Check br3("(1+2)*3(");
+	Check br4("((((1+2)*3()");
 
-//	CheckBrackets(temp1);
-// 	ASSERT_NO_THROW(CheckBrackets(temp1));
+ 	ASSERT_NO_THROW(br1.CheckBrackets(br1.s));
 
- 	//EXPECT_TRUE(CheckBrackets(temp1));
- 	//EXPECT_FALSE(CheckBrackets(temp2));
- 	//EXPECT_FALSE(CheckBrackets(temp3));
- 	//EXPECT_FALSE(CheckBrackets(temp4));
+ 	EXPECT_TRUE(br1.CheckBrackets(br1.s));
+ 	EXPECT_FALSE(br2.CheckBrackets(br2.s));
+ 	EXPECT_FALSE(br3.CheckBrackets(br3.s));
+ 	EXPECT_FALSE(br4.CheckBrackets(br4.s));
 }

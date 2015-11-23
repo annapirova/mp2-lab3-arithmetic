@@ -1,57 +1,9 @@
-﻿Build started 12.11.2015 23:05:42.
-     1>Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\test_utmatrix.vcxproj" on node 3 (build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Debug\test_arithmetic.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../../gtest /I../../include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\test\test_arithmetic.cpp ..\..\test\test_main.cpp ..\..\test\test_stack.cpp
-         test_stack.cpp
-     1>c:\users\администратор\desktop\извращения с лабой\mp2-lab2-matrix\gtest\gtest.h(18992): warning C4805: '!=' : unsafe mix of type 'const int' and type 'const bool' in operation
-                 c:\users\администратор\desktop\извращения с лабой\mp2-lab2-matrix\test\test_stack.cpp(85) : see reference to function template instantiation 'testing::AssertionResult testing::internal::CmpHelperNE<int,bool>(const char *,const char *,const T1 &,const T2 &)' being compiled
-                 with
-                 [
-                     T1=int,
-                     T2=bool
-                 ]
-     1>c:\users\администратор\desktop\извращения с лабой\mp2-lab2-matrix\gtest\gtest.h(18863): warning C4805: '==' : unsafe mix of type 'const int' and type 'const bool' in operation
-                 c:\users\администратор\desktop\извращения с лабой\mp2-lab2-matrix\gtest\gtest.h(18900) : see reference to function template instantiation 'testing::AssertionResult testing::internal::CmpHelperEQ<T1,T2>(const char *,const char *,const T1 &,const T2 &)' being compiled
-                 with
-                 [
-                     T1=int,
-                     T2=bool
-                 ]
-                 c:\users\администратор\desktop\извращения с лабой\mp2-lab2-matrix\test\test_stack.cpp(34) : see reference to function template instantiation 'testing::AssertionResult testing::internal::EqHelper<lhs_is_null_literal>::Compare<int,bool>(const char *,const char *,const T1 &,const T2 &)' being compiled
-                 with
-                 [
-                     lhs_is_null_literal=false,
-                     T1=int,
-                     T2=bool
-                 ]
-         test_main.cpp
-         test_arithmetic.cpp
-         Generating Code...
-       ManifestResourceCompile:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\test_arithmetic.exe.embed.manifest.res" Debug\test_arithmetic_manifest.rc 
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\test_arithmetic.exe" /INCREMENTAL /NOLOGO /LIBPATH:Debug gtest.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\test_arithmetic.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\test_arithmetic.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\test_arithmetic.lib" /MACHINE:X86 Debug\test_arithmetic.exe.embed.manifest.res
-         Debug\test_arithmetic.obj
-         Debug\test_main.obj
-         Debug\test_stack.obj
-         "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\gtest.lib"
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\test_arithmetic.exe.embed.manifest" /manifest Debug\test_arithmetic.exe.intermediate.manifest
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\test_arithmetic.exe.embed.manifest.res" Debug\test_arithmetic_manifest.rc 
-       LinkEmbedManifest:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\test_arithmetic.exe" /INCREMENTAL /NOLOGO /LIBPATH:Debug gtest.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\test_arithmetic.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\test_arithmetic.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\test_arithmetic.lib" /MACHINE:X86 Debug\test_arithmetic.exe.embed.manifest.res
-         Debug\test_arithmetic.obj
-         Debug\test_main.obj
-         Debug\test_stack.obj
-         "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\gtest.lib"
-         test_utmatrix.vcxproj -> C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\Debug\test_arithmetic.exe
-       FinalizeBuildStatus:
-         Deleting file "Debug\test_arithmetic.unsuccessfulbuild".
-         Touching "Debug\test_arithmetic.lastbuildstate".
-     1>Done Building Project "C:\Users\Администратор\Desktop\Извращения с лабой\mp2-lab2-matrix\sln\vc10\test_utmatrix.vcxproj" (build target(s)).
+﻿Build started 23.11.2015 23:03:51.
+     1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" on node 3 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\test_arithmetic.lastbuildstate".
+     1>Done Building Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" (clean target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:06.10
+Time Elapsed 00:00:00.01

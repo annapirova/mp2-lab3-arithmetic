@@ -1,21 +1,22 @@
-﻿Build started 17.11.2015 17:13:40.
+﻿Build started 24.11.2015 0:01:13.
      1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Release\test_arithmetic.unsuccessfulbuild".
+         Creating "Release\test_arithmetic.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../../gtest /I../../include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\test\test_arithmetic.cpp ..\..\test\test_main.cpp ..\..\test\test_stack.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../../gtest /I../../include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\arithmetic.cpp ..\..\test\test_arithmetic.cpp
+         arithmetic.cpp
+     1>C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h(22): error C2589: 'bool' : illegal token on right side of '::'
+     1>C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h(22): error C2059: syntax error : '::'
+     1>C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h(22): error C2143: syntax error : missing ';' before '{'
+     1>C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h(22): error C2447: '{' : missing function header (old-style formal list?)
+     1>..\..\src\arithmetic.cpp(3): error C2039: 'CheckBrackets' : is not a member of '`global namespace''
          test_arithmetic.cpp
-         test_main.cpp
-         test_stack.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:Release gtest.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\test_arithmetic.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.lib" /MACHINE:X86 Release\test_arithmetic.obj
-         Release\test_main.obj
-         Release\test_stack.obj
-         "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\Release\gtest.lib"
-     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "void __cdecl PickOut(char *,char *,char *,char *)" (?PickOut@@YAXPAD000@Z)
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe : fatal error LNK1120: 1 unresolved externals
+     1>C:\Users\Администратор\mp2-lab3-arithmetic\include\arithmetic.h(22): error C2589: 'bool' : illegal token on right side of '::'
+     1>C:\Users\Администратор\mp2-lab3-arithmetic\include\arithmetic.h(22): error C2059: syntax error : '::'
+     1>C:\Users\Администратор\mp2-lab3-arithmetic\include\arithmetic.h(22): error C2143: syntax error : missing ';' before '{'
+     1>C:\Users\Администратор\mp2-lab3-arithmetic\include\arithmetic.h(22): error C2447: '{' : missing function header (old-style formal list?)
      1>Done Building Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" (build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:03.55
+Time Elapsed 00:00:07.82

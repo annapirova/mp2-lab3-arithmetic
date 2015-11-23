@@ -107,6 +107,7 @@
     <ClInclude Include="..\..\include\stack.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\arithmetic.cpp" />
     <ClCompile Include="..\..\test\test_arithmetic.cpp" />
     <ClCompile Include="..\..\test\test_main.cpp" />
     <ClCompile Include="..\..\test\test_stack.cpp" />

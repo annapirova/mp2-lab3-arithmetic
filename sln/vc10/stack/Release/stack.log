@@ -1,4 +1,4 @@
-﻿Build started 17.11.2015 17:13:44.
+﻿Build started 23.11.2015 23:03:59.
      1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\stack.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -9,4 +9,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.05
+Time Elapsed 00:00:00.06

@@ -29,7 +29,7 @@ bool CheckBrackets(char* s)
 bool CheckOperands(char* s)
 {
 	int len = strlen(s);
-	char operators[] = "+-*/";
+	char operators[] = "+*-/";
 	for (int i = 0; i < len - 1; i++)
 	{
 		for (int j = 0; j < 4; j++)
