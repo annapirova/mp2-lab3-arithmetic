@@ -18,10 +18,10 @@ void main()
 	s1.push(4);
 	s1.push(5);
 	cout <<s1;
-	
 	char a[7]={'(','(','a','*','b',')',')'};
 	if(Check(a))
 		cout<<"Верно" <<endl;
 	else 
 		cout<<"Не верно"<<endl;
+
 }
