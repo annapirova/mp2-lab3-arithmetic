@@ -21,7 +21,7 @@ bool Check(char *s) { //Проверка скобок
 }
 int DType(char s) //1-цифра; 2-буква 3-знаки операций;
 {
-	char operand[]="+-*/()";
+	char operand[]="+-*/";
 	int flag=0;
 
 	if (isdigit(s))
@@ -47,8 +47,8 @@ int DType(char s) //1-цифра; 2-буква 3-знаки операций;
 }
 int prior (char a){ //приоритет операций
 	switch(a){
-	case '=' : return(0);
-	case '(' : return(1);
+	case '=' : return(1);
+	case ')' : return(0);
 	case '-' :
 	case '+' : return(2);
 	case '*' :
