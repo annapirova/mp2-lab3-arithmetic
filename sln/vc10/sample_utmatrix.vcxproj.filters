@@ -21,5 +21,8 @@
     <ClCompile Include="..\..\src\arithmetic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\samples\main_arithmetic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

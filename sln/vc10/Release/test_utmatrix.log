@@ -1,22 +1,30 @@
-﻿Build started 24.11.2015 0:01:13.
-     1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" on node 2 (build target(s)).
+﻿Build started 11/24/2015 12:54:19 PM.
+     1>Project "Z:\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" on node 3 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Release\test_arithmetic.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Release\test_arithmetic.unsuccessfulbuild".
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../../gtest /I../../include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\arithmetic.cpp ..\..\test\test_arithmetic.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../../gtest /I../../include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\arithmetic.cpp ..\..\test\test_arithmetic.cpp
          arithmetic.cpp
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h(22): error C2589: 'bool' : illegal token on right side of '::'
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h(22): error C2059: syntax error : '::'
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h(22): error C2143: syntax error : missing ';' before '{'
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h(22): error C2447: '{' : missing function header (old-style formal list?)
-     1>..\..\src\arithmetic.cpp(3): error C2039: 'CheckBrackets' : is not a member of '`global namespace''
+     1>..\..\src\arithmetic.cpp(162): warning C4172: returning address of local variable or temporary
          test_arithmetic.cpp
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\include\arithmetic.h(22): error C2589: 'bool' : illegal token on right side of '::'
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\include\arithmetic.h(22): error C2059: syntax error : '::'
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\include\arithmetic.h(22): error C2143: syntax error : missing ';' before '{'
-     1>C:\Users\Администратор\mp2-lab3-arithmetic\include\arithmetic.h(22): error C2447: '{' : missing function header (old-style formal list?)
-     1>Done Building Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" (build target(s)) -- FAILED.
+     1>Z:\mp2-lab3-arithmetic\gtest\gtest.h(18863): error C2446: '==' : no conversion from 'char *const ' to 'int'
+                 There is no context in which this conversion is possible
+                 Z:\mp2-lab3-arithmetic\gtest\gtest.h(18900) : see reference to function template instantiation 'testing::AssertionResult testing::internal::CmpHelperEQ<T1,T2>(const char *,const char *,const T1 &,const T2 &)' being compiled
+                 with
+                 [
+                     T1=char,
+                     T2=char *
+                 ]
+                 ..\..\test\test_arithmetic.cpp(59) : see reference to function template instantiation 'testing::AssertionResult testing::internal::EqHelper<lhs_is_null_literal>::Compare<char,char*>(const char *,const char *,const T1 &,const T2 &)' being compiled
+                 with
+                 [
+                     lhs_is_null_literal=false,
+                     T1=char,
+                     T2=char *
+                 ]
+     1>Z:\mp2-lab3-arithmetic\gtest\gtest.h(18863): error C2040: '==' : 'int' differs in levels of indirection from 'char *const '
+     1>Done Building Project "Z:\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" (build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:07.82
+Time Elapsed 00:00:02.01

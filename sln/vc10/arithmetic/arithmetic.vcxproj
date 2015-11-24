@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\arithmetic.cpp" />
+    <ClCompile Include="main_arithmetic.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5A526BDE-A494-49EF-8D29-D3F98B4AD46D}</ProjectGuid>
