@@ -1,9 +1,14 @@
 // #include "C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h"
-#include "Z:\mp2-lab3-arithmetic\include\arithmetic.h"
+//#include "Z:\mp2-lab3-arithmetic\include\arithmetic.h"
+#include "C:\Users\Дмитрий\mp2-lab3-arithmetic\include\arithmetic.h"
  
 Check ::Check(char* s){
-	this->s = new char[256];
-	this->s = s;
+	if (s == NULL) 
+		throw "str is empty";
+	this->len = strlen(s); 
+	this->s = new char[len];
+	for (int i = 0; i < len; i++)
+		this->s[i] = s[i];
 }
 bool Check :: CheckBrackets(){
 	TStack<int> expr(256);
@@ -111,6 +116,7 @@ int Check :: Prioritet(char s)
 			return 2;
 	case '^':
 			return 3;
+//	default: 
 	}
 }
 bool Check :: IsOperation(char s)
@@ -121,11 +127,11 @@ bool Check :: IsOperation(char s)
  		return false;
  }
 
-char* Check :: ChangeExpression(){
-	char res[256];
+char* Check :: ChangeExpression(char *res){
 	int i,p=0;
 	TStack<char> sg(256);
 	int len = strlen(this->s); 
+	//char res[256];
 
 	for(i = 0; i < len;i++)
 	{

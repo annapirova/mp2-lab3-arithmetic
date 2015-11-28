@@ -1,7 +1,10 @@
 #include <gtest.h>
 #include "arithmetic.h"
 
-
+TEST(Arithmetic, Can_Check_Create)
+{
+	ASSERT_NO_THROW(Check br("ff")); //нужно править
+}
 TEST(Arithmetic, can_pick_out)
 {
 	char type0[256];
@@ -38,23 +41,30 @@ TEST(Arithmetic, can_check_operands)
 	Check br("a-7");
 	ASSERT_NO_THROW(br.CheckOperands());
 }
-
+//тест падает
 TEST(Arithmetic, prioritet)
 {
 	Check br("a-7");
 
 	int k;
-	for (int i = 0; i < 3; i++)
-		k = br.Prioritet(br.s[i]);
-		
+	char res[256];
+	br.ChangeExpression(res);
+
+	for (int i = 0; i < 3; i++){
+		k = br.Prioritet(res[i]);
+		cout << k << endl; 
+	}
+
 	EXPECT_EQ(k, 1);
 }
-
+// тест компилируетс€
 TEST(Arithmetic, Can_ChangeExpression)
 {
 	Check br("a-7");
 	char k[] = "a7-";
 	
+	char res[256];
+	br.ChangeExpression(res);
 	for(int i = 0; i < 2; i++)
-		EXPECT_EQ(k[i], br.ChangeExpression());
+		EXPECT_EQ(k[i], br.s[i]);
 }

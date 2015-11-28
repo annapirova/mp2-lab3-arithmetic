@@ -11,13 +11,14 @@ class Check
 {
 public:
 	char *s;
+	int len;
 
 	Check(char* s); 
 	bool CheckBrackets();
 	bool CheckOperands();
 	void PickOut(char *type0, char *type1, char *type2);
 	int Prioritet(char s);
-	char* ChangeExpression();
+	char* ChangeExpression(char *res);
 	bool IsOperation(char s);
 };
 #endif

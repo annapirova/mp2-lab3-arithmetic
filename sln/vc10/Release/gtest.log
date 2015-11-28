@@ -1,17 +1,9 @@
-﻿Build started 11/24/2015 12:54:19 PM.
-     1>Project "Z:\mp2-lab3-arithmetic\sln\vc10\gtest.vcxproj" on node 2 (build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Release\gtest.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       ClCompile:
-         All outputs are up-to-date.
-       Lib:
-         All outputs are up-to-date.
-         gtest.vcxproj -> Z:\mp2-lab3-arithmetic\sln\vc10\Release\gtest.lib
-       FinalizeBuildStatus:
-         Deleting file "Release\gtest.unsuccessfulbuild".
-         Touching "Release\gtest.lastbuildstate".
-     1>Done Building Project "Z:\mp2-lab3-arithmetic\sln\vc10\gtest.vcxproj" (build target(s)).
+﻿Построение начато 28.11.2015 19:00:43.
+     1>Проект "C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\gtest.vcxproj" в узле 2 (целевые объекты Build).
+     1>Lib:
+         gtest.vcxproj -> C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\Release\gtest.lib
+     1>Построение проекта "C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\gtest.vcxproj" завершено (целевые объекты Build).
 
-Build succeeded.
+Построение успешно завершено.
 
-Time Elapsed 00:00:00.06
+Затраченное время: 00:00:00.23
