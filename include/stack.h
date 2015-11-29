@@ -110,9 +110,11 @@ template <typename T>
 int TStack<T>::put(){
 	if (this->isEmpty())
 		throw ("Stek is empty");
+	else{
 	int top=st[LastIndex];
 	LastIndex--;
 	return top;
+	}
 }
 
 template <typename T>

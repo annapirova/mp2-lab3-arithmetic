@@ -12,7 +12,8 @@ void main()
 {
 	setlocale(LC_CTYPE, "Russian");
 
-	char a[5]={'(','a','+','b',')'};
+	char a[5]={'(','7','+','5',')'};
 	TParser x(a);
-	//x.inf_to_postf();
+	double res;
+	res=x.calc1();
 }
