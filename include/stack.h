@@ -19,8 +19,7 @@ public:
 	int getLastIndex() const {return LastIndex;}  //Взять последний элемент стека
 	TStack<T>& operator=(const TStack<T>& s);
 
-    //T* getPtr() const {return st;}	    // вернуть указатель на стек
-	
+	bool IsFull();
 	bool nFull(T* &St);						//проверка на то, что стек всё еще не полный
 	bool isEmpty();							//проверка не пуст ли стек
 	void push(const T &value);				//Положить элемент в стек
@@ -135,13 +134,13 @@ TStack<T>& TStack<T>::operator=(const TStack<T>& s) {
 
 
 
-/*template <typename T>
+template <typename T>
 bool TStack<T>::IsFull() {
 	if (LastIndex == Size) {
 		return true;
 	}
 	return false;
-}*/
+}
 
 
 
