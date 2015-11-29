@@ -6,18 +6,20 @@ bool Check(char *s) { //Проверка скобок
 
 	TStack<char> St;
 	int i=0;
-	while (s[i] != '0'){
+	while (s[i] != '\0'){
 		if (s[i] =='(')
 			St.push('(');
 		if (s[i] == ')')
+		{
 			if (St.isEmpty())
 				return false;
 			else 
 				St.put();
+		}
 		i++;
 	}
 
-	return St.isEmpty();
+	return (St.isEmpty());
 }
 int DType(char s) //1-цифра; 2-буква 3-знаки операций;
 {
@@ -36,7 +38,7 @@ int DType(char s) //1-цифра; 2-буква 3-знаки операций;
 				flag=1;
 				break;
 			}
-			if(flag ==1)
+			if(flag==1)
 				return 3;
 			else 
 			{

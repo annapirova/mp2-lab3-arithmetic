@@ -4,7 +4,7 @@
 
 TEST(Arithmetic,can_check_brackets)
 {
-	char s[7]={'(','(','a','*','b',')',')'};
+	char s[9]={'(','a','*','(','b','+','5',')',')'};
 	EXPECT_TRUE(Check(s));
 }
 

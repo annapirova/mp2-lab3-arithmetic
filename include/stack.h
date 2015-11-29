@@ -34,7 +34,7 @@ public:
 template <typename T>
 ostream& operator<<(ostream &out, const TStack<T> &v)
 {
-	for (int i = v.LastIndex-1; i >=0; i--)
+	for (int i = v.LastIndex; i >=0; i--)
 		out << v.st[i] << endl;
 	return out;
 }
@@ -46,7 +46,7 @@ TStack<T>::TStack()
 	Size=mSize;
 	for (int i=0;i<Size;i++)
 		st[i]=0;
-    LastIndex = 0;							
+    LastIndex = -1;							
 }
 
 template <typename T>
@@ -59,7 +59,7 @@ TStack<T>::TStack(int maxSize) : Size(maxSize)
     st = new T[Size];						// выделить память под стек
 	for (int i=0;i<Size;i++)
 		st[i]=0;
-    LastIndex = 0;							
+    LastIndex = -1;							
 }
 
 template <typename T>
@@ -81,8 +81,13 @@ TStack<T>::TStack(const TStack<T> & St) : Size(St.getSize())
 template <typename T>						
 void TStack<T>::push(const T &value)
 {
-    if(nFull(st))
-		st[LastIndex++] = value; // помещаем элемент в стек
+	if(this->IsFull())
+		cout << "Stek is Full"<<endl;
+	else
+	{
+		LastIndex++;
+		st[LastIndex] = value; // помещаем элемент в стек
+	}
 }
  
 
@@ -95,7 +100,7 @@ bool TStack<T>::nFull(T* &St) {
 
 template <typename T>
 bool TStack<T>:: isEmpty() {
-	if (LastIndex==0)
+	if (LastIndex==-1)
 		return true;
 	else 
 		return false;
@@ -105,7 +110,7 @@ template <typename T>
 int TStack<T>::put(){
 	if (this->isEmpty())
 		throw ("Stek is empty");
-	int top=st[LastIndex-1];
+	int top=st[LastIndex];
 	LastIndex--;
 	return top;
 }
@@ -114,7 +119,7 @@ template <typename T>
 int TStack<T>::peek(){
 	if (this->isEmpty())
 		throw ("Stek is empty");
-	return st[LastIndex-1];
+	return st[LastIndex];
 }
 
 template <typename T>
@@ -136,7 +141,7 @@ TStack<T>& TStack<T>::operator=(const TStack<T>& s) {
 
 template <typename T>
 bool TStack<T>::IsFull() {
-	if (LastIndex == Size) {
+	if (LastIndex == Size-1) {
 		return true;
 	}
 	return false;
