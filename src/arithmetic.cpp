@@ -126,3 +126,13 @@ void InPoint(char *s)
 		}
 	}
 }
+int prior (char a){ //приоритет операций
+	switch(a){
+	case '=' : return(0);
+	case '(' : return(1);
+	case '-' :
+	case '+' : return(2);
+	case '*' :
+	case '/' : return(3);
+	}
+}

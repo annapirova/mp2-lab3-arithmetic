@@ -53,7 +53,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../../../mp2-lab3-arithmetic\include;../../../gtest;../../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Гоша\lab\mp2-lab3-arithmetic\sln\vc9\arithmetic;../../../../mp2-lab3-arithmetic\include;../../../gtest;../../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -98,6 +98,7 @@
     <ClCompile Include="..\..\..\test\test_main.cpp" />
     <ClCompile Include="..\..\..\test\test_stack.cpp" />
     <ClCompile Include="..\..\..\test\test_arithmetic.cpp" />
+    <ClCompile Include="test_parser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

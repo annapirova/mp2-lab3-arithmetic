@@ -13,7 +13,7 @@ void main()
 	setlocale(LC_CTYPE, "Russian");
 
 	char a[MaxSize];
-	cout << "¬ведите выражение:";
+	cout << "¬ведите корректное выражение:";
 	gets(a);
 	InPoint(a);
 	cout<<endl;
