@@ -12,10 +12,20 @@ void main()
 {
 	setlocale(LC_CTYPE, "Russian");
 
-	char a[]="(9+3)/4";
-	TParser x(a);
-	x.Convert();
-	double res=x.calc();
-	cout<<endl<<res;
-	
+	char a[MaxSize];
+	cout << "Введите выражение:";
+	gets(a);
+	InPoint(a);
+	cout<<endl;
+
+	if(!CheckAll(a))
+		cout << "Неправильное выражение!" <<endl;
+	else
+	{
+		TParser x(a);
+		x.Convert();
+		double res=x.calc();
+		cout<<"Result="<<res<<endl;
+	}
+
 }

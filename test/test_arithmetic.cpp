@@ -5,7 +5,7 @@
 TEST(Arithmetic,can_check_brackets)
 {
 	char s[9]={'(','a','*','(','b','+','5',')',')'};
-	EXPECT_TRUE(Check(s));
+	EXPECT_TRUE(CheckSkob(s));
 }
 
 TEST(Arithmetic,can_detect_type)

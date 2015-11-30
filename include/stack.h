@@ -23,13 +23,12 @@ public:
 	bool nFull(T* &St);						//проверка на то, что стек всё еще не полный
 	bool isEmpty();							//проверка не пуст ли стек
 	void push(const T &value);				//Положить элемент в стек
-	int put ();								//изъять полследний элемент 
-	int peek ();							//посмотреть последний элемент
+	double put ();								//изъять полследний элемент 
+	double peek ();							//посмотреть последний элемент
 	
 	template <typename T>
 	friend ostream& operator<<(ostream &out, const TStack<T> &v);
 };
-
 	
 template <typename T>
 ostream& operator<<(ostream &out, const TStack<T> &v)
@@ -68,7 +67,7 @@ TStack<T>::~TStack()						 //деструктор
     delete [] st; 
 }
 
-template <typename T>                        //Конструктор копирования
+template <typename T>                       
 TStack<T>::TStack(const TStack<T> & St) : Size(St.getSize()) 
 {
     st = new T[Size];
@@ -88,13 +87,20 @@ void TStack<T>::push(const T &value)
 		LastIndex++;
 		st[LastIndex] = value; // помещаем элемент в стек
 	}
-}
- 
+} 
 
 template <typename T>
 bool TStack<T>::nFull(T* &St) {
 	 if (LastIndex<Size) {
 		 return true;}
+	return false;
+}
+
+template <typename T>
+bool TStack<T>::IsFull() {
+	if (LastIndex == Size-1) {
+		return true;
+	}
 	return false;
 }
 
@@ -107,18 +113,18 @@ bool TStack<T>:: isEmpty() {
 }
 
 template <typename T>
-int TStack<T>::put(){
+double TStack<T>::put(){
 	if (this->isEmpty())
 		cout<<"Stek is empty";
 	else{
-	int top=st[LastIndex];
+	double top=st[LastIndex];
 	LastIndex--;
 	return top;
 	}
 }
 
 template <typename T>
-int TStack<T>::peek(){
+double TStack<T>::peek(){
 	if (this->isEmpty())
 		throw ("Stek is empty");
 	return st[LastIndex];
@@ -138,16 +144,4 @@ TStack<T>& TStack<T>::operator=(const TStack<T>& s) {
 	}
 	return *this;
 }
-
-
-
-template <typename T>
-bool TStack<T>::IsFull() {
-	if (LastIndex == Size-1) {
-		return true;
-	}
-	return false;
-}
-
-
 

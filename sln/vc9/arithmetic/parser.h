@@ -1,7 +1,5 @@
-
 #include "stack.h"
 #include "arithmetic.h"
-
 
 const int MaxSize=256;
 
@@ -16,10 +14,9 @@ private:
 	
 public:
 	TParser (char * c);
-	int prior1 (char a);
+	int prior (char a);
 	bool IsNumber(char a);
 	bool IsOper(char a);
-	void GetNumber(char *s,double &d,int &l);
     double calc ();
 	void Convert();
 
@@ -34,7 +31,7 @@ TParser::TParser (char * c) {
 		 }
 		 inf[i]='\0';
 	 }
-int TParser::prior1 (char a){ //приоритет операций
+int TParser::prior (char a){ //приоритет операций
 	switch(a){
 	case '=' : return(0);
 	case '(' : return(1);
@@ -51,7 +48,7 @@ bool TParser:: IsNumber(char a){
 		return false;
 }
 bool TParser:: IsOper(char s){
-	char operand[]="+-*/";
+	char operand[]="+-/*";
 	int flag=0;
 	for(int i=0;i<4;i++)
 			if (s==operand[i])
@@ -64,12 +61,6 @@ bool TParser:: IsOper(char s){
 			else 
 				return false;		
 }
-void TParser:: GetNumber(char *s,double &d,int &l) { //число из char
-	d=atof(s);
-	l=0;
-	while (IsNumber(s[l]))
-		l++;
-}
 void TParser::Convert()
 {   // i - счетчик inf[], j - счетчик postf[]
 	int j = 0;
@@ -81,8 +72,28 @@ void TParser::Convert()
 		if( inf[i] == '(' ) // Если открывающая скобка, добавляем в Стек
 			St_c.push('(');
 
-		if( IsNumber(inf[i]) ) // Если число, добавляем в постфиксную запись
-			postf[j++] = inf[i];
+		//if( IsNumber(inf[i]) ) // Если число, добавляем в постфиксную запись
+			//postf[j++] = inf[i];
+		if ( IsNumber(inf[i]) )
+		{
+			if ((DType(inf[i+1])==1)||(DType(inf[i+1])==4))
+			{
+				postf[j]=inf[i];
+				j++;
+			}
+			else
+			{
+				postf[j]=inf[i];
+				j++;
+				postf[j]=' ';
+				j++;
+			}
+		}
+		if (DType(inf[i])==4)
+		{
+			postf[j]=inf[i];
+			j++;
+		}
 
 		if( IsOper(inf[i]) ) // Если операция
 		{
@@ -91,7 +102,7 @@ void TParser::Convert()
 			else 
 			{*/
 				char temp = St_c.put();
-				while( prior1(inf[i]) <= prior1(temp) ) // Пока приоритет inf[i] < операции на вершине Стека
+				while( prior(inf[i]) <= prior(temp) ) // Пока приоритет inf[i] < операции на вершине Стека
 				{
 					postf[j++] = temp;//St_c.put(); // Добавляем операции из Стека в Постфиксную запись
 					temp = St_c.put();					
@@ -124,30 +135,39 @@ void TParser::Convert()
 	while( !(St_c.isEmpty()))
 		postf[j++] = St_c.put();
 	postf[j] = '\0';
-	for(j=0;j<15;j++)
-		cout<<postf[j];
+	//for(j=0;j<15;j++)
+	//	cout<<postf[j];
 	
 }
 double TParser:: calc () { //строка уже в inf[]
 	int i=0;
-	//St_d.Clear(); //очищаем стек
-	//St_c.Clear();
-
-
+	int z=0;
+	int l=0;
 	while (postf[i]!='\0') 
 	{
-		if (IsNumber(postf[i])) 
-		{
-			double d;
-			int l;
-			GetNumber(&inf[i],d,l);
-			St_d.push(d);			
+		if (DType(postf[i])==1){
+			int k=0;
+			char s[256];
+			double number;	
+			z=i;
+			while(postf[z]!=' ')
+			{
+				s[k]=postf[z];
+				z++;
+				k++;
+			}
+			s[k]='\0';
+			l=z-i+1;
+			number=atof(s);
+			St_d.push(number);
+			i=i+l-1;	
 		}
+		
 		if (IsOper(postf[i]))
 		{
-					double R;
-					double op2=St_d.put();
-					double op1=St_d.put();
+					double R,op1,op2;
+					op2=St_d.put();
+					op1=St_d.put();
 					switch (postf[i])
 						{
 					case '+':
