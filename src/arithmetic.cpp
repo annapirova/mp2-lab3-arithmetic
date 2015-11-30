@@ -32,7 +32,7 @@ int DType(char s) //1-цифра; 2-буква 3-знаки операций;
 		return 2;
 	else 
 	{
-		for(int i=0;i<6;i++)
+		for(int i=0;i<4;i++)
 			if (s==operand[i])
 			{
 				flag=1;

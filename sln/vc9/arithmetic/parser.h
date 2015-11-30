@@ -11,17 +11,18 @@ class TParser
 private:
 	char inf[MaxSize];
 	char postf[MaxSize];
-	TStack<char> St_c; //стек операций
+	TStack<char> St_c;
 	TStack<double> St_d;
 	
 public:
-	int prior1 (char a);
-	double calc1 ();
-	bool IsNumber(char a);
-	bool TParser:: IsOper(char a);
-	void GetNumber(char *s,double &d,int &l);
 	TParser (char * c);
-    void inf_to_postf();
+	int prior1 (char a);
+	bool IsNumber(char a);
+	bool IsOper(char a);
+	void GetNumber(char *s,double &d,int &l);
+    double calc ();
+	void Convert();
+
 };
 
 TParser::TParser (char * c) {
@@ -33,36 +34,6 @@ TParser::TParser (char * c) {
 		 }
 		 inf[i]='\0';
 	 }
-/*void TParser:: inf_to_postf(){		 //исправить 
-	int i=0,j=0;
-	st_c.push('=');
-	while (inf[i]!='\0')
-	{
-		//if (inf[i]=='('	)
-			//st_c.push('(');
-		if ((DType(inf[i])==1) || (DType(inf[i])==2))
-			postf[j++]=inf[i];
-		else
-		if (DType(inf[i])==3)
-		{
-			if(prior(inf[i])>=prior1(st_c.peek()))
-			{
-				st_c.push(inf[i]);		}
-		}
-		else
-				while(!st_c.isEmpty())
-					postf[j++]=st_c.put();
-		++i;
-}
-	
-
-	cout<< postf[0];
-		postf[j]='\0';
-	
-		
-		
-	
-} */
 int TParser::prior1 (char a){ //приоритет операций
 	switch(a){
 	case '=' : return(0);
@@ -82,7 +53,7 @@ bool TParser:: IsNumber(char a){
 bool TParser:: IsOper(char s){
 	char operand[]="+-*/";
 	int flag=0;
-	for(int i=0;i<6;i++)
+	for(int i=0;i<4;i++)
 			if (s==operand[i])
 			{
 				flag=1;
@@ -91,45 +62,93 @@ bool TParser:: IsOper(char s){
 			if(flag==1)
 				return true;
 			else 
-				return false;
-			
+				return false;		
 }
-void TParser:: GetNumber(char *s,double &d,int &l) {
+void TParser:: GetNumber(char *s,double &d,int &l) { //число из char
 	d=atof(s);
 	l=0;
 	while (IsNumber(s[l]))
 		l++;
 }
+void TParser::Convert()
+{   // i - счетчик inf[], j - счетчик postf[]
+	int j = 0;
+	int i=0;
+	St_c.push('=');
+	for(int i = 0; inf[i] != '\0'; ++i) // Пока не конец строки обрабатываем очередной символ
+	
+	{
+		if( inf[i] == '(' ) // Если открывающая скобка, добавляем в Стек
+			St_c.push('(');
 
-double TParser:: calc1 () { //строка уже в inf[]
+		if( IsNumber(inf[i]) ) // Если число, добавляем в постфиксную запись
+			postf[j++] = inf[i];
+
+		if( IsOper(inf[i]) ) // Если операция
+		{
+			/*if(St_c.isEmpty()) 
+				St_c.push(inf[i]);
+			else 
+			{*/
+				char temp = St_c.put();
+				while( prior1(inf[i]) <= prior1(temp) ) // Пока приоритет inf[i] < операции на вершине Стека
+				{
+					postf[j++] = temp;//St_c.put(); // Добавляем операции из Стека в Постфиксную запись
+					temp = St_c.put();					
+					/*if (St_c.isEmpty()!=true)
+						temp=St_c.peek();
+					else 
+						temp='(';*/
+				}
+				St_c.push(temp);
+				St_c.push(inf[i]); // Добавляем операцию в Стек
+				
+		//}
+		}
+
+		if( inf[i] == ')' )
+		{
+			/*if(St_c.isEmpty()) 
+				St_c.push(inf[i]);
+			else {*/
+				char temp = St_c.put();
+				while(temp != '(')
+				{
+					postf[j++] = temp;
+					temp = St_c.put();
+				}
+			//}
+		}
+		
+	}
+	while( !(St_c.isEmpty()))
+		postf[j++] = St_c.put();
+	postf[j] = '\0';
+	for(j=0;j<15;j++)
+		cout<<postf[j];
+	
+}
+double TParser:: calc () { //строка уже в inf[]
 	int i=0;
 	//St_d.Clear(); //очищаем стек
 	//St_c.Clear();
 
-	St_c.push('=');
 
-	while (inf[i]!='\0') 
+	while (postf[i]!='\0') 
 	{
-		if (IsNumber(inf[i])) 
+		if (IsNumber(postf[i])) 
 		{
 			double d;
 			int l;
 			GetNumber(&inf[i],d,l);
-			St_d.push(d);
-			i=i+l-1;
+			St_d.push(d);			
 		}
-		else
-			if (inf[i]=='(')
-				St_c.push('(');
-			else if(inf[i]==')')
-			{
-				char temp=St_c.put();
-				while (temp!= '(')
-				{
+		if (IsOper(postf[i]))
+		{
 					double R;
 					double op2=St_d.put();
 					double op1=St_d.put();
-					switch (temp)
+					switch (postf[i])
 						{
 					case '+':
 						R=op1+op2;
@@ -144,68 +163,9 @@ double TParser:: calc1 () { //строка уже в inf[]
 						R=op1/op2;
 						break;
 					}			
-					St_d.push(R);
-					temp=St_c.put();
-				}
-			}
-			
-			else //если операция
-				if (IsOper (inf[i])) {
-					char temp=St_c.put();
-				while (prior1(inf[i])<=temp)
-				{			
-
-					double op2=St_d.put();
-					double op1=St_d.put();
-					
-					double R; //результат
-					switch(temp)
-					{				
-					case '+':
-						R=op1+op2;
-						break;
-					case '-':
-						R=op1-op2;
-						break;
-					case '*':
-						R=op1*op2;
-						break;
-					case '/':
-						R=op1/op2;
-						break;	
-					}		
-					St_d.push(R);
-					temp=St_c.put();
-				}
-				St_c.push(temp);
-				St_c.push(inf[i]);
-				}
-				i++;
-	}
-	char temp=St_c.put();
-	while (temp!='=')
-	{
-		double op1, op2,R;
-		op2=St_d.put();
-		op1=St_d.put();
-		switch(temp) 
-		{
-		case '+':
-			R=op1+op2;
-			break;
-		case '-':
-			R=op1-op2;
-			break;
-		case '*':
-			R=op1*op2;
-			break;
-		case '/':
-			R=op1/op2;
-			break;	
+					St_d.push(R);	
 		}
-		St_d.push(R);	
-
-		temp=St_d.put();
+		i++;
 	}
 	return (St_d.put());
 }

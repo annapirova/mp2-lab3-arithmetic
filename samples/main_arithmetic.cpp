@@ -12,8 +12,10 @@ void main()
 {
 	setlocale(LC_CTYPE, "Russian");
 
-	char a[5]={'(','7','+','5',')'};
+	char a[]="(9+3)/4";
 	TParser x(a);
-	double res;
-	res=x.calc1();
+	x.Convert();
+	double res=x.calc();
+	cout<<endl<<res;
+	
 }

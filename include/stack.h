@@ -109,7 +109,7 @@ bool TStack<T>:: isEmpty() {
 template <typename T>
 int TStack<T>::put(){
 	if (this->isEmpty())
-		throw ("Stek is empty");
+		cout<<"Stek is empty";
 	else{
 	int top=st[LastIndex];
 	LastIndex--;
