@@ -1,4 +1,3 @@
-// #include "C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h"
 //#include "Z:\mp2-lab3-arithmetic\include\arithmetic.h"
 #include "C:\Users\Julia\mp2-lab3-arithmetic\include\arithmetic.h"
  
@@ -258,7 +257,7 @@ char* Check :: ChangeExpression(char *res){
  			j++;
  		}
 		if ((s[i+1] == '.') || (s[i+1] == ',')){
-			res[j]=s[i];
+			res[j] = s[i+1];
  			j++;
  		}
 	}
@@ -341,8 +340,7 @@ double Check :: Calculation ()
  	}
  	return num.Pop();
 }
-double Check :: GetNumber()
-{
+double Check :: GetNumber(){
  	double res = atof(s);
  	return res;
  }

@@ -1,5 +1,5 @@
-﻿  arithmetic.cpp
+﻿  test_arithmetic.cpp
   Generating code
-c:\users\julia\mp2-lab3-arithmetic\src\arithmetic.cpp(149): warning C4715: 'Check::Prioritet' : not all control paths return a value
+c:\users\julia\mp2-lab3-arithmetic\src\arithmetic.cpp(148): warning C4715: 'Check::Prioritet' : not all control paths return a value
   Finished generating code
   test_utmatrix.vcxproj -> C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe

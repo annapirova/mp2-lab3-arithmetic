@@ -18,7 +18,7 @@ public:
   TStack(const TStack<ValType> &c);        // конструктор копирования
   virtual ~TStack();
 
-  void Push(ValType &Val);		//добавление в стек нового элемента
+  void Push(const ValType &Val);		//добавление в стек нового элемента
   ValType Pop();				//удаление элемента из стека
 
   int GetSize(void)      { return Size; } // размер стека
@@ -67,7 +67,7 @@ TStack<ValType>::~TStack()
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType>
-void TStack<ValType>::Push(ValType &Val)
+void TStack<ValType>::Push(const ValType &Val)
 {
 	if ( IsFull() )
 		throw "Full";

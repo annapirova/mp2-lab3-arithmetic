@@ -5,7 +5,6 @@ TEST(Arithmetic, Can_Check_Create)
 {
 	ASSERT_ANY_THROW(Check br("\0"));
 }
-
 TEST(Arithmetic, Can_pick_out)
 {
 	char type0[256];
@@ -24,8 +23,6 @@ TEST(Arithmetic, Can_pick_out)
 	EXPECT_EQ(type2[1], '+');
 	EXPECT_EQ(type3[0], '8.5');
 }
-
-
 TEST(Arithmetic,Can_identify_unary_minus)
 {
 	Check str = "(-3.2*a)+5\0";
@@ -100,21 +97,21 @@ TEST(Arithmetic, Can_ChangeExpression)
 }
 TEST(Arithmetic,Can_add_int)
 {
-	Check br("3+5\0");
+	Check br("35+5\0");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
 	res = result.Calculation();
- 	EXPECT_EQ(8,res);	
+ 	EXPECT_EQ(40,res);	
 }
 TEST(Arithmetic,Can_add_double)
 {
-	Check br("0.5+5\0");
+	Check br("3.5+5\0");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
 	res = result.Calculation();
- 	EXPECT_EQ(5.5,res);	
+ 	EXPECT_EQ(8.5,res);	
 }
 TEST(Arithmetic,Can_subtract_double)
 {
@@ -163,10 +160,11 @@ TEST(Arithmetic,Can_subtract_double)
  }
  TEST(Arithmetic,can_calculate_expression_without_brackets)
  {
- 	Check br("5+2*7*3-21\0");
+ 	Check br("5+7*3-21\0");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
 	res = result.Calculation();
- 	EXPECT_EQ(26,res);	
+ 	EXPECT_EQ(5,res);	
  }
+ 
