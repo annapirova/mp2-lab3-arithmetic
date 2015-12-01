@@ -57,18 +57,17 @@ bool Check :: CheckOperands()
  	return true;
  
 }
-void Check :: PickOut(char *type0, char *type1, char *type2)
+void Check :: PickOut(char *type0, char *type1, char *type2, char* type3)
  {
  	char letters[] = "abcdefghijqklmnoprstuvwxyz";
-	char signs[] = "()+*-/";
 
 	int len0 = strlen(this->s);
 	int len1 = strlen(letters);
-	int len2 = strlen(signs);
 
-	//char type1[256];  массив переменные
-	//char type2[256];  массив операции
-	//char type0[256];  массив чисел - констант
+	//char type1[256];  vars
+	//char type2[256];  signs
+	//char type0[256];  int;
+	//char type3[256];  double;
 
 	int k = 0;
 
@@ -80,18 +79,64 @@ void Check :: PickOut(char *type0, char *type1, char *type2)
 			}
 	k = 0;
 	for( int i = 0; i < len0; i++)
-		for( int j = 0; j < len2; j++)
-			if( this->s[i] == signs[j] ){
+			if( IsOperation(this->s[i])){
 				type2[k] = this->s[i];
 				k++;
 			}
-	k = 0;
-	for( int i = 0; i < len0; i++)
-		if (isdigit(this->s[i])) { //primenit` atod ili create new function, create calculator
+	this->FindInt(type0);
+	this->FindDouble(type3);
+ } 
+char* Check :: FindInt(char *type0)
+{
+	int i = 0, k = 1, l = 0;
+	while (this->s[i] != '\0') {
+		if (isdigit(this->s[i])){
+			
+			if (isdigit(this->s[i+1]))
+				k++; 
+				else {
+				for (int j = i - k; j < i+k ; j++, i++ ){
+						if (isdigit(this->s[j]))
+						type0[l] = type0[l]*10 + s[j];
+					}
+					l++;
+				}
+		}
+	}
+	return type0;
+}
+char* Check :: FindDouble(char *type3)
+{
+	int k = 0, i = 0;
+	int l = 0, f = 0;
+	for( int i = 1; i < len-1; i++)
+		while ((s[i] == '.') || (s[i] == ','))
+			if (isdigit(this->s[i-1])){
+				f++; 
+				if((isdigit(this->s[i+1])))
+					k++;
+			}
+			else if((isdigit(this->s[i+1])))
+					k++;
+				else {
+					k = min(k, f);
+					for (int j = i - k; j < i+k ; j++, i++ )
+						if (isdigit(s[j]))
+						type3[l] = type3[l]*10 + s[j];
+
+					for (int j = 1; j < k ; j++)
+						type3[l] = type3[l]/10;
+					l++;
+				}
+
+/*		if ((isdigit(this->s[i])) || (s[i] == '.') || (s[i] == ',') ){ //primenit` atod ili create new function, create calculator
 			type0[k] = this->s[i];
 			k++;
 		}
- } 
+*/
+
+	return type3;
+}
 int Check :: Prioritet(char s)
 {
 	if (IsOperation(s)){
@@ -125,7 +170,7 @@ void Check :: UnarMinus(char *res)
  	}
  	for (int i = 1; i < len; i++){
  		if (s[i] == '-'){
- 			if((s[i-1]=='(') && ((isdigit(s[i+1])) == 1)|| ((isalpha(s[i+1]) == 2))){
+ 			if((s[i-1]=='(') && (isdigit(s[i+1]))|| (isalpha(s[i+1]))){
  				res[j] = '0';
  				j++;
  				res[j] = '-';
@@ -161,43 +206,143 @@ bool Check :: IsUnarMinus()
  		return false;
  }
 char* Check :: ChangeExpression(char *res){
-	int i,p=0;
+	int i = 0;
 	TStack<char> sg(256);
-	int len = strlen(this->s); 
-
-	if ((this->s == NULL) || (this->s == "\0"))
-		throw "str is empty";
+	int j = 0;
 	for(i = 0; i < len;i++)
 	{
 		if (s[i]=='(') 
 			sg.Push(s[i]);
-		else 
-			if (IsOperation(s[i])){
-				char op = sg.Get();
-				while((!sg.IsEmpty())&&(Prioritet(s[i]) > Prioritet(op))){
-					p++;
-					res[p]=sg.Pop();
+		if (s[i] == ')')
+ 		{
+ 			char a = sg.Pop();
+ 			while (a !='(')
+ 			{
+ 				res[j] = a;
+ 				j++;
+ 				a = sg.Pop();
+ 			}
+ 		}
+		if (IsOperation(s[i])){
+			if (sg.IsEmpty())
+ 				sg.Push(s[i]);
+			else {
+			char op = sg.Get();
+			while (Prioritet(s[i]) <= Prioritet(op)){
+				res[j]=sg.Pop();
+ 					j++;
+ 					if (sg.IsEmpty() == false)
+ 						op = sg.Get();
+ 					else 
+ 						op = '(';
 				}
 			sg.Push(s[i]);
-		}
-		else if(s[i]==')'){
-			while((sg.IsEmpty() != true ) && (sg.top != '(')){
-				p++;
-				res[p] = sg.Pop();
 			}
-			sg.Pop();
 		}
-		else{
-			p++;
-			res[p] = s[i];
+		if( isdigit(s[i])){
+			if ((isdigit(s[i+1])) || (s[i+1] == '.') || (s[i+1] == ',')){
+				res[j] = s[i];
+				j++;
+			}
+			else {
+				res[j] = s[i];
+				j++;
+				res[j]=' ';
+ 				j++;
+ 			}
 		}
+		if (isalpha(s[i])){
+			res[j]=s[i];
+ 			j++;
+ 			res[j]=' ';
+ 			j++;
+ 		}
+		if ((s[i+1] == '.') || (s[i+1] == ',')){
+			res[j]=s[i];
+ 			j++;
+ 		}
 	}
-	while(!sg.IsEmpty())
-	{
-		p++;
-		res[p]=sg.Pop();
-	}
-
-	res[p]='\0'; 
+	while((sg.IsEmpty() == false )){
+				res[j] = sg.Pop();
+				j++;
+			}
+	res[j]='\0'; 
 	return res; 
 }
+double Check :: Calculation ()
+{
+ 	TStack <char> op(256);
+ 	TStack <double> num(256);
+ 	int l = 0, i = 0, m = 0;
+ 	double res;
+ 	while(s[i] != '\0')
+ 	{
+ 		if(isdigit(s[i]))
+ 		{ 
+ 			Check str("");
+ 			int k = 0;
+ 			double number;	
+ 			m = i;
+ 			while( s[m] !=' ')
+ 			{
+ 				str.s[k] = s[m];
+ 				m++;
+ 				k++;
+ 			}
+ 			str.s[k] = '\0';
+ 			l = m - i + 1;
+ 			number = str.GetNumber();
+ 			num.Push(number);
+ 			i = i + l - 1;
+ 		}
+ 		if (IsOperation(s[i]))
+ 		{
+ 			double opright, opleft;
+ 			opright = num.Pop();
+ 			opleft = num.Pop();
+ 			switch(s[i])
+ 			{
+ 				case '+': {
+ 					res = opleft + opright;
+ 					break;
+ 				}
+ 				case '-': {
+ 					res = opleft - opright;
+ 					break;
+ 				}
+ 				case '*': {
+ 					res = opleft * opright;
+ 					break;
+ 				}
+ 				case '/': {
+ 					res = opleft / opright;
+ 					break;
+ 				}
+ 				case '^': {
+ 					int op;
+ 					op = (int)opright; 
+ 					int count = 1; 
+ 					res = opleft;
+ 					do
+ 					{
+ 						if (op == 0)
+ 							res = 1;
+ 						else if ((op != 1) && (op > 0))
+ 							res = res * opleft; 
+ 						count++; 
+ 					} 
+ 					while ( op > count); 
+ 					break;
+ 				}
+ 			}
+ 			num.Push(res);
+ 		}
+ 		i++;
+ 	}
+ 	return num.Pop();
+}
+double Check :: GetNumber()
+{
+ 	double res = atof(s);
+ 	return res;
+ }
