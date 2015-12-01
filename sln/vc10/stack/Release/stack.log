@@ -1,12 +1,5 @@
-﻿Build started 11/24/2015 10:51:09 AM.
-     1>Project "Z:\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" on node 5 (build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Release\stack.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       FinalizeBuildStatus:
-         Deleting file "Release\stack.unsuccessfulbuild".
-         Touching "Release\stack.lastbuildstate".
-     1>Done Building Project "Z:\mp2-lab3-arithmetic\sln\vc10\stack\stack.vcxproj" (build target(s)).
+﻿Build started 29/11/2015 23:18:17.
 
 Build succeeded.
 
-Time Elapsed 00:00:00.28
+Time Elapsed 00:00:00.03

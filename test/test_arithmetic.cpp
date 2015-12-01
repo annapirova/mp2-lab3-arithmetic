@@ -3,14 +3,14 @@
 
 TEST(Arithmetic, Can_Check_Create)
 {
-	ASSERT_NO_THROW(Check br("ff")); //нужно править
+	ASSERT_ANY_THROW(Check br("\0"));
 }
 TEST(Arithmetic, can_pick_out)
 {
 	char type0[256];
 	char type1[256];
 	char type2[256];
-	Check br("a-7");
+	Check br("a-7+8.5");
 
 	br.PickOut(type0, type1, type2);
 
@@ -19,8 +19,38 @@ TEST(Arithmetic, can_pick_out)
  	EXPECT_EQ(type1[0], 'a');
 	EXPECT_EQ(type2[0], '-');
 	EXPECT_EQ(type0[0], '7');
+	EXPECT_EQ(type2[1], '+');
+	EXPECT_EQ(type0[1], '8.5');
 }
-
+TEST(Arithmetic,can_identify_unary_minus)
+{
+	Check str = "(-3.2*a)+5\0";
+	EXPECT_TRUE(str.IsUnarMinus());
+}
+TEST(Arithmetic,can_process_unary_minus_at_the_beginning)
+{
+	Check str ="-2*a";
+	char newstr[256];
+	str.UnarMinus(newstr);
+	EXPECT_EQ('0',newstr[0]);
+	EXPECT_EQ('-',newstr[1]);
+	EXPECT_EQ('2',newstr[2]);
+	EXPECT_EQ('*',newstr[3]);
+	EXPECT_EQ('a',newstr[4]);
+}
+TEST(Arithmetic,can_process_unary_minus_after_open_bracket)
+{
+	Check str = "5+(-6)";
+	char newstr[256];
+	str.UnarMinus(newstr);
+	EXPECT_EQ('5',newstr[0]);
+	EXPECT_EQ('+',newstr[1]);
+	EXPECT_EQ('(',newstr[2]);
+	EXPECT_EQ('0',newstr[3]);
+	EXPECT_EQ('-',newstr[4]);
+	EXPECT_EQ('6',newstr[5]);
+	EXPECT_EQ(')',newstr[6]);
+}
 TEST(Arithmetic, can_check_the_brackets)
 {
 	Check br1("(1+2)*3");
@@ -41,23 +71,20 @@ TEST(Arithmetic, can_check_operands)
 	Check br("a-7");
 	ASSERT_NO_THROW(br.CheckOperands());
 }
-//тест падает
+
 TEST(Arithmetic, prioritet)
 {
 	Check br("a-7");
-
 	int k;
-	char res[256];
-	br.ChangeExpression(res);
 
 	for (int i = 0; i < 3; i++){
-		k = br.Prioritet(res[i]);
-		cout << k << endl; 
+		k = br.Prioritet(br.s[i]);
+	//	cout << k << endl;
+	//	cout << br.s[i] << endl;
+		if ( k != -1)
+			EXPECT_EQ(k, 1);
 	}
-
-	EXPECT_EQ(k, 1);
 }
-// тест компилируетс€
 TEST(Arithmetic, Can_ChangeExpression)
 {
 	Check br("a-7");

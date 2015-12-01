@@ -20,5 +20,7 @@ public:
 	int Prioritet(char s);
 	char* ChangeExpression(char *res);
 	bool IsOperation(char s);
+	void UnarMinus(char *res);
+	bool IsUnarMinus();
 };
 #endif

@@ -1,9 +1,9 @@
 // #include "C:\Users\Администратор\mp2-lab3-arithmetic\include/arithmetic.h"
 //#include "Z:\mp2-lab3-arithmetic\include\arithmetic.h"
-#include "C:\Users\Дмитрий\mp2-lab3-arithmetic\include\arithmetic.h"
+#include "C:\Users\Julia\mp2-lab3-arithmetic\include\arithmetic.h"
  
 Check ::Check(char* s){
-	if (s == NULL) 
+	if ((s == NULL) || (s == "\0"))
 		throw "str is empty";
 	this->len = strlen(s); 
 	this->s = new char[len];
@@ -41,7 +41,6 @@ bool Check :: CheckBrackets(){
 
 bool Check :: CheckOperands()
  {
-	int len = strlen(this->s);
 	char operators[] = "+*-/";
 	for (int i = 0; i < len - 1; i++)
 	{
@@ -75,64 +74,99 @@ void Check :: PickOut(char *type0, char *type1, char *type2)
 
  	for( int i = 0; i < len0; i++)
  		for( int j = 0; j < len1; j++)
- 			if( this->s[i] == letters[j] )
- 			{
+ 			if( this->s[i] == letters[j] ){
 				type1[k] = this->s[i];
 				k++;
- 			}
-
+			}
 	k = 0;
-
 	for( int i = 0; i < len0; i++)
 		for( int j = 0; j < len2; j++)
-			if( this->s[i] == signs[j] )
-			{
+			if( this->s[i] == signs[j] ){
 				type2[k] = this->s[i];
 				k++;
 			}
 	k = 0;
-
 	for( int i = 0; i < len0; i++)
-		if (isdigit(this->s[i])) 
-		{
+		if (isdigit(this->s[i])) { //primenit` atod ili create new function, create calculator
 			type0[k] = this->s[i];
 			k++;
 		}
  } 
-
 int Check :: Prioritet(char s)
 {
-	switch(s)
-	{
-	case '(' :
-			return 0;
-	case '+':
-			return 1;
-	case '-':
-			return 1;
-	case '*':
-			return 2;
-	case '/':
-			return 2;
-	case '^':
-			return 3;
-//	default: 
+	if (IsOperation(s)){
+		if (s == '(') return 0;
+		if ((s == '+') || (s == '-')) return 1;
+		if ((s == '*') || (s == '/')) return 2;
+		if (s == '^') return 3;
 	}
+	else return -1;
 }
 bool Check :: IsOperation(char s)
  {
- 	if ( (s == '+') || (s == '-') || (s == '*') || (s == '/'))
+ 	if ( (s == '+') || (s == '-') || (s == '*') || (s == '/') || (s == '^'))
  		return true;
  	else 
  		return false;
  }
+void Check :: UnarMinus(char *res)
+{
+ 	int j = 0;
 
+ 	if (s[0] == '-'){
+ 		res[j] = '0';
+ 		j++;
+ 		res[j] = '-';
+ 		j++;
+ 	}
+ 	else{
+ 		res[j] = s[0];
+ 		j++;
+ 	}
+ 	for (int i = 1; i < len; i++){
+ 		if (s[i] == '-'){
+ 			if((s[i-1]=='(') && ((isdigit(s[i+1])) == 1)|| ((isalpha(s[i+1]) == 2))){
+ 				res[j] = '0';
+ 				j++;
+ 				res[j] = '-';
+ 				j++;
+ 			}
+ 		}
+ 		else{
+ 			res[j] = s[i];
+ 			j++;
+ 		}
+ 	}
+ 	res[j] = '\0';
+}
+bool Check :: IsUnarMinus()
+ {
+ 	int i = 1;
+ 	int flag = 0;
+ 
+ 	if (this->s[0]=='-')
+ 		flag = 1;
+ 	while(this->s[i] != '\0'){
+ 		if (this->s[i] == '-'){
+ 			if((this->s[i-1]=='(') && (isdigit(this->s[i+1]))|| (isalpha(this->s[i+1]))){
+ 				flag = 1;
+ 				break;
+ 			}
+ 		}
+ 		i++;
+ 	}
+ 	if (flag == 1)
+ 		return true;
+ 	else 
+ 		return false;
+ }
 char* Check :: ChangeExpression(char *res){
 	int i,p=0;
 	TStack<char> sg(256);
 	int len = strlen(this->s); 
-	//char res[256];
 
+	if ((this->s == NULL) || (this->s == "\0"))
+		throw "str is empty";
 	for(i = 0; i < len;i++)
 	{
 		if (s[i]=='(') 

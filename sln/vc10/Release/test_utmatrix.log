@@ -1,20 +1,21 @@
-﻿Построение начато 28.11.2015 19:00:43.
-     1>Проект "C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" в узле 2 (целевые объекты Build).
+﻿Build started 30/11/2015 23:46:54.
+     1>Project "C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\MS Visual Studio 2012\VC\bin\CL.exe /c /I../../gtest /I../../include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\test\test_arithmetic.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I../../gtest /I../../include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\arithmetic.cpp ..\..\test\test_arithmetic.cpp
+         arithmetic.cpp
          test_arithmetic.cpp
        Link:
-         D:\MS Visual Studio 2012\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:Release gtest.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.lib" /MACHINE:X86 /SAFESEH Release\arithmetic.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:Release gtest.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.lib" /MACHINE:X86 /SAFESEH Release\arithmetic.obj
          Release\test_arithmetic.obj
          Release\test_main.obj
          Release\test_stack.obj
-         "C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\Release\gtest.lib"
-         Создание кода
-     1>c:\users\дмитрий\mp2-lab3-arithmetic\src\arithmetic.cpp(121): warning C4715: Check::Prioritet: значение возвращается не при всех путях выполнения
-         Создание кода завершено
-         test_utmatrix.vcxproj -> C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe
-     1>Построение проекта "C:\Users\Дмитрий\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" завершено (целевые объекты Build).
+         "C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\gtest.lib"
+         Generating code
+     1>c:\users\julia\mp2-lab3-arithmetic\src\arithmetic.cpp(104): warning C4715: 'Check::Prioritet' : not all control paths return a value
+         Finished generating code
+         test_utmatrix.vcxproj -> C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe
+     1>Done Building Project "C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" (Build target(s)).
 
-Построение успешно завершено.
+Build succeeded.
 
-Затраченное время: 00:00:08.15
+Time Elapsed 00:00:06.42

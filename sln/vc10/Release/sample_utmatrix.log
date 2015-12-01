@@ -1,25 +1,16 @@
-﻿Build started 11/24/2015 12:54:19 PM.
-     1>Project "Z:\mp2-lab3-arithmetic\sln\vc10\sample_utmatrix.vcxproj" on node 3 (build target(s)).
-     1>InitializeBuildStatus:
-         Touching "Release\sample_arithmetic2.unsuccessfulbuild".
-       ClCompile:
-         All outputs are up-to-date.
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../../include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\arithmetic.cpp
+﻿Build started 30/11/2015 23:46:54.
+     1>Project "C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\sample_utmatrix.vcxproj" on node 3 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I../../include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\arithmetic.cpp
          arithmetic.cpp
-     1>..\..\src\arithmetic.cpp(162): warning C4172: returning address of local variable or temporary
        Link:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Z:\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\sample_arithmetic2.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"Z:\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Z:\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.lib" /MACHINE:X86 Release\main_arithmetic.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.lib" /MACHINE:X86 /SAFESEH Release\main_arithmetic.obj
          Release\arithmetic.obj
          Generating code
          Finished generating code
-         sample_utmatrix.vcxproj -> Z:\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.exe
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"Z:\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.exe;#1" /manifest Release\sample_arithmetic2.exe.intermediate.manifest
-       FinalizeBuildStatus:
-         Deleting file "Release\sample_arithmetic2.unsuccessfulbuild".
-         Touching "Release\sample_arithmetic2.lastbuildstate".
-     1>Done Building Project "Z:\mp2-lab3-arithmetic\sln\vc10\sample_utmatrix.vcxproj" (build target(s)).
+         sample_utmatrix.vcxproj -> C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\sample_arithmetic2.exe
+     1>Done Building Project "C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\sample_utmatrix.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.98
+Time Elapsed 00:00:03.95
