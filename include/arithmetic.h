@@ -21,6 +21,42 @@ void SetFormula(string str)
 		{
 			formula = '(' + str + ')';
 		}
+int CheckOperators()//operator 2 raza podryad a+-b
+{
+	for (int i = 0; i < formula.size() - 1; i++)
+	if ( (IsOperator(formula[i]) == 1) && (IsOperator(formula[i+1]) == 1) )
+		return 0;
+	return 1;
+}
+int Unarminus(char a1,char a2)
+{
+		if ( ( a1 == '(') && (a2 =='-') )
+			return 1;
+	return 0;
+
+}
+int CheckOperators2()//operator v nachale/konce
+{
+	for (int i = 0; i < formula.size() - 1; i++)
+	{
+		if ( (formula[i] == '(') && (IsOperator(formula[i+1]) == 1) && (Unarminus(formula[i],formula[i+1]) == 0) )
+			return 0;
+	    if ( (formula[i+1] == ')') && (IsOperator(formula[i]) == 1) )
+			return 0;
+	}
+	return 1;
+
+}
+
+int Check3()//chislo skobka
+{
+	for (int i = 0; i < formula.size() - 1; i++)
+	{
+	    if ( (formula[i] == ')') && ( (isNumber(formula[i+1]) == 1) || (IsLetter(formula[i+1]) == 1) ) )
+			return 0;
+	}
+	return 1;
+}
 int CheckFormula()
 		{
 			for (int i = 0; i < formula.size(); i++)
@@ -29,13 +65,13 @@ int CheckFormula()
 					s.push('(');
 				if (formula[i] == ')')
 				{
-					if (true==s.IsEmpty())
+					if (true == s.IsEmpty())
 						return 0;
 					else
 						s.pop();
 				}
 			}
-			if (true!=s.IsEmpty())
+			if (true != s.IsEmpty())
 				return 0;
 			else
 				return 1;
@@ -82,8 +118,12 @@ int CheckFormula()
 
 		for (int i = 0; i < formula.size(); i++)
 		{ 
-			if (isNumber(formula[i])) 
+
+			if ( isNumber(formula[i]) )
 			{
+			if (Unarminus(formula[i-2],formula[i-1]))
+				{
+				post +='-';
 				post += formula[i];
 				while (isNumber(formula[i+1]))
 				{
@@ -91,11 +131,32 @@ int CheckFormula()
 					i++;
 				}
 				post += ' ';
+				}
+				else
+					{
+					
+						post += formula[i];
+						while (isNumber(formula[i+1]))
+						{
+		
+							post += formula[i + 1];
+							i++;
+						}
+							post += ' ';
+				}
 			}
+			
 			if (IsLetter(formula[i]))
 			{
-				post += formula[i];
-				post += ' ';
+				if (Unarminus(formula[i-2],formula[i-1]))
+					{
+					post +='-';
+					post += formula[i];
+					post += ' ';
+				   }
+				else
+					post += formula[i];
+					post += ' ';
 			}
 			else
 				if (formula[i] == '(')
@@ -114,7 +175,7 @@ int CheckFormula()
 						}
 					}
 					else
-						if (IsOperator(formula[i]))
+						if (IsOperator(formula[i]) && Unarminus(formula[i-1],formula[i]) == 0)
 						{
 				
 							tmp = s.Peek();
@@ -139,28 +200,29 @@ int CheckFormula()
 		{
 			for (int i = 0; i < post.size(); i++)
 			{
-				if (IsOperator(post[i]))
-				{
-					double tmp1, tmp2, res;
+				
+				if ( (IsOperator(post[i])) && (post[i+1]==' ') )
+					{
+						double tmp1, tmp2, res;
 
-					tmp2 = StNum.pop();
-					tmp1 = StNum.pop();
+						tmp2 = StNum.pop();
+						tmp1 = StNum.pop();
 
-					if (post[i] == '+')
-						res = tmp1 + tmp2;
-					if (post[i] == '-')
-						res = tmp1 - tmp2;
-					if (post[i] == '*')
-						res = tmp1 * tmp2;
-					if (post[i] == '/')
-						res = tmp1 / tmp2;
-					if (post[i] == '^')
-						res = pow(tmp1, tmp2);
+						if (post[i] == '+')
+							res = tmp1 + tmp2;
+						if (post[i] == '-')
+							res = tmp1 - tmp2;
+						if (post[i] == '*')
+							res = tmp1 * tmp2;
+						if (post[i] == '/')
+							res = tmp1 / tmp2;
+						if (post[i] == '^')
+							res = pow(tmp1, tmp2);
 
-					StNum.push(res);
-				}
-				if (isNumber(post[i]))
-				{
+						StNum.push(res);
+					}
+				   if ( isNumber(post[i]) || ( IsOperator(post[i]) && isNumber(post[i+1]) ) )
+				   {
 
 					string NUM = "";
 					double tmp;
@@ -180,6 +242,14 @@ int CheckFormula()
 					if (post[i] == 'c') StNum.push(c);
 					if (post[i] == 'd') StNum.push(d);
 				}
+				if ( IsOperator(post[i]) &&  IsLetter(post[i+1]) ) 
+				{
+					if (post[i+1] == 'a') {StNum.push(-a);i++;} 
+					if (post[i+1] == 'b') {StNum.push(-b);i++;}
+					if (post[i+1] == 'c') {StNum.push(-c);i++;}
+					if (post[i+1] == 'd') {StNum.push(-d);i++;}
+				}
+
 			}
 			return StNum.pop();
 		}
