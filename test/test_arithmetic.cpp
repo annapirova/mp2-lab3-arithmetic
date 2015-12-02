@@ -5,24 +5,6 @@ TEST(Arithmetic, Can_Check_Create)
 {
 	ASSERT_ANY_THROW(Check br("\0"));
 }
-TEST(Arithmetic, Can_pick_out)
-{
-	char type0[256];
-	char type1[256];
-	char type2[256];
-	char type3[256];
-	Check br("a-78+8.5\0");
-
-	br.PickOut(type0, type1, type2, type3);
-
- 	ASSERT_NO_THROW(br.PickOut(type0, type1, type2, type3));
-
-	EXPECT_EQ(type1[0], 'a');
-	EXPECT_EQ(type2[0], '-');
-	EXPECT_EQ(type0[0], '78');
-	EXPECT_EQ(type2[1], '+');
-	EXPECT_EQ(type3[0], '8.5');
-}
 TEST(Arithmetic,Can_identify_unary_minus)
 {
 	Check str = "(-3.2*a)+5\0";
@@ -167,4 +149,3 @@ TEST(Arithmetic,Can_subtract_double)
 	res = result.Calculation();
  	EXPECT_EQ(5,res);	
  }
- 

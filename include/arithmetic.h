@@ -16,15 +16,16 @@ public:
 	Check(char* s); 
 	bool CheckBrackets();
 	bool CheckOperands();
-	void PickOut(char *type0, char *type1, char *type2, char* type3);
 	int Prioritet(char s);
 	char* ChangeExpression(char *res);
 	bool IsOperation(char s);
 	void UnarMinus(char *res);
 	bool IsUnarMinus();
-	char* FindDouble(char *type0);
-	char* FindInt(char *type0);
 	double Calculation ();
 	double GetNumber();
+	~Check();
+	void Input(char *res);
+	void FindVars(int *res);
+	bool AreVars();
 };
 #endif

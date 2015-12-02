@@ -37,7 +37,6 @@ bool Check :: CheckBrackets(){
  		return false;
  	}
 }
-
 bool Check :: CheckOperands()
  {
 	char operators[] = "+*-/";
@@ -55,86 +54,6 @@ bool Check :: CheckOperands()
  
  	return true;
  
-}
-void Check :: PickOut(char *type0, char *type1, char *type2, char* type3)
- {
- 	char letters[] = "abcdefghijqklmnoprstuvwxyz";
-
-	int len0 = strlen(this->s);
-	int len1 = strlen(letters);
-
-	//char type1[256];  vars
-	//char type2[256];  signs
-	//char type0[256];  int;
-	//char type3[256];  double;
-
-	int k = 0;
-
- 	for( int i = 0; i < len0; i++)
- 		for( int j = 0; j < len1; j++)
- 			if( this->s[i] == letters[j] ){
-				type1[k] = this->s[i];
-				k++;
-			}
-	k = 0;
-	for( int i = 0; i < len0; i++)
-			if( IsOperation(this->s[i])){
-				type2[k] = this->s[i];
-				k++;
-			}
-	this->FindInt(type0);
-	this->FindDouble(type3);
- } 
-char* Check :: FindInt(char *type0)
-{
-	int i = 0, k = 1, l = 0;
-	while (this->s[i] != '\0') {
-		if (isdigit(this->s[i])){
-			
-			if (isdigit(this->s[i+1]))
-				k++; 
-				else {
-				for (int j = i - k; j < i+k ; j++, i++ ){
-						if (isdigit(this->s[j]))
-						type0[l] = type0[l]*10 + s[j];
-					}
-					l++;
-				}
-		}
-	}
-	return type0;
-}
-char* Check :: FindDouble(char *type3)
-{
-	int k = 0, i = 0;
-	int l = 0, f = 0;
-	for( int i = 1; i < len-1; i++)
-		while ((s[i] == '.') || (s[i] == ','))
-			if (isdigit(this->s[i-1])){
-				f++; 
-				if((isdigit(this->s[i+1])))
-					k++;
-			}
-			else if((isdigit(this->s[i+1])))
-					k++;
-				else {
-					k = min(k, f);
-					for (int j = i - k; j < i+k ; j++, i++ )
-						if (isdigit(s[j]))
-						type3[l] = type3[l]*10 + s[j];
-
-					for (int j = 1; j < k ; j++)
-						type3[l] = type3[l]/10;
-					l++;
-				}
-
-/*		if ((isdigit(this->s[i])) || (s[i] == '.') || (s[i] == ',') ){ //primenit` atod ili create new function, create calculator
-			type0[k] = this->s[i];
-			k++;
-		}
-*/
-
-	return type3;
 }
 int Check :: Prioritet(char s)
 {
@@ -344,3 +263,83 @@ double Check :: GetNumber(){
  	double res = atof(s);
  	return res;
  }
+Check :: ~Check ()
+{
+	delete []s;
+}
+void Check :: Input(char *res)
+ {
+ 	int *num;
+ 	int Size = 256;
+ 	int i=0; int m=0;
+ 	num = new int[Size];
+ 	for (int j = 0; j < Size;j++)
+ 		num[j] = -1;
+ 	this->FindVars(num);
+ 	if (num[0] != -1)
+ 		cout << "Expression has vars" <<endl;
+ 	for (int p = 0; p < len; p++){
+ 		if (num[i] != p){
+ 			res[m] = s[p];
+ 			m++;
+ 		}
+ 		else{
+ 			char str[256];
+ 			int j = 0;
+ 			cout << s[num[i]]<< "=";
+ 			gets(str);
+ 			if(str[0] == '-'){
+ 				res[m] = '0';
+ 				m++;
+ 				res[m] = ' ';
+ 				m++;
+ 				j=1;
+ 				while (str[j] != '\0'){
+ 					res[m] = str[j];
+ 					m++;
+ 					j++;
+ 				}
+ 				res[m] = ' ';
+ 				m++;
+ 				res[m] = '-';
+ 				m++;
+ 				p++;
+ 			}
+ 			else{
+ 				while (str[j] != '\0')
+ 				{
+ 					res[m] = str[j];
+ 					m++;
+ 					j++;
+ 				}
+ 			}
+ 			i++;
+ 		}		
+ 	}
+ 	res[m] = '\0';
+ 	delete []num;
+}
+void Check :: FindVars (int * res)
+ {
+ 	int j = 0;
+ 	for (int i = 0; i < len; i++)
+ 		if(isalpha(s[i]) && (!isdigit(s[i]))){
+ 			res[j]=i;
+ 			j++;
+ 		}
+ }
+bool Check :: AreVars()
+{
+	bool flag = false;
+	for (int i = 0; i < len; i++)
+	{
+		if(isalpha(s[i]) && (!isdigit(s[i]))){
+			flag = true;
+			break;
+		}
+	}
+	if (flag == true)
+		return true;
+	else 
+		return false;
+}
