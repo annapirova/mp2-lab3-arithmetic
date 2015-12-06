@@ -67,4 +67,36 @@ TEST(Arithmetic,check_comma_in_point){
 	EXPECT_EQ(s[1],'.');
 }
 
+TEST(Arithmetic,check_operand_is_false){
+	char s[]="à+á";
+	EXPECT_FALSE(operand_true_1(s));
+}
+
+TEST(Arithmetic,check_operand_is_true){
+	char s[]="a+b";
+	EXPECT_TRUE(operand_true_1(s));
+}
+
+TEST(Arithmetic,check_unarn_minus_1_is_true){
+	char s[]="-a+b";
+	EXPECT_TRUE(CheckUnarMinus(s));
+}
+
+TEST(Arithmetic,check_unarn_minus_2_is_true){
+	char s[]="a*(-b)";
+	EXPECT_TRUE(CheckUnarMinus(s));
+}
+
+TEST(Arithmetic,check_unarn_minus_3_is_true){
+	char s[]="-a-b";
+	EXPECT_TRUE(CheckUnarMinus(s));
+}
+
+
+
+
+
+
+
+
 

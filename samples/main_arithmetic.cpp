@@ -2,9 +2,6 @@
 #include "arithmetic.h"
 #include "parser.h"
 
-#include <locale>
-#include <iostream>
-using namespace std;
 
 
 
@@ -20,6 +17,8 @@ void main()
 			cout << "¬ведите выражение заново:"; 
 		else
 		{
+			if (CheckUnarMinus(a))
+				UnarMinus(a);
 			InputVar(a);
 			InPoint(a);
 			TParser x(a);

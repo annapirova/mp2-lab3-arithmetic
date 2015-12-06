@@ -147,7 +147,7 @@ int prior (char a){ //приоритет операций
 }
 bool operand_true(char c)    //проверка корректности операнда
 {
-	if( (c>='0'&&c<='9')|| (c>='A'&&c<='Z') || (c>='a'&&c<='z')||(c=='.') || (c=='+') || (c=='-') || (c=='*') || (c=='/')) 
+	if( (c>='0'&&c<='9')|| (c>='A'&&c<='Z') || (c>='a'&&c<='z')||(c=='.') || (c=='+') || (c=='-') || (c=='*') || (c=='/') || (c=='(') || (c==')') )
 		return true;
 	else 
 		return false;
@@ -194,4 +194,65 @@ void InputVar (char *s) {
 	b[j]='\0';
 	for (int i=0;i<=j;i++)
 		s[i]=b[i];
+}
+
+void UnarMinus(char *s) //обработка унарного минуса
+{
+	int len = strlen(s);
+	char *a;
+	a=new char[len];
+	int j=0;
+	if (s[0]=='-')
+	{
+		a[j++]='0';
+		a[j++]='-';
+	}
+	else
+		a[j++]=s[0];
+	for (int i=1;i<len;i++)
+	{
+		if (s[i]=='-')
+		{
+			if((s[i-1]=='(')&&((DType(s[i+1])==1)||(DType(s[i+1])==2)))
+			{
+				a[j++]='0';
+				a[j++]='-';
+			}
+			else 
+				a[j++]='-';
+		}
+		else
+		{
+			a[j]=s[i];
+			j++;
+		}
+	}
+	a[j]='\0';
+	for (int i=0;i<=j;i++)
+		s[i]=0;
+	for (int i=0;i<=j;i++)
+		s[i]=a[i];
+}
+bool CheckUnarMinus(char *s)// проверка на наличие унарного минуса
+{
+	int i=1;
+	int flag=0;
+	if (s[0]=='-')
+		flag =1;
+	while(s[i]!='\0')
+	{
+		if (s[i]=='-')
+		{
+			if((s[i-1]=='(')&&((DType(s[i+1])==1)||(DType(s[i+1])==2)))
+			{
+				flag=1;
+				break;
+			}
+		}
+		i++;
+	}
+	if (flag==1)
+		return true;
+	else 
+		return false;
 }

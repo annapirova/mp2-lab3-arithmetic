@@ -29,3 +29,41 @@ TEST(TParser,can_convert_and_calc){
 	double res=p.calc();
 	EXPECT_EQ(19.5,res);
 }
+
+
+TEST(TParser,can_add)
+{
+	char s[]="7.5+2";
+	TParser p(s);
+	p.Convert();
+	double res=p.calc();
+	EXPECT_EQ(9.5,res);	
+}
+
+TEST(TParser,can_subtract)
+{
+	char s[]="1-0.4";
+    TParser p(s);
+	p.Convert();
+	double res=p.calc();
+	EXPECT_EQ(0.6,res);	
+}
+
+TEST(TParser,can_divide_values)
+{
+	char s[]="4.2/2";
+	TParser p(s);
+	p.Convert();
+	double res=p.calc();
+	EXPECT_EQ(2.1,res);	
+}
+
+TEST(TParser,can_multiply)
+{
+	char s[]="3.5*3";
+	TParser p(s);
+	p.Convert();
+	double res=p.calc();
+	EXPECT_EQ(10.5,res);	
+}
+
