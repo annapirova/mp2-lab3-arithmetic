@@ -11,21 +11,22 @@ using namespace std;
 void main()
 {
 	setlocale(LC_CTYPE, "Russian");
-
+	int flag=1;
 	char a[MaxSize];
-	cout << "Введите корректное выражение:";
-	gets(a);
-	InPoint(a);
-	cout<<endl;
-
-	if(!CheckAll(a))
-		cout << "Неправильное выражение!" <<endl;
-	else
-	{
-		TParser x(a);
-		x.Convert();
-		double res=x.calc();
-		cout<<"Result="<<res<<endl;
+	cout << "Введите арифмитическое выражение:";
+	while (flag==1){
+		gets(a);
+		if(!CheckAll(a))
+			cout << "Введите выражение заново:"; 
+		else
+		{
+			InputVar(a);
+			InPoint(a);
+			TParser x(a);
+			x.Convert();
+			double res=x.calc();
+			cout<<"Result="<<res<<endl;
+			flag=0;
+		}
 	}
-
 }

@@ -11,7 +11,11 @@ bool CheckSkob(char *s) { //Проверка скобок
 		if (s[i] == ')')
 		{
 			if (St.isEmpty())
+			{
+
+				cout<<"Ошибка в расставлении скобок на позиции №"<<i+1<<endl;
 				return false;
+			}
 			else 
 				St.put();
 		}
@@ -19,8 +23,11 @@ bool CheckSkob(char *s) { //Проверка скобок
 	}
 	if (St.isEmpty())
 		return true;
-	else 
+	else
+	{
 		cout<<"Ошибка в расставлении скобок!"<<endl;
+		return false;
+	}
 
 }
 int DType(char s) //1-цифра; 2-буква 3-знаки операций;
@@ -60,7 +67,7 @@ bool CheckOperands(char* s)// проверка на недостаток операндов
 	{
 		if (s[0]==operat[i])
 		{
-			cout<< "Мало операндов" << endl;
+			cout<< "Мало операндов на позиции №1" << endl;
 			flag=1;
 			break;
 		}
@@ -70,7 +77,7 @@ bool CheckOperands(char* s)// проверка на недостаток операндов
 	{
 		if (s[strlen(s)-1]==operat[i])
 		{
-			cout<< "Мало операндов" << endl;
+			cout<< "Мало операндов на позиции №" <<strlen(s)+1<< endl;
 			flag=1;
 			break;
 		}
@@ -92,7 +99,7 @@ bool CheckOper(char *s)//проверка на количество операций подряд
 				for(int j=0;j<4;j++)
 					if (s[i+1]==operat[j])
 					{
-						cout<< "Два знака операции подряд"<< endl;
+						cout<< "Два знака операции подряд на позициях: "<< i+1 << " и " << i+2 << endl;
 						flag=1;
 						break;
 					}
@@ -103,13 +110,15 @@ bool CheckOper(char *s)//проверка на количество операций подряд
 				break;
 	}
 	if (flag==1)
+	{
 		return false;
+	}
 	else
 		return true;
 }
 bool CheckAll(char* s)//проверка условий
 {
-	if((CheckSkob(s))&&(CheckOperands(s))&&(CheckOper(s)))
+	if((CheckSkob(s))&&(operand_true_1(s))&&(CheckOperands(s))&&(CheckOper(s)))
 		return true;
 	else
 		return false;
@@ -135,4 +144,54 @@ int prior (char a){ //приоритет операций
 	case '*' :
 	case '/' : return(3);
 	}
+}
+bool operand_true(char c)    //проверка корректности операнда
+{
+	if( (c>='0'&&c<='9')|| (c>='A'&&c<='Z') || (c>='a'&&c<='z')||(c=='.') || (c=='+') || (c=='-') || (c=='*') || (c=='/')) 
+		return true;
+	else 
+		return false;
+}
+bool operand_true_1(char *c) 
+{
+	int len=strlen(c);
+	int kol=0;
+	for (int i=0;i<len;i++)
+	{
+		if (operand_true(c[i]))
+			kol++;
+	}
+	if (kol==len)
+		return true;
+	else 
+	{
+		cout << "Ошибка при вводе операндов!"<<endl;
+		return false;
+	}
+}
+void InputVar (char *s) {
+	int len=strlen(s);
+	int j=0;
+	char b[MaxSize];
+	for (int i=0;i<len;i++)
+	{
+		if(isalpha(s[i]))
+		{
+			char a[MaxSize];
+			cout<<"Введите переменную "<<s[i]<<"=";
+			gets(a);
+			int len1=strlen(a);
+			for (int i=0;i<len1;i++){
+				b[j]=a[i];
+				j++;
+			}
+			for (int i=0;i<len1;i++)
+				a[i]=0;
+		}
+		else 
+			b[j++]=s[i];
+	}
+	b[j]='\0';
+	for (int i=0;i<=j;i++)
+		s[i]=b[i];
 }

@@ -1,7 +1,7 @@
 #include "stack.h"
 #include "arithmetic.h"
 
-const int MaxSize=256;
+
 
 
 class TParser
