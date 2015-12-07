@@ -19,6 +19,7 @@ public:
 	
 void SetFormula(string str)
 		{
+			formula="";
 			formula = '(' + str + ')';
 		}
 int CheckOperators()//operator 2 raza podryad a+-b
@@ -115,7 +116,7 @@ int CheckFormula()
 	void InfixToPost()
 	{
 		char tmp;
-
+		post="";
 		for (int i = 0; i < formula.size(); i++)
 		{ 
 

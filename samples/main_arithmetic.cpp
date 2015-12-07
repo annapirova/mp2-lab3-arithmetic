@@ -9,18 +9,26 @@ int main()
 	double b = 0;
 	double c = 0;
 	double d = 0;
+	int q=1;
 	int flag[4]={0,0,0,0};
 	arithmetic Formula;
 	double rez;
 	string strformula;
+	string post;
 	
 	cout << "DocTynHble napametpbl : a,b,c,d" << endl;
+	while (q==1)
+	{
 	cout << "BBedute formuly" << endl;
+	strformula=""; 
 	cin >> strformula;
 	Formula.SetFormula(strformula);
 	Formula.InfixToPost();
-	strformula = Formula.GetPost();
-	cout << "3anucb: " << strformula << endl;
+	post = Formula.GetPost();
+	cout << "3anucb: " << post << endl;
+	q=2;
+	while (q==2)
+	{
 	for (int i = 0; i < Formula.GetPost().size(); i++)
 	{
 		if ((Formula.GetSymbvolOfFormula(i) == 'a')&& (flag[0]==0))
@@ -55,9 +63,17 @@ int main()
 			flag[3]=1;
 		}
 	}
-
+	
 	Formula.SetParamater(a,b,c,d);
 	rez = Formula.Calc();
-	cout << rez << endl;
-	system("pause");
+	cout<< "Pe3yJIbTaT = " << rez << endl;
+	cout<<"1.BBedute HoByy foPmyly"<<endl;
+	cout<<"2.BBedute HoBble naPaMetPbl"<<endl;
+	cout<<"3.Bblxod"<<endl;
+	cin >> q;
+	for (int i=0;i<4;i++)
+		flag[i]=0;
+	}
+	}
+	
 }

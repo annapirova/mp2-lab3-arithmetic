@@ -27,7 +27,7 @@ public:
 	int getTop() const;        // получить номер текущего элемента в стеке
 	Stack<T>& operator=(const Stack& s);//оператор равно
 	bool operator!=(const Stack<T> &s) const ;//сравнение 1
-	bool operator==(const Stack<T> &s) const ;//сравнение 1
+	bool operator==(const Stack<T> &s) const ;//сравнение 2
 	void SetSize(int n);//изменение размера
 
 };
@@ -35,6 +35,8 @@ public:
 // реализация методов шаблона класса STack
 
 // конструктор Стека
+
+
 template <typename T>
 Stack<T>::Stack(int _size,int _top) 
 {	size = _size; 
