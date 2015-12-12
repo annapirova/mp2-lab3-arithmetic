@@ -1,20 +1,21 @@
 #include "arithmetic.h"
 #include <iostream>
-#define MAX_SIZE 256;
 
  int main(){
-	 Check str("");
  	bool flag1 = true, flag3 = true; 
 	int p = 0; 
-
+	
+	Check str("");
 	Check newstr("");
+	str.len = 256;
  	setlocale(LC_ALL, "Russian");
  
- 	cout << "Enter an expression" <<endl;
-	cout << "The operations: +, -, /, *, ^. " <<endl;
+ 	cout << "Enter an expression" << endl;
+	cout << "The operations: +, -, /, *, ^. " << endl;
  	while (flag1 == true){
- 		cout << "Enter: ";
- 		gets(str.s);
+ 		cout << "Enter: " ;
+		cin >> str.s;
+		str.len = str.GetLen();
  		if(str.IsUnarMinus()){
 			str.UnarMinus(newstr.s);
  		}
@@ -26,23 +27,31 @@
  				i++;
  			}
  			newstr.s[i]='\0';
+			newstr.len = newstr.GetLen();
  		}
-		if (!newstr.CheckBrackets() && !newstr.CheckOperands())
+		newstr.len = newstr.GetLen();	
+		if (!newstr.CheckBrackets() ||(!newstr.CheckOperands()))
  			cout << "Expression is uncorrect" <<endl;
  		else{
  			double result;
 			bool flag2 = true;
 			Check newstr1(""), newstr2("");
  			newstr.ChangeExpression(newstr1.s);
+			newstr.len = newstr.GetLen();
+			newstr1.len = newstr1.GetLen();
  			while (flag2 == true){
- 				newstr1.Input(newstr2.s);
-				result = newstr2.Calculation;
+				newstr1.len = newstr1.GetLen();
+				newstr2.len = newstr2.GetLen();
+ 				newstr1.Input(newstr2.s); //Çהוסü מרטבךא למזוע בûעü
+				newstr2.len = newstr2.GetLen();
+				result = newstr2.Calculation();
  				cout << "Result = " << result <<endl;
-				if(str.AreVars)
+				str.len = str.GetLen();
+				if(str.AreVars())
 				{
- 				cout << "Expression contians vars. Do you want to continue entering? " <<endl;
- 				cout << "1.Yes" <<endl;
- 				cout << "2.No" <<endl;
+ 				cout << "Expression contians vars. Do you want to enter value? " << endl;
+ 				cout << "1.Yes" << endl;
+ 				cout << "2.No" << endl;
  				cin  >> p;
  				if (p == 2)
  					flag2 = false;
@@ -51,9 +60,9 @@
 					flag2 = false;
  			}
  			flag1 = false;
-			//~newstr1; ~newstr2;
+		//	delete []newstr1.s; delete []newstr2.s;
  		}
  	}
-//	~newstr;
+//	delete[]newstr.s;
  return 0;
 }

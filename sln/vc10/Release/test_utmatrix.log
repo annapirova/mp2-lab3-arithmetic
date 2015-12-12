@@ -1,5 +1,22 @@
-﻿  test_arithmetic.cpp
-  Generating code
-c:\users\julia\mp2-lab3-arithmetic\src\arithmetic.cpp(148): warning C4715: 'Check::Prioritet' : not all control paths return a value
-  Finished generating code
-  test_utmatrix.vcxproj -> C:\Users\Julia\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe
+﻿Build started 11.12.2015 18:57:45.
+     1>Project "C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" on node 3 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:Release gtest.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.lib" /MACHINE:X86 /SAFESEH Release\test_arithmetic.obj
+         Release\test_main.obj
+         Release\test_stack.obj
+         "C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\Release\gtest.lib"
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: __thiscall Check::~Check(void)" (??1Check@@QAE@XZ)
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: double __thiscall Check::Calculation(void)" (?Calculation@Check@@QAENXZ)
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: bool __thiscall Check::IsUnarMinus(void)" (?IsUnarMinus@Check@@QAE_NXZ)
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: void __thiscall Check::UnarMinus(char *)" (?UnarMinus@Check@@QAEXPAD@Z)
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: char * __thiscall Check::ChangeExpression(char *)" (?ChangeExpression@Check@@QAEPADPAD@Z)
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: int __thiscall Check::Prioritet(char)" (?Prioritet@Check@@QAEHD@Z)
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: bool __thiscall Check::CheckOperands(void)" (?CheckOperands@Check@@QAE_NXZ)
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: bool __thiscall Check::CheckBrackets(void)" (?CheckBrackets@Check@@QAE_NXZ)
+     1>test_arithmetic.obj : error LNK2001: unresolved external symbol "public: __thiscall Check::Check(char *)" (??0Check@@QAE@PAD@Z)
+     1>C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\Release\test_arithmetic.exe : fatal error LNK1120: 9 unresolved externals
+     1>Done Building Project "C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\test_utmatrix.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.89

@@ -1,9 +1,14 @@
-﻿Build started 23.11.2015 23:03:51.
-     1>Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\arithmetic\arithmetic.vcxproj" on node 2 (clean target(s)).
-     1>_PrepareForClean:
-         Deleting file "Debug\arithmetic.lastbuildstate".
-     1>Done Building Project "C:\Users\Администратор\mp2-lab3-arithmetic\sln\vc10\arithmetic\arithmetic.vcxproj" (clean target(s)).
+﻿Build started 12.12.2015 23:11:04.
+     1>Project "C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\arithmetic\arithmetic.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I../../../include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\src\arithmetic.cpp
+         arithmetic.cpp
+     1>c:\users\liza\mp2-lab3-arithmetic\src\arithmetic.cpp(70): warning C4715: 'Check::Prioritet' : not all control paths return a value
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\Debug\arithmetic.lib" /NOLOGO Debug\arithmetic.obj
+         arithmetic.vcxproj -> C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\Debug\arithmetic.lib
+     1>Done Building Project "C:\Users\Liza\mp2-lab3-arithmetic\sln\vc10\arithmetic\arithmetic.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.03
+Time Elapsed 00:00:01.21

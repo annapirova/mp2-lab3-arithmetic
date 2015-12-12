@@ -3,7 +3,9 @@
 
 TEST(Arithmetic, Can_Check_Create)
 {
-	ASSERT_ANY_THROW(Check br("\0"));
+//	Check br1("");
+	ASSERT_ANY_THROW(Check br(NULL));
+//	EXPECT_EQ('\0',	br1.s[0]);
 }
 TEST(Arithmetic,Can_identify_unary_minus)
 {
@@ -68,8 +70,8 @@ TEST(Arithmetic, Prioritet)
 }
 TEST(Arithmetic, Can_ChangeExpression)
 {
-	Check br("a-7\0");
-	char res[4];
+	Check br("a-7");
+	char res[6];
 	
 	br.ChangeExpression(res);
 	EXPECT_EQ('a', res[0]);
@@ -79,7 +81,7 @@ TEST(Arithmetic, Can_ChangeExpression)
 }
 TEST(Arithmetic,Can_add_int)
 {
-	Check br("35+5\0");
+	Check br("35+5");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
@@ -88,7 +90,7 @@ TEST(Arithmetic,Can_add_int)
 }
 TEST(Arithmetic,Can_add_double)
 {
-	Check br("3.5+5\0");
+	Check br("3.5+5");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
@@ -97,7 +99,7 @@ TEST(Arithmetic,Can_add_double)
 }
 TEST(Arithmetic,Can_subtract_double)
 {
- 	Check br("5.5-5\0");
+ 	Check br("5.5-5");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
@@ -106,7 +108,7 @@ TEST(Arithmetic,Can_subtract_double)
 }
  TEST(Arithmetic,Can_multiply_double)
 {
- 	Check br("0.5*2\0");
+ 	Check br("0.5*2");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
@@ -115,7 +117,7 @@ TEST(Arithmetic,Can_subtract_double)
 }
  TEST(Arithmetic,Can_divide_int)
 {
- 	Check br("13/2\0");
+ 	Check br("13/2");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
@@ -124,7 +126,7 @@ TEST(Arithmetic,Can_subtract_double)
 }
  TEST(Arithmetic,Can_involute_int)
 {
- 	Check br("2^3\0");
+ 	Check br("2^3");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
@@ -133,7 +135,7 @@ TEST(Arithmetic,Can_subtract_double)
 }
  TEST(Arithmetic,can_calculate_expression_with_brackets)
  {
- 	Check br("(5+2*7)*3-21\0");
+ 	Check br("(5+2*7)*3-21");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);
@@ -142,7 +144,7 @@ TEST(Arithmetic,Can_subtract_double)
  }
  TEST(Arithmetic,can_calculate_expression_without_brackets)
  {
- 	Check br("5+7*3-21\0");
+ 	Check br("5+7*3-21");
  	double res;
  	Check result("");
 	br.ChangeExpression(result.s);

@@ -1,7 +1,7 @@
 #include <gtest.h>
 
 #include "stack.h"
-/*
+
 TEST(TStack, can_create_stack_with_positive_length)
 {
   ASSERT_NO_THROW(TStack<int> c(5));
@@ -36,7 +36,7 @@ TEST(TStack, copied_stack_are_equal) {
 
 TEST(TStack, can_add_element) {
  	TStack<int> c1(10);
- 	int c2=1;	
+ 	int c2 = 1;	
  	ASSERT_NO_THROW(c1.Push(c2););
 }
 
@@ -104,7 +104,7 @@ TEST(TStack, can_get_element)
 	c.Push(k);
 
 	EXPECT_EQ(5,c.Get());
-	EXPECT_EQ(1,c.top);
+	EXPECT_EQ(0,c.top);
 }
 
 TEST(TStack, cant_get_element_when_stack_is_empty)
@@ -129,13 +129,11 @@ TEST(TStack, new_stack_is_empty)
 }
 
 TEST(TStack, can_not_add_element_in_full_stack) {
- 	const int size = 5;
+ 	const int size = 2;
 	TStack<int> c1(size);
- 	int k = 1;
- 	for (int i = 0; i < size; i++)
- 	{
- 		c1.Push(i);
- 	}
-
-	ASSERT_ANY_THROW(c1.Push(k));
-}*/
+ 	int k = 47;
+ 	c1.Push(k);
+ 	c1.Push(5);
+	EXPECT_TRUE(c1.IsFull());
+	ASSERT_ANY_THROW(c1.Push(k)); 
+}

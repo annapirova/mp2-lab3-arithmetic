@@ -1,59 +1,62 @@
 //#include "Z:\mp2-lab3-arithmetic\include\arithmetic.h"
-#include "C:\Users\Julia\mp2-lab3-arithmetic\include\arithmetic.h"
+//#include "C:\Users\Julia\mp2-lab3-arithmetic\include\arithmetic.h"
+
+#include "arithmetic.h"
  
 Check ::Check(char* s){
-	if ((s == NULL) || (s == "\0"))
+	if (s == NULL){
+		len = 0;
+		s = new char[256];
 		throw "str is empty";
-	this->len = strlen(s); 
-	this->s = new char[len];
-	for (int i = 0; i < len; i++)
-		this->s[i] = s[i];
+	}
+	else{
+		this->len = strlen(s); 
+		if (len == 0){
+			this->s = new char[256];
+			len = 256;//подозрительные штуки, может быть равна нул.
+		}
+		else
+		{
+			this->s = new char[len];
+			for (int i = 0; i < len; i++)
+				this->s[i] = s[i];
+		}
+	}
 }
 bool Check :: CheckBrackets(){
 	TStack<int> expr(256);
- 	int len;
-	len = strlen(this->s);
- 	for (int i = 0; i < len; i++)
- 	{
+	bool flag = true;
+ 	for (int i = 0; i < len; i++){
 		if (this->s[i] == '(')
 			expr.Push(i);
  		else 
-			if(this->s[i] == ')')
- 		{
- 			if (expr.IsEmpty())
-			{
-				cout << "Expression is empty ";
- 				return false;
+			if(this->s[i] == ')'){
+ 			if (expr.IsEmpty()){
+ 				flag = false;
+				break;
 			}
 			else
  				expr.Pop();
  		}
  	}
- 	if (expr.IsEmpty())
- 		return true;
- 	else 
- 	{
-		cout << "Expression is uncorrectly";
- 		return false;
- 	}
+	if (flag == true)
+		if (!expr.IsEmpty())
+ 		flag = false;
+	return flag;
 }
 bool Check :: CheckOperands()
  {
 	char operators[] = "+*-/";
-	for (int i = 0; i < len - 1; i++)
-	{
+	for (int i = 0; i < len-1; i++){
 		for (int j = 0; j < 4; j++)
 			if ( this->s[i] == operators[j] )
 				for ( int k = 0; k < 4; k++)
-					if (this->s[i+1] == operators[k] )
-					{
-						throw "No operand between operators";
+					if (this->s[i+1] == operators[k] ){
+						cout << "No operand between operators" << endl;
 						return false;
 					}
 	}
- 
  	return true;
- 
 }
 int Check :: Prioritet(char s)
 {
@@ -77,8 +80,7 @@ void Check :: UnarMinus(char *res)
  	int j = 0;
 
  	if (s[0] == '-'){
- 		res[j] = '0';
- 		j++;
+		res[j++] = '0';
  		res[j] = '-';
  		j++;
  	}
@@ -86,9 +88,9 @@ void Check :: UnarMinus(char *res)
  		res[j] = s[0];
  		j++;
  	}
- 	for (int i = 1; i < len; i++){
+ 	for (int i = 1; i < len-1; i++){
  		if (s[i] == '-'){
- 			if((s[i-1]=='(') && (isdigit(s[i+1]))|| (isalpha(s[i+1]))){
+ 			if((s[i-1]=='(') &&( (isdigit(s[i+1])) || (isalpha(s[i+1])))){
  				res[j] = '0';
  				j++;
  				res[j] = '-';
@@ -100,34 +102,35 @@ void Check :: UnarMinus(char *res)
  			j++;
  		}
  	}
+	res[j++] = s[len - 1];
  	res[j] = '\0';
 }
 bool Check :: IsUnarMinus()
  {
  	int i = 1;
- 	int flag = 0;
+ 	bool flag = false;
  
  	if (this->s[0]=='-')
- 		flag = 1;
+ 		flag = true;
  	while(this->s[i] != '\0'){
  		if (this->s[i] == '-'){
- 			if((this->s[i-1]=='(') && (isdigit(this->s[i+1]))|| (isalpha(this->s[i+1]))){
- 				flag = 1;
+ 			if((this->s[i-1]=='(') && ( (isdigit(this->s[i+1])) || (isalpha(this->s[i+1])))){
+ 				flag = true;
  				break;
  			}
  		}
  		i++;
  	}
- 	if (flag == 1)
- 		return true;
+ 	if (flag == true)
+ 		return flag;
  	else 
  		return false;
  }
-char* Check :: ChangeExpression(char *res){
+void Check :: ChangeExpression(char *res){
 	int i = 0;
 	TStack<char> sg(256);
 	int j = 0;
-	for(i = 0; i < len;i++)
+	for(i = 0; i < len; i++)
 	{
 		if (s[i]=='(') 
 			sg.Push(s[i]);
@@ -136,8 +139,7 @@ char* Check :: ChangeExpression(char *res){
  			char a = sg.Pop();
  			while (a !='(')
  			{
- 				res[j] = a;
- 				j++;
+ 				res[j++] = a;
  				a = sg.Pop();
  			}
  		}
@@ -147,8 +149,7 @@ char* Check :: ChangeExpression(char *res){
 			else {
 			char op = sg.Get();
 			while (Prioritet(s[i]) <= Prioritet(op)){
-				res[j]=sg.Pop();
- 					j++;
+				res[j++] = sg.Pop();
  					if (sg.IsEmpty() == false)
  						op = sg.Get();
  					else 
@@ -157,68 +158,76 @@ char* Check :: ChangeExpression(char *res){
 			sg.Push(s[i]);
 			}
 		}
-		if( isdigit(s[i])){
-			if ((isdigit(s[i+1])) || (s[i+1] == '.') || (s[i+1] == ',')){
-				res[j] = s[i];
-				j++;
-			}
-			else {
-				res[j] = s[i];
-				j++;
-				res[j]=' ';
+		 if( isdigit(s[i])){
+			 if (i != len -1){
+			 
+ 				if ((isdigit(s[i+1])) || (s[i+1] == '.') || (s[i+1] == ',')){
+ 					res[j] = s[i];
+ 					j++;
+ 			 }
+				else
+				{ 		
+					res[j] = s[i];
+ 					j++;
+ 					res[j]=' ';
+  					j++;
+  				}
+			 }
+ 			else {
+ 				res[j] = s[i];
  				j++;
- 			}
-		}
-		if (isalpha(s[i])){
-			res[j]=s[i];
- 			j++;
- 			res[j]=' ';
- 			j++;
+ 				res[j]=' ';
+  				j++;
+  			}
  		}
-		if ((s[i+1] == '.') || (s[i+1] == ',')){
-			res[j] = s[i+1];
- 			j++;
+
+		if (isalpha(s[i])){
+			res[j++] = s[i];
+ 			res[j++]=' ';
+ 		}
+
+		if( (s[i] == '.') || (s[i] == ',')){
+ 					res[j] = s[i];
+ 					j++;
  		}
 	}
 	while((sg.IsEmpty() == false )){
-				res[j] = sg.Pop();
-				j++;
-			}
-	res[j]='\0'; 
-	return res; 
+				res[j++] = sg.Pop();
+	}
+	res[j] = '\0'; 
 }
 double Check :: Calculation ()
 {
- 	TStack <char> op(256);
  	TStack <double> num(256);
- 	int l = 0, i = 0, m = 0;
+ 	int i = 0, m = 0;
  	double res;
- 	while(s[i] != '\0')
+ 	while(this->s[i] != '\0')
  	{
- 		if(isdigit(s[i]))
+ 		if(isdigit(this->s[i]))
  		{ 
  			Check str("");
+			str.len = 256;
  			int k = 0;
  			double number;	
  			m = i;
- 			while( s[m] !=' ')
+ 			while( this->s[m] != ' ')
  			{
- 				str.s[k] = s[m];
+ 				str.s[k] = this->s[m];
  				m++;
  				k++;
  			}
- 			str.s[k] = '\0';
- 			l = m - i + 1;
+			str.s[k] = '\0';
+			str.len = str.GetLen();
  			number = str.GetNumber();
  			num.Push(number);
- 			i = i + l - 1;
+			i = m;//индекс не менять
  		}
- 		if (IsOperation(s[i]))
+ 		if (IsOperation(this->s[i]))
  		{
  			double opright, opleft;
  			opright = num.Pop();
  			opleft = num.Pop();
- 			switch(s[i])
+ 			switch(this->s[i])
  			{
  				case '+': {
  					res = opleft + opright;
@@ -265,65 +274,76 @@ double Check :: GetNumber(){
  }
 Check :: ~Check ()
 {
-	delete []s;
+	if (this->s != NULL) delete[]this->s;
 }
 void Check :: Input(char *res)
  {
- 	int *num;
- 	int Size = 256;
- 	int i=0; int m=0;
- 	num = new int[Size];
+ 	len = strlen(s);
+	for (int i = 0; i < len; i++ )
+		cout << s[i] << endl;
+
+	int Size = 256;
+ 	int i = 0; int m = 0;
+ 	int *num = new int[Size];
  	for (int j = 0; j < Size;j++)
  		num[j] = -1;
+	len = this->GetLen();
  	this->FindVars(num);
  	if (num[0] != -1)
- 		cout << "Expression has vars" <<endl;
- 	for (int p = 0; p < len; p++){
+ 		cout << "Expression has vars" << endl;
+	len = this->GetLen();
+ 	for (int p = 0; p < this->GetLen(); p++){
  		if (num[i] != p){
  			res[m] = s[p];
  			m++;
  		}
  		else{
- 			char str[256];
+			bool flag = true;
  			int j = 0;
- 			cout << s[num[i]]<< "=";
- 			gets(str);
- 			if(str[0] == '-'){
+ 			char val[100];
+			//while (flag == true){
+			std::cout << s[num[i]] << " = ";
+ 			//gets(val);
+			std::cin>>val;
+ 			if(val[0] == '-'){
  				res[m] = '0';
  				m++;
  				res[m] = ' ';
  				m++;
  				j=1;
- 				while (str[j] != '\0'){
- 					res[m] = str[j];
+				res[m++] = '-';
+ 				while (val[j] != '\0'){
+ 					res[m] = val[j];
  					m++;
  					j++;
  				}
  				res[m] = ' ';
  				m++;
- 				res[m] = '-';
- 				m++;
- 				p++;
  			}
  			else{
- 				while (str[j] != '\0')
- 				{
- 					res[m] = str[j];
+ 				while (val[j] != '\0'){
+ 					res[m] = val[j];
  					m++;
  					j++;
+ 					}
  				}
- 			}
+			//	flag = false;
+			//}
  			i++;
  		}		
  	}
+	cout << "Point1" << endl;
+	for (int i = 0; i < m ; i++)
+		cout << res[i] << endl; 
  	res[m] = '\0';
  	delete []num;
+
 }
 void Check :: FindVars (int * res)
  {
  	int j = 0;
  	for (int i = 0; i < len; i++)
- 		if(isalpha(s[i]) && (!isdigit(s[i]))){
+ 		if(isalpha(s[i]) /*&& (!isdigit(s[i]))*/){
  			res[j]=i;
  			j++;
  		}
@@ -333,7 +353,7 @@ bool Check :: AreVars()
 	bool flag = false;
 	for (int i = 0; i < len; i++)
 	{
-		if(isalpha(s[i]) && (!isdigit(s[i]))){
+		if(isalpha(s[i])/* && (!isdigit(s[i]))*/){
 			flag = true;
 			break;
 		}
@@ -342,4 +362,12 @@ bool Check :: AreVars()
 		return true;
 	else 
 		return false;
+}
+int Check :: GetLen(){
+	int prlen = 0, i = 0;
+	while (s[i] != '\0') {
+		i++;
+		prlen++;
+	}
+	return prlen;
 }

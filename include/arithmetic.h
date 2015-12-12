@@ -4,6 +4,7 @@
 #include "stack.h"
 #include <iostream>
 #include <cstring>
+#include <stdio.h>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ public:
 	bool CheckBrackets();
 	bool CheckOperands();
 	int Prioritet(char s);
-	char* ChangeExpression(char *res);
+	void ChangeExpression(char *res);
 	bool IsOperation(char s);
 	void UnarMinus(char *res);
 	bool IsUnarMinus();
@@ -27,5 +28,6 @@ public:
 	void Input(char *res);
 	void FindVars(int *res);
 	bool AreVars();
+	int GetLen();
 };
 #endif

@@ -44,11 +44,11 @@ TStack<ValType>::TStack(int s)
  	}
  	pVector = new ValType[s];
  	Size = s;
-/* 	for (int i = 0; i < Size; i++)
+ 	for (int i = 0; i < Size; i++)
  	{
  		pVector[i] = ValType();
  	}
-*/	top = 0;
+	top = -1;
 } /*-------------------------------------------------------------------------*/
 template <class ValType>
 TStack<ValType>::TStack(const TStack<ValType> &c)
@@ -99,7 +99,7 @@ ValType TStack<ValType>::Get()
 template <class ValType>
 bool TStack<ValType> :: IsEmpty( void )
 {
-	if ( top == 0 )
+	if ( top == -1 )
 		return true;
 	else
 		return false;
@@ -108,7 +108,7 @@ bool TStack<ValType> :: IsEmpty( void )
 template <class ValType>
 bool TStack<ValType> :: IsFull(void)
 {
-	return (top == Size);
+	return (top == Size-1);
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType>

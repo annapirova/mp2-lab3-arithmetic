@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\test\test_stack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\arithmetic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\test\test_arithmetic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
