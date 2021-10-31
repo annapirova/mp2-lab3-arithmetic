@@ -1,28 +1,44 @@
 // Реализация пользовательского приложения
 #include <iostream>
-#include <fstream>
 #include <string>
 #include "arithmetic.h"
 #include "stack.h"
 using namespace std;
-
+void menu()
+{ cout<<"\n\t1. Checking the expression for correctness \n\t2. Translation of the expression into the Polish notation \n\t3. Calculation of the expression \n\t0. Enter a new expression\n\tInput:";
+}
 int main()
-{
-    setlocale(LC_ALL, "Rus");
+{ int  entry1=1, entry2=1;
+  while(entry1 != 0)
+  { cout << "CALCULATING ARITHMETIC EXPRESSIONS:" << endl << endl;
+    cout << "\tEnter the expression:\n\tInput: ";
+    Tlexeme A;
+    cin >> A; entry2=1;
+    while (entry2 != 0) 
+    { menu(); 
+      cin>>entry2;
+      system("cls"); cout << "CALCULATING ARITHMETIC EXPRESSIONS:" << endl << endl;
+      cout << "\t" << A;
+      if(entry2==0){system("cls");}
+      else
+      { if (!A.Check_correct())
+      { cout << "\t- The entered expression is incorrect.\n\tFurther calculations with it are impossible.Enter a new expression\n\n\tEnter the expression:\n\tInput: ";
+        Tlexeme A; cin >> A; 
+        system("cls"); cout << "CALCULATING ARITHMETIC EXPRESSIONS:" << endl << endl;
+        cout << "\tEnter the expression:\n\tInput: " << A; 
+      }
+        else
+        { switch (entry2)
+          { case 1: cout<<"\t- The entered expression is correct. Choose the following action\n";
+                    break;
+            case 2: A.Pol();cout<< "\tPolish notation of the expression: "<<A;
+                    break;
+            case 3: cout<<"\t- Calculation result : "<<A.Calculation()<<endl; break;
+          }
+        }
+      }
+    } 
 
-    string a;
-    ifstream fl1("1a.txt");
-    if (fl1.is_open())
-    {
-        getline(fl1, a); //Ввод строки с примером
-        cout << a<<endl<<endl;
-        Tlexeme A(a);
-        A.Divide();
-        A.Check_correct();
-        A.Pol();
-       //Проверка на корректиность
-       //Вычисление
-       //Вывод
-    }
+  }
 
 }
