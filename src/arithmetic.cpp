@@ -44,6 +44,18 @@ Tlexeme::~Tlexeme()
   delete[] priority;
 }
 //Операции
+void Tlexeme::Fill(string a)
+{ Size = a.length();
+  mLexeme = new string[Size];
+  priority = new int[Size];
+  TStack <char> S1;
+  for (int i = 0; i < Size; i++)
+  { mLexeme[i] = ' ';
+    priority[i] = -1;
+  }
+  mLexeme[0] = a;
+  Flag = -1;
+}
 void Tlexeme::Divide() //Разбить на лексемы
 { string a = mLexeme[0];
   int j=0;
@@ -172,11 +184,13 @@ int Tlexeme::Check_function()
   { if((priority[i]== 5)&&(priority[i+1] == 1)){ a = i; } 
     if((priority[i]== 5)&&(priority[i-1] == 3)){ a = i; } 
     if ((priority[i] == 5) && (priority[i - 1] == 2)) { a = i; }
+    if ((priority[i] == 5) && (i == Size-1)) { a = i; }
     i++;}
   return a;
 }
-void Tlexeme::Pol()
-{ if(Check_correct())
+void Tlexeme::Pol_1()
+{ if (!Check_correct()) { throw 1; } else{
+  if(Flag!=2)
   { int Nbrack=0;
     for (int i = 0; i < Size; i++)
   { if (priority[i] == 4) { Nbrack++; };
@@ -233,10 +247,19 @@ void Tlexeme::Pol()
     { int q = S1.Pop(); mLexeme[j] = mLexeme1[q]; priority[j] = priority1[q]; j++;}
     Size = Size - Nbrack;  
     Flag = 2;
+  }}
+}
+string Tlexeme::Pol()
+{ Pol_1();
+  if(Flag==2)
+  { string a;
+    for (int i = 0; i < Size; i++)
+    { a= a +mLexeme[i]+" ";}
+    return a;
   }
 }
-double Tlexeme::Calculation()
-{ if(Flag!=2){Pol(); }
+double Tlexeme::Calculation(int x)
+{ if(Flag!=2){Pol_1(); }
   TStack <double> S1;
   int s = Size, j=0;
   double* M1 = new double[Size];;
@@ -250,7 +273,7 @@ double Tlexeme::Calculation()
       if(f==-1)
       { double q;
         cout<<"\tEnter the value of the variable "<< mLexeme[i]<<":\n\t";
-        cin >> q; S1.Push(q); M1[j] = q; M2[j] = mLexeme[i];
+        if (x == 0) { cin >> q; }else{q=x;} S1.Push(q); M1[j] = q; M2[j] = mLexeme[i];
       }
     }
     if (priority[i]==1)

@@ -16,9 +16,10 @@ class Tlexeme
   Tlexeme(string a="0");
   ~Tlexeme();
   //Операции
+  void Fill(string a); //Загрузить новую строку
   int Check_correct(); //Проверка на корректность введения записи
-  void Pol(); //Конвертировать в польскую запись
-  double Calculation(); // Вычисление
+  string Pol(); // Вернуть польскую строку
+  double Calculation(int x=0); // Вычисление
   //Перегрузка операций ввода/вывода
   friend istream& operator>>(istream& in, Tlexeme& l)
   { in >> l.mLexeme[0];
@@ -41,6 +42,7 @@ class Tlexeme
  private:
   // Закрытые функции
   void Divide(); //Разбить на лексемы
+  void Pol_1(); //Конвертировать в польскую запись
   int Check_brack();//Проверка скобок
   int Check_sign(); //Проверка знаков операций
   int Check_point(); //Проверка точек в дробных числах

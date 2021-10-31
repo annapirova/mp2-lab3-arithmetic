@@ -23,7 +23,7 @@ int main()
       else
       { if (!A.Check_correct())
       { cout << "\t- The entered expression is incorrect.\n\tFurther calculations with it are impossible.Enter a new expression\n\n\tEnter the expression:\n\tInput: ";
-        Tlexeme A; cin >> A; 
+        string a1; cin>>a1; A.Fill(a1); 
         system("cls"); cout << "CALCULATING ARITHMETIC EXPRESSIONS:" << endl << endl;
         cout << "\tEnter the expression:\n\tInput: " << A; 
       }
@@ -31,7 +31,7 @@ int main()
         { switch (entry2)
           { case 1: cout<<"\t- The entered expression is correct. Choose the following action\n";
                     break;
-            case 2: A.Pol();cout<< "\tPolish notation of the expression: "<<A;
+            case 2: cout<< "\tPolish notation of the expression: "<< A.Pol();
                     break;
             case 3: cout<<"\t- Calculation result : "<<A.Calculation()<<endl; break;
           }
