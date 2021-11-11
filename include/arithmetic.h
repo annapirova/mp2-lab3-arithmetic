@@ -49,6 +49,4 @@ class Arithmetic
 public:
 	void launch();
 	Arithmetic(string str = "");
-	
-
 };
