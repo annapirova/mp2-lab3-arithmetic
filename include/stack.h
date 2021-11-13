@@ -35,7 +35,7 @@ public:
 
 	void Put(const T& val)
 	{
-		if (IsFull())
+		if (Hi == (MemSize - 1))
 		{
 			T* tmp = new T[++MemSize];
 			for (size_t i = 0; i < MemSize; i++)
@@ -63,11 +63,6 @@ public:
 	int IsEmpty() const
 	{
 		return Hi == -1;
-	}
-
-	int IsFull() const
-	{
-		return (Hi == (MemSize - 1));
 	}
 
 	int GetDataCount() const

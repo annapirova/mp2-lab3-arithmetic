@@ -11,6 +11,30 @@ Arithmetic::Arithmetic(string str)
 		status = 0;
 }
 
+vector<lexema> Arithmetic::get_input_lex()
+{
+	if (status == 1)
+		return inp_lex;
+	else
+		throw exception("not split");
+}
+
+vector<lexema> Arithmetic::get_polish_lex()
+{
+	if (status == 2)
+		return pol_lex;
+	else
+		throw exception("not converted");
+}
+
+double Arithmetic::get_result()
+{
+	if (status == 4)
+		return result;
+	else
+		throw exception("not calculated");
+}
+
 void Arithmetic::enter()
 {
 	do
@@ -46,7 +70,7 @@ void Arithmetic::split()
 				tmp.type = 3;
 			else if (input[i] == '-')
 			{
-				if (inp_lex.empty() || (inp_lex.back().type > -1 && inp_lex.back().type < 4))
+				if (inp_lex.empty() || (inp_lex.back().type > -1 && inp_lex.back().type < 5))
 				{
 					tmp.val = "--";
 					tmp.type = 4;
@@ -56,41 +80,29 @@ void Arithmetic::split()
 			}
 			else if (p_abc != abc.npos)
 			{
-				if (input[i] == 's' && i < input.length() - 5)
+				if (input[i] == 's' && input[i + 1] == 'i' && input[i + 2] == 'n' && input[i + 3] == '(')
 				{
-					if (input[i + 1] == 'i' && input[i + 2] == 'n' && input[i + 3] == '(')
-					{
-						tmp.type = 5;
-						tmp.val = "sin";
-						i = i + 2;
-					}
+					tmp.type = 5;
+					tmp.val = "sin";
+					i = i + 2;
 				}
-				else if (input[i] == 'c' && i < input.length() - 5)
+				else if (input[i] == 'c' && input[i + 1] == 'o' && input[i + 2] == 's' && input[i + 3] == '(')
 				{
-					if (input[i + 1] == 'o' && input[i + 2] == 's' && input[i + 3] == '(')
-					{
-						tmp.type = 5;
-						tmp.val = "cos";
-						i = i + 2;
-					}
+					tmp.type = 5;
+					tmp.val = "cos";
+					i = i + 2;
 				}
-				else if (input[i] == 'e' && i < input.length() - 5)
+				else if (input[i] == 'e' && input[i + 1] == 'x' && input[i + 2] == 'p' && input[i + 3] == '(')
 				{
-					if (input[i + 1] == 'x' && input[i + 2] == 'p' && input[i + 3] == '(')
-					{
-						tmp.type = 5;
-						tmp.val = "exp";
-						i = i + 2;
-					}
+					tmp.type = 5;
+					tmp.val = "exp";
+					i = i + 2;
 				}
-				else if (input[i] == 'l' && i < input.length() - 4)
+				else if (input[i] == 'l' && input[i + 1] == 'n' && input[i + 2] == '(')
 				{
-					if (input[i + 1] == 'n' && input[i + 2] == '(')
-					{
-						tmp.type = 5;
-						tmp.val = "ln";
-						i = i + 1;
-					}
+					tmp.type = 5;
+					tmp.val = "ln";
+					i = i + 1;
 				}
 				else
 				{
@@ -130,17 +142,22 @@ void Arithmetic::split()
 	status = 1;
 }
 
-int Arithmetic::check_bkt()
+bool Arithmetic::check_bkt()
 {
-	int k = 0;
+	Stack<char> T;
 	for (size_t i = 0; i < inp_lex.size(); i++)
 	{
 		if (inp_lex[i].type == 0)
-			k++;
+			T.Put('(');
 		if (inp_lex[i].type == -1)
-			k--;
+		{
+			if (T.IsEmpty())
+				return false;
+			else
+				T.Get();
+		}
 	}
-	return k;
+	return T.IsEmpty();
 }
 
 vector<int> Arithmetic::check_symbols()
@@ -156,19 +173,71 @@ vector<int> Arithmetic::check_symbols()
 	return err;
 }
 
+bool Arithmetic::check_points()
+{
+	for (size_t i = 0; i < inp_lex.size(); i++)
+	{
+		if (inp_lex[i].type == -3)
+		{
+			size_t p = inp_lex[i].val.find_first_of('.');
+			p = inp_lex[i].val.find_first_of('.', p + 1);
+			if (p != inp_lex[i].val.npos)
+				return false;
+		}
+	}
+	return true;
+}
+
+bool Arithmetic::check_operations()
+{
+	if (inp_lex[0].type > 0 && inp_lex[0].type < 4)
+	{
+		return false;
+	}
+	if (inp_lex.back().type > 0 && inp_lex.back().type < 4)
+	{
+		return false;
+	}
+
+	for (size_t i = 0; i < inp_lex.size(); i++)
+	{
+		if ((inp_lex[i].type > 0 && inp_lex[i].type < 4) && (inp_lex[i + 1].type > 0 && inp_lex[i + 1].type < 4))
+		{
+			return false;
+		}
+		if (inp_lex[i].type == 4 && inp_lex[i + 1].type == 4)
+		{
+			return false;
+		}
+		if (i != inp_lex.size() - 1)
+			if (inp_lex[i].type == -1 && (inp_lex[i + 1].type == -3 || inp_lex[i + 1].type == -2 || inp_lex[i + 1].type == 0 || inp_lex[i + 1].type == 5))
+			{
+				return false;
+			}
+	}
+	return true;
+}
+
 bool Arithmetic::isCorrect()
 {
 	bool F = true;
-	int tmp = check_bkt();
-	if (tmp > 0)
+
+	if (!check_points())
 	{
+		cout << "Input error: extra point in number" << endl;
 		F = false;
-		cout << "Input error: missing " << tmp << "closing brackets!\n";
 	}
-	else if (tmp < 0)
+
+	if (!check_bkt())
 	{
+		cout << "Input error: brackets" << endl;
 		F = false;
-		cout << "Input error: missing " << -tmp << "opening brackets!\n";
+	}
+
+	if (!check_operations())
+	{
+		cout << "Input error: operations" << endl;
+		F = false;
 	}
 
 	vector<int> err = check_symbols();

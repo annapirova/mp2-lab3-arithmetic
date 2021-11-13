@@ -19,13 +19,19 @@ struct lexema
 	}
 	lexema(string s, int t = -100)
 	{
+		x = 0.0;
 		val = s;
 		type = t;
 	}
 	lexema(char s, int t = -100)
 	{
+		x = 0.0;
 		val = s;
 		type = t;
+	}
+	int operator==(const lexema& l)
+	{
+		return ((val == l.val) && (type == l.type));
 	}
 };
 
@@ -37,16 +43,20 @@ class Arithmetic
 	vector<lexema> pol_lex;
 	int status;
 
+public:
 	void enter();
 	void split();
-	int check_bkt();
+	bool check_bkt();
 	vector<int> check_symbols();
+	bool check_points();
+	bool check_operations();
 	bool isCorrect();
 	void converter();
 	void set_values();
 	void calculate();
-
-public:
 	void launch();
 	Arithmetic(string str = "");
+	vector<lexema> get_input_lex();
+	vector<lexema> get_polish_lex();
+	double get_result();
 };

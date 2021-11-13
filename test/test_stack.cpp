@@ -26,7 +26,7 @@ TEST(Stack, can_put_and_view)
 	EXPECT_EQ(1, T.View());
 }
 
-TEST(Stack, get_delete_element)
+TEST(Stack, get_deletes_element)
 {
 	Stack<int> T(5);
 	T.Put(1);
