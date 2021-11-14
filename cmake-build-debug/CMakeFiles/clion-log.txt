@@ -1,0 +1,4 @@
+/root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5080.54/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /root/mp2-labs/mp2-lab3-arithmetic
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/mp2-labs/mp2-lab3-arithmetic/cmake-build-debug
