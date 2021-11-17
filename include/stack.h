@@ -1,7 +1,6 @@
 #ifndef STACK_H
 #define STACK_H
 
-const int MAX_STACK_SIZE = 1000;
 
 #include <iostream>
 using namespace std;
@@ -15,7 +14,8 @@ private:
     int TopIndex;              //индекс вершины стека
 
 public:
-    Stack(int s);               //конструктор +
+    //Stack() {};
+    Stack(int s = 10);               //конструктор +
     Stack(const Stack<T>& st);  //конструктор копирования +
     ~Stack();                   //деструктор +
 
@@ -23,7 +23,6 @@ public:
     T Pop();                    //извлечение элементы +
     T Peek();                   //просмотр верхнего элемента (без удаления) + 
     bool IsEmpty();             //проверка на пустоту, +
-    bool IsFull();              //проверка на полноту +
     int GetSize();              //получение количества элементов в стеке +
     void Clear();               //очистка элементов +
 };
@@ -31,23 +30,18 @@ public:
 template<class T>
 Stack<T>::Stack(int s)
 {
-    if ((s >= 0) && (s <= MAX_STACK_SIZE))
-    {
         Size = s;
         TopIndex = -1;
         pStack = new T[Size];
-    }
-    else
-        throw false;
 }
 
 template<class T>
 Stack<T>::Stack(const Stack<T>& st)
 {
     Size = st.Size;
-    TopIndex = st.TopIndex;
+    //TopIndex = st.TopIndex;
     pStack = new T[Size];
-    for (int i = 0; i < Size; i++)
+    for (int i = 0; i < TopIndex+1; i++)
         pStack[i] = st.pStack[i];
 }
 
@@ -60,11 +54,15 @@ Stack<T>::~Stack()
 template<class T>
 void Stack<T>::Push(const T st)
 {
-    if (IsFull())
-        throw "stack is full";
-    else
-    {
-        TopIndex++;
+    if (TopIndex + 1 < Size)
+        pStack[++TopIndex] = st;
+    else {
+        Stack <T> Copy(*this);
+        delete[] pStack;
+        Size = Size * 2;
+        pStack = new  T[Size];
+        for (int i = 0; i <= TopIndex; i++)
+            pStack[i] = Copy.pStack[i];
         pStack[TopIndex] = st;
     }
 }
@@ -72,13 +70,8 @@ void Stack<T>::Push(const T st)
 template<class T>
 T Stack<T>::Pop()
 {
-    if (IsEmpty())
-    {
-        TopIndex--;
-        return pStack[TopIndex + 1];
-    }
-    else
-        throw "Error";
+    if (TopIndex != -1)
+        return pStack[TopIndex--];
 }
 
 template<class T>
@@ -93,15 +86,10 @@ T Stack<T>::Peek()
 template<class T>
 bool Stack<T>::IsEmpty()
 {
-    if (TopIndex < 0)
-        return TopIndex;
-}
-
-template<class T>
-bool Stack<T>::IsFull()
-{
-    if (TopIndex == Size)
-        return Size;
+    if (TopIndex == -1) 
+        return 1; 
+    else 
+        return 0;
 }
 
 template<class T>
