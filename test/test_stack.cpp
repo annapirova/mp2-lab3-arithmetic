@@ -22,12 +22,6 @@ TEST(Stack, stack_is_empty)
     EXPECT_TRUE(T.IsEmpty());
 }
 
-TEST(Stack, stack_is_full)
-{
-    Stack<int> T(3);
-    EXPECT_TRUE(T.IsFull());
-}
-
 TEST(Stack, can_push_element_in_stack)
 {
     Stack<int> T(3);
