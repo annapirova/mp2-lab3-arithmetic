@@ -71,11 +71,11 @@ public:
 
 	template <typename T>
 	bool Stack<T>::isNotFull() { // проверка на пустоту
-		if (size == NULL) {
-			return true
+		if (size !=0) {
+			return false;
 		}
 		else {
-			return false;
+			return true;
 		}
 	}
 
@@ -110,8 +110,6 @@ public:
     void Stack<T>::clear(const T& v)
 	{
 		size = 0;
-		delete[]st;
-		st = new T[capasity];
 	}
 
 	template <typename T>
