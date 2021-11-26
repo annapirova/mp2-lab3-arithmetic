@@ -50,7 +50,7 @@ void Arithmetic::split()
 	for (size_t i = 0; i < input.length(); i++)
 	{
 		string abc = "abcdefghijklmnopqrstuvwxyz";
-		string num = ".,0123456789";
+		string num = ".0123456789";
 		size_t p_abc = abc.find(input[i]);
 		size_t p_num = num.find(input[i]);
 

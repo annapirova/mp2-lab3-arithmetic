@@ -46,7 +46,7 @@ public:
 		pMem[++Hi] = val;
 	}
 
-	T Get()
+	T& Get()
 	{
 		if (IsEmpty())
 			throw std::exception("Stack is empty!");
