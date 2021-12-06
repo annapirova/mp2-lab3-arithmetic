@@ -1,154 +1,234 @@
-#include "arithmetic.h"
 #include "stack.h"
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+#include "arithmetic.h"
+
 using namespace std;
 
-void Arithmetic::divided_lex()
+bool Arithmetic::CheckBrackets(char* s)
 {
-    //s = Lex_in[0];
-    int j = 0;
-    //int type;
-    for (int i = 0; i < size; i++)
-    { //операции
-        if ((s[i] == '+') || (s[i] == '-') || (s[i] == '*') || (s[i] == '/'))
-        { Lex_in[j] = s[i];  type = 3; j++; }
-        else // скобки
+    Stack<char> T(100);
+    int lex = strlen(s);
+    for (int i = 0; i < lex; i++)
+    {
+        if (s[i] == '(')
+            T.Push(i);
+        if (s[i] == ')')
         {
-            if ((s[i] == '(') || (s[i] == ')'))
-            { Lex_in[j] = s[i];  type = 1; j++; }
-            else //переменные
+            if (T.IsEmpty() == true)
+                cout << "error. brackets are wrong.";
+            else
+                T.Pop();
+        }
+    }
+    if (T.IsEmpty() != true) 
+      cout << "error. brackets are wrong";
+    else
+        return false;
+}
+
+bool Arithmetic::CheckOperations_StandTogether(char* s)
+{
+    char operations[] = "+-/*";
+    int lex = strlen(s);
+
+    for (int i = 0; i < lex; i++ )
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if ((s[i] == operations[j]) && (s[i + 1] == operations[j]))
             {
-                if (((s[i] >= 'a') && (s[i] <= 'z')) || ((s[i] >= 'A') && (s[i] <= 'Z')))
-                { Lex_in[j] = s[i]; type = 4; j++; }
-                else //числа
-                {
-                    if ((s[i] >= '0') && (s[i] <= '9'))
-                    { Lex_in[j] = s[i]; type = 2; j++; }
-                }
+                cout << "error.two operations stand together" << endl;
+                break;
+                return false;
+            }
+        }
+    }   
+}
+
+bool Arithmetic::CheckOperations_StartsWithOP(char* s)
+{
+    char operations[] = "+-/*";
+    int lex = strlen(s);
+
+    for (int i = 0; i < lex; i++)
+    {
+        if (s[0] == operations[i])
+        {
+            cout << "error. starts with operation" << endl;
+            break;
+            return false;
+        }
+    }
+}
+
+bool Arithmetic::CheckOperations_UnknownSymbols(char* s)
+{
+    char operations[] = "+-/*";
+    char operand[] = "abcdefghijklmnopqrstuvwxyz";
+    char digit[] = "0123456789";
+    int lex = strlen(s);
+
+    for (int i = 0; i < lex; i++)
+    {
+        for (int j = 0; j < lex; j++)
+        {
+            if ((s[i] != operations[j]) || (s[i] != operand[j]) || (s[i] != digit[j]))
+            {
+                cout << "error. unknown symbol" << endl;
+                break;
+                return false;
             }
         }
     }
 }
 
-bool Arithmetic::check_brackets()
+void Arithmetic::Lexems()
 {
-    Stack<char> T(100);
-    for (int i = 0; i < size; i++)
+   // char lex[100];
+    int j = 0;
+   // int lex = strlen(s);
+
+    //while (i < lex)
     {
-        if (s[i] == '(') 
-            T.Push(s[i]); 
-        if (s[i] == ')') 
+        for (int i = 0; i < s.size(); i++)
         {
-            if (T.IsEmpty() == true)
-                throw "error"; 
-            else 
-                T.Pop();
-        }
-    }
-    if (T.IsEmpty() != true) {return true;}   
-    else 
-        return false;
-}
-
-//int Arithmetic::check_formula()
-//{
-//
-//    for (int i = 0; i < s.size(); i++)
-//    {
-//        if ((is_operations(s[i]) == 3) && (is_operations(s[i]) == 3))
-//        {
-//            return false;
-//        }
-//        return true;
-//    }
-//}
-
-int Arithmetic::prioritet(string s)
-{
-    if (s == "(") { return 0; }
-    if ((s == "+") || (s == "-")) return 1;
-    if ((s == "*") || (s == "/")) return 2;
-}
-
-void Arithmetic::polsk_zap()
-{
-    int j;
-    string* result = 0;
-    Stack<char> res;
-    //int j;
-    for (int i = 0; i < size; i++)
-    {
-        if ((type == 2) || (type == 4))
-        {
-            result[j] = Lex_in[i]; j++;
-        }
-        if (type == 1)
-        {
-            if (res.IsEmpty()) { res.Push(s[i]); }
-            else
+            //for (int j = 0; j < lex; j++)
             {
-                if (prioritet(Lex_in[i]) > prioritet(Lex_in[res.Peek()]))
+                if ((s[i] == '+') || (s[i] == '-') || (s[i] == '*') || (s[i] == '/'))
                 {
-                    result[j] = Lex_in[i]; j++;
+                    lex[j] = s[i];
+                    j++;
                 }
                 else
                 {
-                    while (prioritet(Lex_in[i]) <= prioritet(Lex_in[res.Peek()]))
+                    if ((s[i] == '(') || (s[i] == ')'))
                     {
-                        res.Pop();
-                        result[j] = Lex_in[res.Pop()]; j++;
-                        res.Push(i);
+                        lex[j] = s[i];
+                        j++;
+                    }
+                    else
+                    {
+                        if (((s[i] >= 'a') && (s[i] <= 'z')) || ((s[i] >= 'A') && (s[i] <= 'Z')))
+                        {
+                            lex[j] = s[i];
+                            j++;
+                        }
+                        else
+                        {
+                            if ((s[i] >= '0') && (s[i] <= '9'))
+                            {
+                                lex[j] = std::stoll(s);
+                                j++;
+                            }
+                        }
                     }
                 }
             }
         }
-        if (Lex_in[i] == "(")
-            res.Push(i);
-        if (Lex_in[i] == ")")
-        {
-            while (Lex_in[i] >= "(")
-            {
-                res.Pop();
-                result[j] = Lex_in[res.Pop()]; j++;
-            }
-        } 
-    } 
-    while (!res.IsEmpty())
-    {
-        res.Pop();
-        result[j] = Lex_in[res.Pop()]; j++;
     }
-    for (int i = 0; i < size; i++)
-        polish += result[j];
+
+
 }
 
-bool Arithmetic::calculating()
+int Arithmetic::Prioritet(char s)
 {
-    Stack<char> result;
-    int* value = 0;
-    int a, b;
-    for (int i = 0; i < size; i++)
+    if (s == '(') { return 0; }
+    if ((s == '+') || (s == '-')) { return 1; }
+    if ((s == '*') || (s == '/')) { return 2; }
+}
+
+void Arithmetic::PolishZap()
+{
+    int j;
+    Stack<char> st(100);
+
+    //int lex = strlen(s);
+    
+    for (int i = 0; i < s.size(); i++)
     {
-        if (type == 2)
+        if ((((lex[i] >= 'a') && (lex[i] <= 'z')) || ((lex[i] >= 'A') && (lex[i] <= 'Z'))) || ((lex[i] >= '0') && (lex[i] <= '9')))
         {
-            result.Push(polish[i]);
+            r[j] = lex[i];
+            j++;
         }
-        if (type == 4)
+
+        if ((lex[i] == '(') || (lex[i] == ')'))
         {
-            cout << "¬ведите " << polish[i] << ": ";
-            cin >> value[polish[i]];
-            result.Push(value[polish[i]]);
+            if (st.IsEmpty())
+                st.Push(lex[i]);
+            else
+            {
+                if (Prioritet(lex[i]) > Prioritet(lex[st.Peek()]))
+                {
+                    r[j] = lex[i]; 
+                    j++;
+                }
+                else
+                {
+                    while (Prioritet(lex[i]) <= Prioritet(lex[st.Peek()]))
+                    {
+                        r[j] = lex[st.Pop()]; 
+                        j++;
+                        st.Push(lex[i]);
+                    }
+                }
+            }
         }
-        if (type == 2) 
+
+        if (lex[i] == '(')
+            st.Push(lex[i]);
+        if (lex[i] == ')')
         {
-            a = result.Pop();
-            b = result.Pop();
-            if (Lex_in[i] == "+") { result.Push(a + b); }
-            if (Lex_in[i] == "-") { result.Push(a - b); }
-            if (Lex_in[i] == "*") { result.Push(a * b); }
-            if (Lex_in[i] == "/") { result.Push(a / b); }
+            while (lex[i] != '(')
+            {
+                r[j] = st.Pop(); 
+                j++;
+            }
+        }
+
+
+    } 
+    while (st.IsEmpty() != true)
+    {
+        r[j] = st.Pop();
+        j++;
+    }
+
+    for (j = 0; j < r.size(); j++)
+        cout << r[j];
+
+}
+
+double Arithmetic::Calculating()
+{
+    Stack<char> st(100);
+    double a, b, res;
+    //int lex = strlen(r);
+
+    for (int i = 0; i < r.size(); i++)
+    {
+        if ((r[i] >= '0') && (r[i] <= '9'))
+            st.Push(r[i]);
+        if (((r[i] >= 'a') && (r[i] <= 'z')) || ((r[i] >= 'A') && (r[i] <= 'Z')))
+        {
+            cout << "enter the value" << r[i];
+            cin >> r[i];
+            st.Push(r[i]);
+        }
+        if ((r[i] == '+') || (r[i] == '-') || (r[i] == '*') || (r[i] == '/'))
+        {
+            a = st.Pop();
+            b = st.Pop();
+            if (r[i] == '+') { st.Push(a + b); }
+            if (r[i] == '-') { st.Push(a - b); }
+            if (r[i] == '*') { st.Push(a * b); }
+            if (r[i] == '/') { st.Push(a / b); }
         }
     }
-    int resultat = result.Pop();
-    return resultat;
+    res = st.Pop();
+    return res;
 }
+
 
