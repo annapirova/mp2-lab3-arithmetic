@@ -1,27 +1,38 @@
 #ifndef _ARITHMETIC_H_
 #define _ARITHMETIC_H_
+
 #include "stack.h"
+#include <iostream>
 #include <string>
+
+using namespace std;
+
 
 class Arithmetic
 {
 private:
-    
-public:
     string s;
-    string* Lex_in;
-    string polish;
-    int type;
-    Stack<char> res;
-    Stack<char> operation;
+    string lex;
+    string r;
     int size;
+public:
 
-    void divided_lex();
-    bool check_brackets();
-    //int check_formula();
-    int prioritet(string s);
-    void polsk_zap();
-    bool calculating();
+    
+
+    bool CheckBrackets(char* s);  //+
+    bool CheckOperations_StandTogether(char* s); //+
+    bool CheckOperations_StartsWithOP(char* s); //+
+    bool CheckOperations_UnknownSymbols(char* s); //+
+
+    void string1()
+    {
+        string s;
+        cout << "Enter an expression:\n";
+        getline(cin, s);
+    }
+    void Lexems(); //+
+    int Prioritet(char s); //+
+    void PolishZap(); //+
+    double Calculating();  //+
 };
-
-#endif
+#endif // !_ARITHMETIC_H_
