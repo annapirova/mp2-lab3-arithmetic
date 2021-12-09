@@ -1,38 +1,46 @@
-#ifndef _ARITHMETIC_H_
-#define _ARITHMETIC_H_
+// объявление функций и классов для вычисления арифметических выражений
 
-#include "stack.h"
 #include <iostream>
-#include <string>
+#include "stack.h"
 
 using namespace std;
 
-
-class Arithmetic
+struct Lexem
 {
-private:
-    string s;
-    string lex;
-    string r;
-    int size;
-public:
+	char str[10];		// массив char под лексемы
+	int type;               //// тип лексем
+	double Lex;			// значение лексемы
+	int Pr;				// приоритет лексемы
 
-    
+	Lexem() {}	// пустой конструктор 
+	Lexem(char* s, int k);	// конструктор 
 
-    bool CheckBrackets(char* s);  //+
-    bool CheckOperations_StandTogether(char* s); //+
-    bool CheckOperations_StartsWithOP(char* s); //+
-    bool CheckOperations_UnknownSymbols(char* s); //+
-
-    void string1()
-    {
-        string s;
-        cout << "Enter an expression:\n";
-        getline(cin, s);
-    }
-    void Lexems(); //+
-    int Prioritet(char s); //+
-    void PolishZap(); //+
-    double Calculating();  //+
+	Lexem(const Lexem& l);		// конструктор копирования
+	Lexem operator=(const Lexem& l);	// перегрузка оператора =
+	void SetLex();	// функция установки значения переменной
 };
-#endif // !_ARITHMETIC_H_
+
+class arithmetic
+{
+	Lexem* pLexem;		// массив лексем
+	int Size;			// размер массива
+	int nLexems;		// количество лексем в массиве
+
+public:
+	arithmetic() {};		// пустой конструткор
+	arithmetic(char* s);	// конструктор
+	arithmetic(const arithmetic& a);		// конструктор копирования
+	~arithmetic();		// деструктор
+
+	int GetNLexems() { return nLexems; };		// возвращает количество лексем
+	arithmetic PolishEntry();		// приведение к польской записи
+	double CalculatePolishEntry();		// вычисление по польской записи
+	arithmetic& operator +=(const Lexem a);			// перегрузка оператора +=
+	arithmetic& operator =(const arithmetic& a);		// перегрузка оператора =
+	char GetCharLexem(int n);		// возвращает поля char для лексемы
+
+	bool CheckBracket();	// проверка скобок
+	bool CheckLetters();	// проверка переменых
+	bool CheckOperator();	// проверка операторов
+	bool CheckPoint();		// проверка точек
+};
