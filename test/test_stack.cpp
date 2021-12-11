@@ -1,74 +1,135 @@
 #include "pch.h"
-#include "../arithmetic1/stack.h"
+#include "../arithmetic/stack.h"
 
-TEST(Stack, can_create_stack_with_positive_length)
+TEST(TStack, can_create_stack_with_positive_lenght)
 {
-    ASSERT_NO_THROW(Stack<int> T(3));
+	ASSERT_NO_THROW(TStack<int> st(5));
 }
 
-TEST(Stack, throws_when_create_stack_with_negative_length)
+TEST(TStack, can_create_too_large_stack)
 {
-    ASSERT_ANY_THROW(Stack<int> T(-3));
+	ASSERT_ANY_THROW(TStack<int> st(MAX_STACK_SIZE + 1));
 }
 
-TEST(Stack, can_create_stack_with_too_large_length)
+TEST(TStack, throws_when_create_stack_with_negative_length)
 {
-    ASSERT_NO_THROW(Stack<int>, T(MAX_STACK_SIZE));
+	ASSERT_ANY_THROW(TStack<int> st(-5));
 }
 
-TEST(Stack, can_create_copied_stack)
+TEST(TStack, can_create_copied_stack)
 {
-    Stack<int> st(3);
-    ASSERT_NO_THROW(Stack<int> st1(st));
+	TStack<int> st(10);
+
+	ASSERT_NO_THROW(TStack<int> st1(st));
 }
 
-TEST(Stack, stack_is_empty)
+TEST(TStack, can_not_delete_if_stack_is_empty)
 {
-    Stack<int> st(3);
-    EXPECT_EQ(true, st.IsEmpty());
+	TStack<int> st(1);
+	st.Push(1);
+	st.Pop();
+	st.IsEmpty();
+
+	ASSERT_ANY_THROW(st.Pop());
 }
 
-TEST(Stack, stack_is_not_empty)
+TEST(TStack, can_not_see_the_top_element_if_stack_is_empty)
 {
-    Stack<int> st(3);
-    st.Push(1);
-    EXPECT_EQ(false, st.IsEmpty());
+	TStack<int> st(1);
+	st.Push(1);
+	st.Pop();
+
+	ASSERT_ANY_THROW(st.Top());
 }
 
-TEST(Stack, can_push_element_in_stack)
+TEST(TStack, copied_stack_is_equal_to_source_one)
 {
-    Stack<int> T(3);
-    ASSERT_NO_THROW(Stack<int>, T.Push());
+	TStack<int> st1(4);
+	for (int i = 0; i < 4; i++)
+		st1.Push(i);
+	TStack<int> st2(st1);
+	EXPECT_EQ(st1, st2);
 }
 
-TEST(Stack, can_see_top_element)
+TEST(TStack, can_get_size)
 {
-    Stack<int> st(3);
-    st.Push(1);
-    EXPECT_EQ(1, st.Peek());
-    //ASSERT_NO_THROW(Stack<int>, T.Peek());
+	TStack<int> st(4);
+	for (int i = 0; i < 4; i++)
+		st.Push(i);
+
+	EXPECT_EQ(4, st.GetSize());
 }
 
-TEST(Stack, can_clear)
+TEST(TStack, can_push_elem1)
 {
-    Stack<int> st(3);
-    st.Push(1);
-    st.Clear();
-    EXPECT_TRUE(st.IsEmpty());
+	TStack<int> st(3);
+	st.Push(1);
+	st.Push(2);
+	st.Push(3);
+	st.Push(4);
+
+	EXPECT_EQ(4, st.Top());
 }
 
-TEST(Stack, can_get_the_size_of_stack)
+TEST(TStack, can_push_elem2)
 {
-    Stack<int> T(3);
-    EXPECT_EQ(3, T.GetSize());
-    //ASSERT_NO_THROW(Stack<int>, T.GetSize());
-}
-TEST(Stack, can_delete_element_from_stack)
-{
-    Stack<int> st(3);
-    st.Push(1);
-    st.Push(2);
-    st.Push(3);
-    ASSERT_NO_THROW(3, st.Pop());
+	TStack<int> st(4);
+	st.Push(1);
+	st.Push(2);
+	st.Push(3);
+	st.Push(4);
+
+	EXPECT_EQ(4, st.Top());
 }
 
+TEST(TStack, can_pop_elem)
+{
+	TStack<int> st(2);
+	st.Push(1);
+	st.Push(2);
+	st.Pop();
+
+	EXPECT_EQ(1, st.Top());
+}
+
+TEST(TStack, can_check_for_emptiness)
+{
+	TStack<int> st(2);
+	st.Push(1);
+	st.Push(2);
+
+	EXPECT_NE(true, st.IsEmpty());
+}
+
+TEST(TStack, can_compare_stacks_of_different_sizes1)
+{
+	TStack<int> st1(2), st2(2);
+	st1.Push(1);
+	st1.Push(2);
+	st2.Push(1);
+	st2.Push(2);
+
+	EXPECT_EQ(true, st1 == st2);
+}
+
+TEST(TStack, can_return_the_number_of_elements)
+{
+	TStack<int> st(4);
+	st.Push(1);
+	st.Push(3);
+	st.Push(1);
+	st.Push(2);
+	st.Clean();
+
+	EXPECT_EQ(true, st.IsEmpty());
+}
+
+TEST(TStack, can_equate_equal_stacks)
+{
+	TStack<int> st1(2);
+	st1.Push(1);
+	st1.Push(2);
+
+	st1 = st1;
+	EXPECT_EQ(st1, st1);
+}
