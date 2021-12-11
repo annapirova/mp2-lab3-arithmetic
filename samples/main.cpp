@@ -1,43 +1,22 @@
-#include "arithmetic.h"
-#include <cstring>
-#include <string>
-
 // реализаци€ пользовательского приложени€
+#include "arithmetic.h"
 
 int main()
 {
-	int i = 1;
-	while (i == 1)
-	{
-		char* s2;
-		s2 = (char*)malloc(sizeof(char) * 100);
-		cout << "Welcome to the program!" << endl;
-		cout << "Enter the arithmetic expression: ";
-		std::cin.getline(s2, 100);
-		cout << endl;
-		arithmetic A(s2);
-		while ((A.CheckBracket() == 0) || (A.CheckOperator() == 0) || (A.CheckLetters() == 0) || (A.CheckPoint() == 0))
-		{
-			cout << endl;
-			cout << "Enter an expression again: ";
-			std::cin.getline(s2, 100);
-			cout << endl;
-			arithmetic B(s2);
-			A = B;
-		}
-		A = A.PolishEntry();
-		double res = 0.0;
-		res = A.CalculatePolishEntry();
-		cout << "Calculation result: " << res << endl;
-		cout << endl;
-		cout << "Do you want to enter an expression again? " << endl;
-		cout << "1. Yes" << endl;
-		cout << "2. No" << endl;
-		//cout << "Your choice: ";
-		cin >> i;
-		cout << endl;
-		delete[] s2;
-	}
+	bool f = 1;
+	cout << "________________________________________Calculation of arithmetical expression.________________________________________________" << endl;
+	cout << "The expression can consist only integer operands. Also it can be positive or negative. Operations you can use: +, -, *, / and ^" << endl;
 
-	cin.get();
+	while (f == 1)
+	{
+		string s;
+		cout << "Enter your expression: ";
+		cin >> s;
+		Arithmetic A(s);
+		double res;
+		res = A.Calcul();
+		cout << res << endl;
+		cout << "If you want to continue press 1" << endl;
+		cin >> f;
+	}
 }
