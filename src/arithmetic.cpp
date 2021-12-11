@@ -1,517 +1,317 @@
-﻿#include "arithmetic.h"
+#include "arithmetic.h"
 
-Lexem::Lexem(char* s, int k)
+/*-----------------------------struct Lexem---------------------------- - */
+Lexem::Lexem(string& c1, LexType t1)
 {
-	strncpy_s(str, s, k);
-	str[k] = '\0';
-
-	if (k == 1)
-	{
-		if (isalpha(str[0]))
-			type = 4;
-
-		else
-			if (isdigit(str[0]))
-			{
-				type = 2;
-				Lex = atof(str);
-			}
-			else
-			{
-				switch (str[0])
-				{
-				case '(': type = 0;
-					Pr = 0;
-					break;
-				case ')': type = 1;
-					break;
-				case '+': type = 3;
-					Pr = 1;
-					break;
-				case '-': type = 3;
-					Pr = 1;
-					break;
-				case '*': type = 3;
-					Pr = 2;
-					break;
-				case '/': type = 3;
-					Pr = 2;
-					break;
-				default: type = -1;
-					break;
-				}
-			}
-	}
-	else if (k != 1)
-	{
-		type = 2;
-		Lex = atof(str);
-	}
+	c = c1;
+	t = t1;
 }
 
-Lexem::Lexem(const Lexem& l)
+Lexem::Lexem(const Lexem& c1)
 {
-	strcpy_s(str, l.str);
-
-	type = l.type;
-	Lex = l.Lex;
-	Pr = l.Pr;
+	c = c1.c;
+	t = c1.t;
 }
 
-Lexem Lexem::operator=(const Lexem& l)
+Lexem& Lexem::operator=(const Lexem& c1)
 {
-	strcpy_s(str, l.str);
-
-	type = l.type;
-	Lex = l.Lex;
-	Pr = l.Pr;
-
+	c = c1.c;
+	t = c1.t;
 	return *this;
 }
 
-void Lexem::SetLex()
+bool Lexem::operator==(const Lexem& c1) const
 {
-	cout << "Enter the value of" << str[0] << " : ";
-	cin >> Lex;
-	cout << endl;
+	if ((c1.c == c) && (c1.t == t))
+		return true;
+	else
+		return false;
 }
 
-arithmetic::arithmetic(char* s)
+bool Lexem::operator!=(const Lexem& c1) const
 {
-	Size = strlen(s);
-	int k = 0; 
-	pLexem = new Lexem[Size];
-	for (int i = 0; i < Size; i++)
+	return !(*this == c1);
+}
+/*------------------------------------------------------------------------*/
+/*---------------------------class Arithmetic-----------------------------*/
+Arithmetic::Arithmetic(const string& inputstr1)
+{
+	inputstr = inputstr1;
+	lexems = new Lexem[inputstr.length()];
+	nLex = 0;
+	divide();
+}
+
+Arithmetic::~Arithmetic()
+{
+	delete[] lexems;
+}
+
+Arithmetic& Arithmetic::operator=(const Arithmetic& inputstr2)
+{
+	inputstr = inputstr2.inputstr;
+	nLex = inputstr2.nLex;
+	delete[] lexems;
+	lexems = new Lexem[nLex];
+	for (int i = 0; i < nLex; i++)
+		lexems[i] = inputstr2.lexems[i];
+	return *this;
+}
+
+bool Arithmetic::operator==(const Arithmetic& inputstr2) const
+{
+	if ((inputstr == inputstr2.inputstr) && (nLex == inputstr2.nLex))
+		return true;
+	else
+		return false;
+}
+
+bool Arithmetic::checkBrackets()
+{
+
+	int len = inputstr.length();
+	bool res = true;
+	TStack<int> st(len);
+	for (int i = 0; i < len; i++)
 	{
-		if (isdigit(s[i]))
+		if (inputstr[i] == '(')
 		{
-			int j = i; 
-			while (isdigit(s[j]) || (s[j] == ','))
+			st.Push(i + 1);
+		}
+		else
+		{
+			if (inputstr[i] == ')')
 			{
-				if (s[j] != '/0')
+				if (!(st.IsEmpty()))
+					st.Pop();
+				else
+					res = false;
+			}
+		}
+	}
+	return res;
+}
+
+bool Arithmetic::checkSymbols()
+{
+	for (int i = 0; i < nLex; i++)
+	{
+		if (lexems[i].t == UNKNOWN)
+		{
+			cout << "Nedopustimue symvolu" << endl;
+			cout << ' ' << lexems[i].c << endl;
+			return false;
+		}
+		else
+			if (lexems[i].t == VALUE)
+			{
+				int k = 0;
+				for (int j = 0; j < lexems[i].c.length(); j++)
+					if (lexems[i].c[i] == '.')
+						k++;
+				if (k > 1 || lexems[i].c[0] == '.' || lexems[i].c[lexems[i].c.length() - 1] == '.')
+				{
+					cout << "Nedopustimue symvolu" << endl;
+					cout << ' ' << lexems[i].c << endl;
+					return false;
+				}
+			}
+	}
+	return true;
+}
+bool Arithmetic::checkFormula()
+{
+	int pos = -1;
+
+	if (!(lexems[0].t == VALUE || lexems[0].t == LEFT_BRACKET || lexems[0].c[0] == '-' || lexems[0].t == RIGHT_BRACKET))
+	{
+		return false;
+	}
+
+	if (lexems[inputstr.length() - 1].t == OPERATION)
+	{
+		cout << "error" << endl;
+		return false;
+	}
+
+	for (int i = 0; i < nLex - 1; i++)
+	{
+		pos += lexems[i].c.length();
+
+		if ((lexems[i].t == RIGHT_BRACKET || lexems[i].t == VALUE) && (lexems[i + 1].t == LEFT_BRACKET || lexems[i + 1].t == VALUE))
+		{
+			cout << "error" << endl;
+			return false;
+		}
+
+		if (lexems[i].t == LEFT_BRACKET && ((lexems[i + 1].t == OPERATION || lexems[i + 1].c[0] == '-') || lexems[i + 1].t == RIGHT_BRACKET))
+		{
+			cout << "error" << endl;
+			return false;
+		}
+		if (lexems[i].t == OPERATION && (lexems[i + 1].t == OPERATION || lexems[i + 1].t == RIGHT_BRACKET))
+		{
+			cout << "error" << endl;
+			return false;
+		}
+	}
+	return true;
+}
+void Arithmetic::divide()
+{
+	for (int i = 0; i < inputstr.length(); i++)
+	{
+		char c1 = inputstr[i];
+		const string oper = "+-*/^()";
+		int pos = oper.find(c1);
+		if (pos != string::npos)
+		{
+			if (pos < 5)
+				lexems[nLex].t = OPERATION;
+			else
+				if (pos == 5)
+					lexems[nLex].t = LEFT_BRACKET;
+				else
+					if (pos == 6)
+						lexems[nLex].t = RIGHT_BRACKET;
+			lexems[nLex].c = c1;
+			nLex++;
+		}
+		else
+			if (isdigit(c1))
+			{
+				int j = i;
+				while (j < inputstr.length() && (isdigit(inputstr[j]) || inputstr[j] == '.'))
 					j++;
+				lexems[nLex].c = inputstr.substr(i, j - i);
+				i = j - 1;
+				lexems[nLex].t = VALUE;
+				nLex++;
 			}
-			pLexem[k] = Lexem(s + i, j - i);
-			k++;
-			i = j - 1;
-		}
-		else
-		{
-			pLexem[k] = Lexem(s + i, 1);
-			k++;
-		}
-	}
-	nLexems = k;
-
-	for (int i = 0; i < nLexems; i++)
-	{
-		if (pLexem[i].type == 4)
-		{
-			pLexem[i].SetLex();
-			for (int j = i + 1; j < nLexems; j++)
-			{
-				if (pLexem[i].str[0] == pLexem[j].str[0])
-				{
-					pLexem[j].Lex = pLexem[i].Lex;
-					pLexem[j].type = 2;
-				}
-			}
-			pLexem[i].type = 2;
-		}
-	}
-
-	for (int i = 0; i < nLexems - 3; i++)
-	{
-		if ((pLexem[i].type == 0) && (pLexem[i + 1].str[0] == '-') && (pLexem[i + 2].type == 2))
-		{
-			pLexem[i + 2].Lex = 0 - pLexem[i + 2].Lex;
-			for (int j = i + 1; j < nLexems - 1; j++)
-			{
-				pLexem[j] = pLexem[j + 1];
-			}
-			nLexems--;
-		}
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		if ((pLexem[i].str[0] == '-') && (pLexem[i + 1].type == 2))
-		{
-
-			pLexem[i + 1].Lex = 0 - pLexem[i + 1].Lex;
-			for (int j = i; j < nLexems - 1; j++)
-			{
-				pLexem[j] = pLexem[j + 1];
-			}
-			nLexems--;
-		}
-	}
-
-	for (int i = 0; i < nLexems - 3; i++)
-	{
-		if ((pLexem[i].type == 0) && (pLexem[i + 1].str[0] == '-') && (pLexem[i + 2].type == 4))
-		{
-			pLexem[i + 2].SetLex();
-			pLexem[i + 2].type = 2;
-			pLexem[i + 2].Lex = 0 - pLexem[i + 2].Lex;
-			for (int j = i + 1; j < nLexems - 1; j++)
-			{
-				pLexem[j] = pLexem[j + 1];
-			}
-			nLexems--;
-		}
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		if ((pLexem[i].str[0] == '-') && (pLexem[i + 1].type == 4))
-		{
-			pLexem[i + 1].SetLex();
-			pLexem[i + 1].type = 2;
-			pLexem[i + 1].Lex = 0 - pLexem[i + 1].Lex;
-			for (int j = i; j < nLexems - 1; j++)
-			{
-				pLexem[j] = pLexem[j + 1];
-			}
-			nLexems--;
-		}
-	}
-}
-
-arithmetic::arithmetic(const arithmetic& a)
-{
-	Size = a.Size;
-	nLexems = a.nLexems;
-
-	pLexem = new Lexem[Size];
-	for (int i = 0; i < nLexems; i++)
-		pLexem[i] = a.pLexem[i];
-
-}
-
-arithmetic::~arithmetic()
-{
-	delete[] pLexem;
-}
-
-arithmetic& arithmetic::operator +=(const Lexem a)
-{
-	int size = this->GetNLexems();
-	pLexem[size] = a;
-	nLexems += 1;
-
-	return *this;
-}
-
-arithmetic& arithmetic::operator =(const arithmetic& a)
-{
-	Size = a.Size;
-	nLexems = a.nLexems;
-
-	pLexem = new Lexem[Size];
-	for (int i = 0; i < nLexems; i++)
-		pLexem[i] = a.pLexem[i];
-
-	return (*this);
-}
-
-arithmetic arithmetic::PolishEntry()
-{
-	arithmetic res(*this);
-	res.nLexems = 0;
-	Stack<Lexem> s1;
-	int k = 0;
-
-	for (int i = 0; i < nLexems; i++)
-	{
-		if ((pLexem[i].type == 2) || (pLexem[i].type == 4))
-			res += pLexem[i];
-
-		/*if (pLexem[i].type == 0)
-		{
-			s1.Push(pLexem[i]);
-		}*/
-
-		if (pLexem[i].type == 3)
-		{
-			if (s1.IsEmpty())
-				s1.Push(pLexem[i]);
 			else
 			{
-				Lexem x = s1.Top();
-				if (x.Pr > pLexem[i].Pr)
+				lexems[nLex].t = UNKNOWN;
+				lexems[nLex].c = c1;
+				nLex++;
+			}
+	}
+}
+bool Arithmetic::prioritet(Lexem a, Lexem b)
+{
+	switch (a.c[0])
+	{
+	case '(':
+		return 0;
+		break;
+	case '+':
+		return 1;
+		break;
+	case '-':
+		return 1;
+		break;
+	case '*':
+		return 2;
+		break;
+	case '/':
+		return 2;
+		break;
+	case '^':
+		return 3;
+		break;
+	}
+}
+
+int Arithmetic::PolZap(Lexem* lex)
+{
+	LexType t1;
+	int j = 0;
+	Lexem z;
+	z.t = VALUE;
+	z.c = "0";
+	TStack<Lexem> s(nLex);
+	for (int i = 0; i < nLex; i++)
+	{
+		t1 = lexems[i].t;
+		if (t1 == OPERATION)
+		{
+			if (lexems[i].c[0] == '-' && (i == 0 || lexems[i - 1].c[0] == '('))
+			{
+				lex[j] = z;
+				j++;
+			}
+			if (!s.IsEmpty() && !prioritet(lexems[i], s.Top()))
+			{
+				lex[j] = s.Pop();
+				j++;
+			}
+			s.Push(lexems[i]);
+		}
+		if (t1 == LEFT_BRACKET)
+		{
+			s.Push(lexems[i]);
+		}
+		if (t1 == RIGHT_BRACKET)
+		{
+			while ((s.Top()).t != LEFT_BRACKET)
+			{
+				lex[j] = s.Pop();
+				j++;
+			}
+			s.Pop();
+		}
+		if (t1 == VALUE)
+		{
+			lex[j] = lexems[i];
+			j++;
+		}
+	}
+	while (!s.IsEmpty())
+	{
+		lex[j] = s.Pop();
+		j++;
+	}
+	return j;
+}
+
+double Arithmetic::Calcul()
+{
+	Lexem* lex = new Lexem[2 * nLex];
+	int p = PolZap(lex);
+	TStack<double> res(2 * p);
+	for (int i = 0; i < p; i++)
+		if (lex[i].t == VALUE)
+			res.Push(stod(lex[i].c));
+		else
+		{
+			double a = res.Pop(), b = res.Pop();
+			switch (lex[i].c[0])
+			{
+			case '+':
+				res.Push(a + b);
+				break;
+			case '-':
+				res.Push(b - a);
+				break;
+			case '*':
+				res.Push(b * a);
+				break;
+			case '/':
+				res.Push(b / a);
+				break;
+			case '^':
+				int op;
+				op = (int)a;
+				int count = 1;
+				while (op > count)
 				{
-					res += x;
-					x = s1.Top();
+					if (op == 0)
+						res.Push(1);
+					else if ((op != 1) && (op > 0))
+						res.Push(b * b);
+					count++;
 				}
-
-				while (x.Pr <= pLexem[i].Pr)
-				{
-					x = s1.Pop();
-					res += x;
-					s1.Push(pLexem[i]);
-				}
+				break;
 			}
 		}
-
-		if (pLexem[i].type == 0)
-		{
-			s1.Push(pLexem[i]);
-		}
-		if (pLexem[i].type == 1)
-		{
-			Lexem x = s1.Pop();
-			while (x.type != 0)
-			{
-				res += x;
-				x = s1.Pop();
-			}
-		}
-	}
-
-	while (!s1.IsEmpty())
-	{
-		Lexem x = s1.Pop();
-		res += x;
-	}
-
-	return res;
-}
-
-double arithmetic::CalculatePolishEntry()
-{
-	Stack<double> s1;
-	double a, b, res = 0.0;
-
-	for (int i = 0; i < nLexems; i++)
-	{
-		if (pLexem[i].type == 2)
-		{
-			s1.Push(pLexem[i].Lex);
-		}
-
-		if (pLexem[i].type == 3)
-		{
-			a = s1.Pop();
-			b = s1.Pop();
-
-			if (pLexem[i].str[0] == '+') { s1.Push(a + b); }
-			if (pLexem[i].str[0] == '-') { s1.Push(b - a); }
-			if (pLexem[i].str[0] == '*') { s1.Push(a * b); }
-			if (pLexem[i].str[0] == '/') { s1.Push(b / a); }
-		}
-	}
-	return s1.Pop();
-}
-
-bool arithmetic::CheckBracket()
-{
-	int k = 0;
-
-	for (int i = 0; i < nLexems; i++)
-	{
-		if (pLexem[i].type == 0)
-			k++;
-
-		if (pLexem[i].type == 1)
-			k--;
-	}
-
-	if (k != 0)
-	{
-		cout << " Error." << endl;
-		return 0;
-	}
-	else
-	{
-		return 1;
-	}
-}
-
-bool arithmetic::CheckLetters()
-{
-	int check = 0;
-	for (int i = 0; i < nLexems; i++)
-	{
-		if (pLexem[i].type == 0)
-		{
-			cout << " Error" << endl;
-			check++;
-		}
-	}
-
-	for (int i = 0; i < nLexems - 1; i++)
-	{
-		if ((pLexem[i].type == 4) && (pLexem[i + 1].type == 4))
-		{
-			int k = 1;
-			for (int j = i + 2; j < nLexems - 1; j++)
-			{
-				if (pLexem[j].type != 4)
-				{
-					j = nLexems;
-				}
-				k++;
-			}
-			cout << "Error" << endl;
-			i = i + k;
-			check++;
-		}
-	}
-
-	if (check != 0)
-	{
-		return 0;
-	}
-	else
-	{
-		return 1;
-	}
-}
-
-bool arithmetic::CheckOperator()
-{
-	int check = 0;
-	for (int i = 1; i < nLexems; i++)
-	{
-		if ((pLexem[i].type == 3) && (pLexem[i - 1].type == 3))
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-	}
-
-	{
-		int n = 0;
-		int m = 0;
-
-		for (int i = 0; i < nLexems; i++)
-		{
-			if (pLexem[i].type == 3)
-			{
-				n++;
-			}
-			if ((pLexem[i].type == 4) || (pLexem[i].type == 2))
-			{
-				m++;
-			}
-		}
-		if (n > m - 1)
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-	}
-
-	for (int i = 1; i < nLexems; i++)
-	{
-		if ((pLexem[i].type == 1) && (pLexem[i - 1].type == 3))
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-
-	}
-
-	if ((pLexem[nLexems - 1].type == 1) && (pLexem[nLexems].type == 3))
-	{
-		cout << " Error " << endl;
-		check++;
-	}
-
-
-	for (int i = 1; i < nLexems; i++)
-	{
-		if ((pLexem[i - 1].type == 0) && (pLexem[i].type == 3))
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-	}
-
-	if ((pLexem[1].type == 0) && (pLexem[0].type == 3))
-	{
-		cout << " Error. " << endl;
-		check++;
-	}
-
-	if (check != 0)
-	{
-		return 0;
-	}
-	else
-	{
-		return 1;
-	}
-}
-
-bool arithmetic::CheckPoint()
-{
-	int check = 0;
-	for (int i = 1; i < nLexems; i++)
-	{
-		if ((pLexem[i].type == 4) && (pLexem[i - 1].str[0] == ','))
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-
-		if ((pLexem[i - 1].type == 4) && (pLexem[i].str[0] == ','))
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-	}
-
-	for (int i = 1; i < nLexems; i++)
-	{
-		if ((pLexem[i].type == 1) && (pLexem[i - 1].str[0] == ','))
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-	}
-
-	for (int i = 0; i < nLexems - 1; i++)
-	{
-		if ((pLexem[i].type == 1) && (pLexem[i + 1].str[0] == ','))
-		{
-			cout << " Error" << endl;
-			check++;
-		}
-	}
-
-	for (int i = 1; i < nLexems; i++)
-	{
-		if ((pLexem[i].type == 0) && (pLexem[i - 1].str[0] == ','))
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-	}
-
-	for (int i = 0; i < nLexems - 1; i++)
-	{
-		if ((pLexem[i].type == 0) && (pLexem[i + 1].str[0] == ','))
-		{
-			cout << " Error " << endl;
-			check++;
-		}
-	}
-
-	if (check != 0)
-	{
-		return 0;
-	}
-	else
-	{
-		return 1;
-	}
-}
-
-char arithmetic::GetCharLexem(int n)
-{
-	char res;
-	res = pLexem[n].str[0];
-	return res;
+	return res.Top();
 }
