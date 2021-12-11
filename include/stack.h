@@ -1,101 +1,160 @@
-﻿#include <iostream>
+#ifndef __TSTACK_H__
+#define __TSTACK_H__
+
+#include <iostream>
 
 using namespace std;
 
+const int MAX_STACK_SIZE = 1000;
+
 template <class T>
-class Stack
+class TStack
 {
 protected:
-	T* pStack; 
-	int Size;		
-	int Index;	
+	T* pStack;
+	int Size;
+	int top;
 public:
-	Stack(int s = 10);
-	Stack(const Stack& v);			
-	~Stack();
-	void Push(T elem);		
-	T Pop();	
-	T& Top();		
-	bool IsEmpty();		
-	int GetSize() { return (Index + 1); }	
-	void Clean();		
-
+	TStack(int s = 10);
+	TStack(const TStack& st);
+	~TStack();
+	bool operator==(const TStack& st) const;
+	TStack& operator=(const TStack& st);
+	void Push(T elem);
+	T Pop();
+	T Top();
+	bool IsEmpty();
+	int GetSize();
+	void Clean();
 };
 
 template <class T>
-Stack<T>::Stack(int s)
+TStack<T>::TStack(int s)
 {
-	if (s < 0)
-		throw ("Error");
 	Size = s;
-	Index = -1;
-	pStack = new T[Size];
-} 
+	if (Size<0 || Size>MAX_STACK_SIZE)
+		throw "error";
+	pStack = new T[s];
+	top = 0;
+}
 
 template <class T>
-Stack<T>::Stack(const Stack<T>& v)
+TStack<T>::TStack(const TStack<T>& st)
 {
-	Size = v.Size;
-	Index = v.Index;
+	Size = st.Size;
+	top = st.top;
 	pStack = new T[Size];
-	for (int i = 0; i < Index; i++)
-		pStack[i] = v.pStack[i];
-} 
+	for (int i = 0; i < top; i++)
+		pStack[i] = st.pStack[i];
+}
 
 template <class T>
-Stack<T>::~Stack()
+TStack<T>::~TStack()
 {
 	delete[] pStack;
-} 
+}
 
 template <class T>
-void Stack<T>::Push(T elem)
+TStack<T>& TStack<T>::operator=(const TStack& st)
 {
-	if ((Size - Index) >= 1)
+	if (this != &st)
 	{
-		Index += 1;
-		pStack[Index] = elem;
+		if (Size != st.Size)
+		{
+			delete[] pStack;
+			pStack = new T[st.Size];
+		}
+		Size = st.Size;
+		top = st.top;
+		for (int i = 0; i < top; i++)
+			pStack[i] = st.pStack[i];
+	}
+	return *this;
+}
+
+template <class T>
+bool TStack<T>::operator==(const TStack& st) const
+{
+	if (this != &st)
+	{
+		if ((Size == st.Size) && (top == st.top))
+		{
+			for (int i = 0; i < top; i++)
+				if (pStack[i] != st.pStack[i])
+					return false;
+			return true;
+		}
+		else
+			return false;
+	}
+	return true;
+}
+
+template <class T>
+bool TStack<T>::IsEmpty()
+{
+	if (top == 0)
+		return true;
+	else
+		return false;
+}
+
+template<class T>
+void TStack<T>::Push(T elem)
+{
+	if ((Size - top) == 0)
+	{
+		T* st1;
+		st1 = new T[2 * Size];
+		for (int i = 0; i < top; i++)
+			st1[i] = pStack[i];
+		delete[] pStack;
+		pStack = st1;
+
+		pStack[top] = elem;
+		top++;
+
+		Size = 2 * Size;
 	}
 	else
-		if ((Size - Index) == 0)
-		{
-			T* pStackNew = new T[Size + 10];
-			for (int i = 0; i < Index + 1; i++)
-			{
-				pStackNew[i] = pStack[i];
-			}
-			Index = Index + 1;
-			pStackNew[Index] = elem;
-			delete[] pStack;
-			pStack = pStackNew;
-			Size = Size + 10;
+	{
+		pStack[top] = elem;
+		top += 1;
+	}
+}
 
-		}
-} 
-
-template <class T>
-T Stack<T>::Pop()
+template<class T>
+T TStack<T>::Pop()
 {
-	return pStack[Index--];
-} 
-
-template <class T>
-T& Stack<T>::Top()
-{
-	return pStack[Index];
-} 
-
-template <class T>
-bool Stack<T>::IsEmpty()
-{
-	if (Index < 0)
-		return 1;
+	if (!IsEmpty())
+	{
+		top = top - 1;
+		return pStack[top];
+	}
 	else
-		return 0;
-} 
+		throw "empty";
+}
 
-template <class T>
-void  Stack<T>::Clean()
+template<class T>
+T TStack<T>::Top()
 {
-	Index = -1;
-} 
+	if (!IsEmpty())
+	{
+		return pStack[top - 1];
+	}
+	else throw "empty";
+}
+
+template<class T>
+int TStack<T>::GetSize()
+{
+	return top;
+}
+
+template<class T>
+void TStack<T>::Clean()
+{
+	top = 0;
+}
+
+#endif
