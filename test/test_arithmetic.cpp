@@ -1,48 +1,5 @@
 #include "arithmetic.h"
-//#include <gtest.h>
 #include "gtest/gtest.h"
-
-
-auto subs = [](const string &str, const string &substr) {
-    return str.find(substr) != string::npos;
-};
-
-auto find_f = [](const string &str) {
-    list<string> funcs{
-            "sqrt", "exp", "ln",
-            "sin", "cos", "tan", "cot", "sec", "csc",
-            "arcsin", "arccos", "arctan", "arccot", "arcsec", "arccsc",
-            "sinh", "cosh", "tanh", "coth", "sech", "csch",
-            "arcsinh", "arccosh", "arctanh", "arccoth", "arcsech", "arccsch"
-    };
-    list<string> funcs_in_str;
-    for (const auto &i: funcs) {
-        if (subs(str, i)) {
-            funcs_in_str.push_back(i);
-        }
-    }
-    return funcs_in_str;
-};
-
-auto pr = [](const string &s) {
-    return !find_f(s).empty() ? 4 :
-           s == "^" ? 3 :
-           s == "*" || s == "/" ? 2 :
-           s == "+" || s == "-" ? 1 :
-           s == "(" || s == "{" || s == "[" ||
-           s == ")" || s == "}" || s == "]" ? 0
-                                            : -1;
-};
-
-struct lexem {
-    string value;
-    int type;
-
-    explicit lexem(const string &value_) {
-        value = value_;
-        type = pr(value_);
-    }
-};
 
 
 TEST(Arithmetic, can_create) {

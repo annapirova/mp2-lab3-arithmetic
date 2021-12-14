@@ -3,7 +3,6 @@ project(mp2_lab3_arithmetic)
 
 set(CMAKE_CXX_STANDARD 14)
 
-#include_directories(gtest)
 include_directories(include)
 include_directories(samples)
 include_directories(test)
@@ -24,4 +23,3 @@ add_executable(
 add_subdirectory(Google_tests/lib)
 include_directories(Google_tests/lib/googletest/include)
 target_link_libraries(mp2_lab3_arithmetic gtest)
-#add_subdirectory(Google_tests)

@@ -17,17 +17,20 @@ enum Types {
     OPERAND = -1, SKOBKA, PLUS_MINUS, MUL_DIV, POW, FUNC
 };
 
+int prioretet(const string &s);
+
+struct lexem {
+    string value;
+    int type;
+
+    explicit lexem(const string &value_) {
+        value = value_;
+        type = prioretet(value_);
+    }
+};
+
 class Arithmetic {
 private:
-    struct lexem {
-        string value;
-        int type;
-
-        explicit lexem(const string &value_) {
-            value = value_;
-            type = prioretet(value_);
-        }
-    };
 
     string input_str;
     string corrected_str;
@@ -37,7 +40,7 @@ private:
     double res = 0.0;
 
     //PRIORITET
-    static int prioretet(const string &s);
+//    static int prioretet(const string &s);
 
     //CHECKERS
     static bool is_it_substr_of_str(const string &str, const string &substr);
@@ -117,6 +120,8 @@ public:
     list<lexem> get_lexem_list_of_RPN_str() const;
 
     double get_res() const;
+
+    friend int prioretet(const string &s);
 };
 
 

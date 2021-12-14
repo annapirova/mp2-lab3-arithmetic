@@ -1,7 +1,7 @@
 #include "arithmetic.h"
 
-int Arithmetic::prioretet(const string &s) {
-    return !find_func_in_str(s).empty() ? 4 :
+int prioretet(const string &s) {
+    return !Arithmetic::find_func_in_str(s).empty() ? 4 :
            s == "^" ? 3 :
            s == "*" || s == "/" ? 2 :
            s == "+" || s == "-" ? 1 :
@@ -169,10 +169,10 @@ list<string> Arithmetic::split_string_to_tokens(const string &str) {
     return list_of_tokens(list_num_and_var, list_operations);
 }
 
-list<Arithmetic::lexem> Arithmetic::token_to_lexem(const list<string> &tokens) {
+list<lexem> Arithmetic::token_to_lexem(const list<string> &tokens) {
     list<lexem> lexems;
     for (const auto &i: tokens) {
-        lexems.push_back(lexem(i));
+        lexems.emplace_back(i);
 //        lexems.emplace_back(i);
     }
     return lexems;
@@ -239,7 +239,7 @@ list<string> Arithmetic::split(const string &str, char sep) {
     return tokens;
 }
 
-list<Arithmetic::lexem> Arithmetic::obr_poz_zap_to_lexem(const string &str) {
+list<lexem> Arithmetic::obr_poz_zap_to_lexem(const string &str) {
     return token_to_lexem(split(str, ' '));
 }
 
