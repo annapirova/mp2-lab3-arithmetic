@@ -39,9 +39,6 @@ private:
     list<lexem> lexems_after_obr_pol_zap;
     double res = 0.0;
 
-    //PRIORITET
-//    static int prioretet(const string &s);
-
     //CHECKERS
     static bool is_it_substr_of_str(const string &str, const string &substr);
 

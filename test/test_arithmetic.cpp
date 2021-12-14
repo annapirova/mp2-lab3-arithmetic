@@ -112,21 +112,21 @@ TEST(Arithmetic, get_cor_lexem_is_correct) {
     Arithmetic a(s);
     a.launch();
     list<lexem> cor_lex;
-    cor_lex.push_back(lexem("3"));
-    cor_lex.push_back(lexem("+"));
-    cor_lex.push_back(lexem("4"));
-    cor_lex.push_back(lexem("*"));
-    cor_lex.push_back(lexem("("));
-    cor_lex.push_back(lexem("sqrt"));
-    cor_lex.push_back(lexem("("));
-    cor_lex.push_back(lexem("4"));
-    cor_lex.push_back(lexem(")"));
-    cor_lex.push_back(lexem("-"));
-    cor_lex.push_back(lexem("sin"));
-    cor_lex.push_back(lexem("("));
-    cor_lex.push_back(lexem("1"));
-    cor_lex.push_back(lexem(")"));
-    cor_lex.push_back(lexem(")"));
+    cor_lex.emplace_back("3");
+    cor_lex.emplace_back("+");
+    cor_lex.emplace_back("4");
+    cor_lex.emplace_back("*");
+    cor_lex.emplace_back("(");
+    cor_lex.emplace_back("sqrt");
+    cor_lex.emplace_back("(");
+    cor_lex.emplace_back("4");
+    cor_lex.emplace_back(")");
+    cor_lex.emplace_back("-");
+    cor_lex.emplace_back("sin");
+    cor_lex.emplace_back("(");
+    cor_lex.emplace_back("1");
+    cor_lex.emplace_back(")");
+    cor_lex.emplace_back(")");
 
     for (const auto &i: a.get_lexem_list_of_corrected_str()) {
         EXPECT_EQ(cor_lex.front().value, i.value);
