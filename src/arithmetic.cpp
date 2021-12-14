@@ -373,4 +373,55 @@ void Arithmetic::make_lexems_after_obr_pol_zap() {
 void Arithmetic::make_result() {
     res = calculate(lexems_after_obr_pol_zap);
 }
-//
+
+void Arithmetic::launch() {
+    prepare_str();
+    make_lexems_of_corrected_str();
+    make_obr_pol_zap_str();
+    make_lexems_after_obr_pol_zap();
+    make_result();
+    print();
+}
+
+void Arithmetic::print() const {
+    cout << "Input string : " << input_str << endl;
+    cout << "Corrected string : " << corrected_str << endl;
+    cout << "String in RPN : " << obr_pol_zap_str << endl;
+    cout << "Lexems of corrected string : ";
+    for (const auto &i: lexems_of_corrected_str) {
+        cout << i.value << " ";
+    }
+    cout << endl;
+    cout << "Lexems after RPN : ";
+    for (const auto &i: lexems_after_obr_pol_zap) {
+        cout << i.value << " ";
+    }
+    cout << endl;
+    cout << "Result : " << res << endl;
+}
+
+string Arithmetic::get_input_str() const {
+    return input_str;
+}
+
+string Arithmetic::get_corrected_str() const {
+    return corrected_str;
+}
+
+string Arithmetic::get_RPN_str() const {
+    return obr_pol_zap_str;
+}
+
+list<lexem> Arithmetic::get_lexem_list_of_corrected_str() const {
+    return lexems_of_corrected_str;
+}
+
+list<lexem> Arithmetic::get_lexem_list_of_RPN_str() const {
+    return lexems_after_obr_pol_zap;
+}
+
+double Arithmetic::get_res() const {
+    return res;
+}
+
+

@@ -1,4 +1,4 @@
-# Install script for directory: /root/mp2-labs/mp2-lab3-arithmetic/Google_tests/lib
+# Install script for directory: /home/grigoriy/programming/mp2-labs/mp2-lab3-arithmetic/Google_tests/lib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/root/mp2-labs/mp2-lab3-arithmetic/cmake-build-debug/Google_tests/lib/googlemock/cmake_install.cmake")
+  include("/home/grigoriy/programming/mp2-labs/mp2-lab3-arithmetic/cmake-build-debug/Google_tests/lib/googlemock/cmake_install.cmake")
 
 endif()
 

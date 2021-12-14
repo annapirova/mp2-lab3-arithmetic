@@ -1,4 +1,4 @@
-# Install script for directory: /root/mp2-labs/mp2-lab3-arithmetic
+# Install script for directory: /home/grigoriy/programming/mp2-labs/mp2-lab3-arithmetic
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/root/mp2-labs/mp2-lab3-arithmetic/cmake-build-debug/Google_tests/lib/cmake_install.cmake")
+  include("/home/grigoriy/programming/mp2-labs/mp2-lab3-arithmetic/cmake-build-debug/Google_tests/lib/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/root/mp2-labs/mp2-lab3-arithmetic/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/grigoriy/programming/mp2-labs/mp2-lab3-arithmetic/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

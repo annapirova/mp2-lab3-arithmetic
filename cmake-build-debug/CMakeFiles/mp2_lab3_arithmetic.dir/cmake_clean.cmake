@@ -1,8 +1,12 @@
 file(REMOVE_RECURSE
   "CMakeFiles/mp2_lab3_arithmetic.dir/src/arithmetic.cpp.o"
+  "CMakeFiles/mp2_lab3_arithmetic.dir/src/arithmetic.cpp.o.d"
   "CMakeFiles/mp2_lab3_arithmetic.dir/test/test_arithmetic.cpp.o"
+  "CMakeFiles/mp2_lab3_arithmetic.dir/test/test_arithmetic.cpp.o.d"
   "CMakeFiles/mp2_lab3_arithmetic.dir/test/test_main.cpp.o"
+  "CMakeFiles/mp2_lab3_arithmetic.dir/test/test_main.cpp.o.d"
   "CMakeFiles/mp2_lab3_arithmetic.dir/test/test_stack.cpp.o"
+  "CMakeFiles/mp2_lab3_arithmetic.dir/test/test_stack.cpp.o.d"
   "mp2_lab3_arithmetic"
   "mp2_lab3_arithmetic.pdb"
 )

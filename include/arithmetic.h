@@ -7,7 +7,6 @@
 #include <list>
 #include <cmath>
 #include <stack>
-//#include "stack.h"
 #include <map>
 #include <functional>
 #include <utility>
@@ -99,61 +98,25 @@ private:
     void make_result();
 
 public:
-    explicit Arithmetic(const string &str) : input_str(str) {};
+    explicit Arithmetic(string str) : input_str(std::move(str)) {};
 
     ~Arithmetic() = default;
 
-    void launch() {
-        prepare_str();
-        make_lexems_of_corrected_str();
-        make_obr_pol_zap_str();
-        make_lexems_after_obr_pol_zap();
-        make_result();
-        print();
-    }
+    void launch();
 
-    void print() const {
-        cout << "Input string : " << input_str << endl;
-        cout << "Corrected string : " << corrected_str << endl;
-        cout << "String in RPN : " << obr_pol_zap_str << endl;
-        cout << "Lexems of corrected string : ";
-        for (const auto &i: lexems_of_corrected_str) {
-            cout << i.value << " ";
-        }
-        cout << endl;
-        cout << "Lexems after RPN : ";
-        for (const auto &i: lexems_after_obr_pol_zap) {
-            cout << i.value << " ";
-        }
-        cout << endl;
-        cout << "Result : " << res << endl;
-    }
+    void print() const;
 
-    string get_input_str() const {
-        return input_str;
-    }
+    string get_input_str() const;
 
-    string get_corrected_str() const {
-        return corrected_str;
-    }
+    string get_corrected_str() const;
 
-    string get_RPN_str() const {
-        return obr_pol_zap_str;
-    }
+    string get_RPN_str() const;
 
-    list<lexem> get_lexem_list_of_corrected_str() const {
-        return lexems_of_corrected_str;
-    }
+    list<lexem> get_lexem_list_of_corrected_str() const;
 
-    list<lexem> get_lexem_list_of_RPN_str() const {
-        return lexems_after_obr_pol_zap;
-    }
+    list<lexem> get_lexem_list_of_RPN_str() const;
 
-    double get_res() const {
-        // сделать res строкой
-        // в make_result перевести calculate в string
-        return res; // !res.empty() ? stod(res) : res;
-    }
+    double get_res() const;
 };
 
 
