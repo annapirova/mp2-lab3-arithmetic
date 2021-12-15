@@ -69,27 +69,24 @@ bool Arithmetic::operator==(const Arithmetic& inputstr2) const
 bool Arithmetic::checkBrackets()
 {
 
-	int len = inputstr.length();
-	bool res = true;
-	TStack<int> st(len);
-	for (int i = 0; i < len; i++)
+	int check = 0;
+	for (unsigned int i = 0; i < inputstr.length(); i++)
 	{
 		if (inputstr[i] == '(')
-		{
-			st.Push(i + 1);
-		}
-		else
-		{
-			if (inputstr[i] == ')')
-			{
-				if (!(st.IsEmpty()))
-					st.Pop();
-				else
-					res = false;
-			}
-		}
+			check++;
+		if (inputstr[i] == ')')
+			check--;
+		if (check == -1)
+			return false;
 	}
-	return res;
+
+	if (check != 0)
+	{
+		cout << "\n" << "Error! Wrong brackets!" << endl;
+		return false;
+	}
+	else
+		return true;
 }
 
 bool Arithmetic::checkSymbols()
@@ -98,7 +95,7 @@ bool Arithmetic::checkSymbols()
 	{
 		if (lexems[i].t == UNKNOWN)
 		{
-			cout << "Nedopustimue symvolu" << endl;
+			cout << "Error! Wrong symbols!" << endl;
 			cout << ' ' << lexems[i].c << endl;
 			return false;
 		}
@@ -111,7 +108,7 @@ bool Arithmetic::checkSymbols()
 						k++;
 				if (k > 1 || lexems[i].c[0] == '.' || lexems[i].c[lexems[i].c.length() - 1] == '.')
 				{
-					cout << "Nedopustimue symvolu" << endl;
+					cout << "Error! Wrong symbols!" << endl;
 					cout << ' ' << lexems[i].c << endl;
 					return false;
 				}
@@ -130,7 +127,7 @@ bool Arithmetic::checkFormula()
 
 	if (lexems[inputstr.length() - 1].t == OPERATION)
 	{
-		cout << "error" << endl;
+		cout << "Error! Someting wrong!" << endl;
 		return false;
 	}
 
@@ -140,18 +137,18 @@ bool Arithmetic::checkFormula()
 
 		if ((lexems[i].t == RIGHT_BRACKET || lexems[i].t == VALUE) && (lexems[i + 1].t == LEFT_BRACKET || lexems[i + 1].t == VALUE))
 		{
-			cout << "error" << endl;
+			cout << "Error! Someting wrong!" << endl;
 			return false;
 		}
 
-		if (lexems[i].t == LEFT_BRACKET && ((lexems[i + 1].t == OPERATION || lexems[i + 1].c[0] == '-') || lexems[i + 1].t == RIGHT_BRACKET))
+		if (lexems[i].t == LEFT_BRACKET && ((lexems[i + 1].t == OPERATION  || lexems[i + 1].c[0] == '-') || lexems[i + 1].t == RIGHT_BRACKET))
 		{
-			cout << "error" << endl;
+			cout << "Error! Someting wrong!" << endl;
 			return false;
 		}
 		if (lexems[i].t == OPERATION && (lexems[i + 1].t == OPERATION || lexems[i + 1].t == RIGHT_BRACKET))
 		{
-			cout << "error" << endl;
+			cout << "Error! Someting wrong!" << endl;
 			return false;
 		}
 	}
@@ -198,27 +195,41 @@ void Arithmetic::divide()
 }
 bool Arithmetic::prioritet(Lexem a, Lexem b)
 {
+	int p1, p2;
 	switch (a.c[0])
 	{
 	case '(':
-		return 0;
+		p1 = 0;
 		break;
 	case '+':
-		return 1;
+		p1 = 1;
 		break;
 	case '-':
-		return 1;
+		p1 = 1;
 		break;
-	case '*':
-		return 2;
-		break;
-	case '/':
-		return 2;
-		break;
-	case '^':
-		return 3;
-		break;
+	default:
+		p1 = 2;
 	}
+
+	switch (b.c[0])
+	{
+	case '(':
+		p2 = 0;
+		break;
+	case '+':
+		p2 = 1;
+		break;
+	case '-':
+		p2 = 1;
+		break;
+	default:
+		p2 = 2;
+	}
+
+	if (p1 > p2)
+		return true;
+	else
+		return false;
 }
 
 int Arithmetic::PolZap(Lexem* lex)
@@ -296,20 +307,15 @@ double Arithmetic::Calcul()
 				res.Push(b * a);
 				break;
 			case '/':
+				if (a == 0)
+				{
+					cout << "Error! Can't be divided by zero!" << endl;
+					return false;
+				}
 				res.Push(b / a);
 				break;
 			case '^':
-				int op;
-				op = (int)a;
-				int count = 1;
-				while (op > count)
-				{
-					if (op == 0)
-						res.Push(1);
-					else if ((op != 1) && (op > 0))
-						res.Push(b * b);
-					count++;
-				}
+				res.Push(pow(a, b));
 				break;
 			}
 		}
