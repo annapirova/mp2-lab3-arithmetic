@@ -4,19 +4,29 @@
 int main()
 {
 	bool f = 1;
-	cout << "________________________________________Calculation of arithmetical expression.________________________________________________" << endl;
+	cout << "________________________________________Calculation of arithmetical expression._________________________________________" << endl << endl;
 	cout << "The expression can consist only integer operands. Also it can be positive or negative. Operations you can use: +, -, *, / and ^" << endl;
 
-	while (f == 1)
+	while (f != 0)
 	{
-		string s;
-		cout << "Enter your expression: ";
-		cin >> s;
-		Arithmetic A(s);
-		double res;
-		res = A.Calcul();
-		cout << res << endl;
-		cout << "If you want to continue press 1" << endl;
-		cin >> f;
+		switch (f)
+		{
+		case 1:
+		{
+			string s;
+			cout << endl;
+			cout << "Enter your expression: ";
+			cin >> s;
+			Arithmetic A(s);
+			double res;
+			res = A.Calcul();
+			cout << res << endl << endl;
+			cout << "Do you want to continue?" << endl;
+			cout << "1. Yes." << endl;
+			cout << "0. No." << endl;
+			cin >> f;
+			break;
+		}
+		}
 	}
 }
