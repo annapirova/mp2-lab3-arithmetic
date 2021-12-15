@@ -48,99 +48,141 @@ TEST(Lexem, sravnenie2)
 
 
 //-------------------------class Arithmetic----------------------
-TEST(Arithmetic, calcul11)
+TEST(Arithmetic, calcul1_1)
 {
 	Arithmetic A("5+4");
 	EXPECT_EQ(9, A.Calcul());
 }
 
-TEST(Arithmetic, calcul2)
+TEST(Arithmetic, calcul_2)
 {
 	Arithmetic A("5.7+4");
 	EXPECT_EQ(9.7, A.Calcul());
 }
 
-TEST(Arithmetic, calcul3)
+TEST(Arithmetic, calcul_3)
 {
-	Arithmetic A("(50*2)-((100+70)*2)");
+	Arithmetic A("50*2-(100+70)*2");
 	EXPECT_EQ(-240, A.Calcul());
 }
 
-TEST(Arithmetic, calcul4)
+TEST(Arithmetic, calcul_4)
 {
 	Arithmetic A("5+2*3");
 	EXPECT_EQ(11, A.Calcul());
 }
 
-TEST(Arithmetic, prov_na_symbols1)
+TEST(Arithmetic, calcul_5)
+{
+	Arithmetic A("1^1");
+	EXPECT_EQ(1, A.Calcul());
+}
+
+TEST(Arithmetic, calcul_6)
+{
+	Arithmetic A("4^2");
+	EXPECT_EQ(16, A.Calcul());
+}
+
+TEST(Arithmetic, calcul_7)
+{
+	Arithmetic A("12/4");
+	EXPECT_EQ(3, A.Calcul());
+}
+
+TEST(Arithmetic, calcul_8)
+{
+	Arithmetic A("(50*2-(100+70)*2)/4");
+	EXPECT_EQ(-60, A.Calcul());
+}
+
+TEST(Arithmetic, calcul_9)
+{
+	Arithmetic A("-4+2");
+	EXPECT_EQ(-2, A.Calcul());
+}
+
+TEST(Arithmetic, calcul_10)
+{
+	Arithmetic A("-4^2");
+	EXPECT_EQ(-16, A.Calcul());
+}
+
+TEST(Arithmetic, calcul_11)
+{
+	Arithmetic A("12/0");
+	EXPECT_EQ(false, A.Calcul());
+}
+
+TEST(Arithmetic, check_symbols_1)
 {
 	Arithmetic A("5&61");
 	EXPECT_EQ(false, A.checkSymbols());
 }
 
-TEST(Arithmetic, prov_na_symbols2)
+TEST(Arithmetic, check_symbols_2)
 {
 	Arithmetic A("5%61");
 	EXPECT_EQ(false, A.checkSymbols());
 }
 
-TEST(Arithmetic, prov_na_symbols3)
+TEST(Arithmetic, check_symbols_3)
 {
 	Arithmetic A("5??61");
 	EXPECT_EQ(false, A.checkSymbols());
 }
 
-TEST(Arithmetic, prov_na_symbols4)
+TEST(Arithmetic, check_symbols_4)
 {
 	Arithmetic A("5!=61");
 	EXPECT_EQ(false, A.checkSymbols());
 }
 
-TEST(Arithmetic, prov_na_prop1)
+TEST(Arithmetic, check_formula_1)
 {
 	Arithmetic A("5+)6*89");
 	EXPECT_EQ(false, A.checkFormula());
 }
-TEST(Arithmetic, prov_na_prop2)
+TEST(Arithmetic, check_formula_2)
 {
 	Arithmetic A("+5*9");
 	EXPECT_EQ(false, A.checkFormula());
 }
 
-TEST(Arithmetic, prov_na_prop3)
+TEST(Arithmetic, check_formula_3)
 {
 	Arithmetic A("*5-9");
 	EXPECT_EQ(false, A.checkFormula());
 }
 
-TEST(Arithmetic, prov_na_prop4)
+TEST(Arithmetic, check_formula_4)
 {
 	Arithmetic A("/5*9");
 	EXPECT_EQ(false, A.checkFormula());
 }
-TEST(Arithmetic, prov_na_prop5)
+TEST(Arithmetic, check_formula_5)
 {
 	Arithmetic A("5+7/");
 	EXPECT_EQ(false, A.checkFormula());
 }
-TEST(Arithmetic, prov_na_prop6)
+TEST(Arithmetic, check_formula_6)
 {
 	Arithmetic A("5()+7");
 	EXPECT_EQ(false, A.checkFormula());
 }
-TEST(Arithmetic, prov_na_prop7)
+TEST(Arithmetic, check_formula_7)
 {
 	Arithmetic A(")(5+7");
 	EXPECT_EQ(false, A.checkFormula());
 }
 
-TEST(Arithmetic, prov_na_prop8)
+TEST(Arithmetic, check_formula_8)
 {
 	Arithmetic A("5+-7");
 	EXPECT_EQ(false, A.checkFormula());
 }
 
-TEST(Arithmetic, razbivka)
+TEST(Arithmetic, divide)
 {
 	Arithmetic A("5+4*7");
 	int res;
@@ -149,15 +191,39 @@ TEST(Arithmetic, razbivka)
 	EXPECT_EQ(5, res);
 }
 
-TEST(Arithmetic, pr_na_br1)
+TEST(Arithmetic, check_brackets_1)
 {
 	Arithmetic A("(5+7)-4");
 	EXPECT_EQ(true, A.checkBrackets());
 }
 
-TEST(Arithmetic, pr_na_br2)
+TEST(Arithmetic, check_brackets_2)
 {
 	Arithmetic A(")5+4)");
+	EXPECT_EQ(false, A.checkBrackets());
+}
+
+TEST(Arithmetic, check_brackets_3)
+{
+	Arithmetic A("5+4)");
+	EXPECT_EQ(false, A.checkBrackets());
+}
+
+TEST(Arithmetic, check_brackets_4)
+{
+	Arithmetic A("(5+4");
+	EXPECT_EQ(false, A.checkBrackets());
+}
+
+TEST(Arithmetic, check_brackets_5)
+{
+	Arithmetic A("(5+4)7)");
+	EXPECT_EQ(false, A.checkBrackets());
+
+}
+TEST(Arithmetic, check_brackets_6)
+{
+	Arithmetic A("(*(3+2)");
 	EXPECT_EQ(false, A.checkBrackets());
 }
 
