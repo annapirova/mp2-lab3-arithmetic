@@ -13,12 +13,12 @@ add_executable(
 #        gtest/gtest.h
         include/arithmetic.h
         include/stack.h
-#        samples/main_arithmetic.cpp
+        samples/main_arithmetic.cpp
         src/arithmetic.cpp
         test/test_arithmetic.cpp
         test/test_main.cpp
         test/test_stack.cpp
-)
+        include/ConsoleUI.h)
 
 add_subdirectory(Google_tests/lib)
 include_directories(Google_tests/lib/googletest/include)

@@ -48,9 +48,15 @@ private:
 
     static bool ch_skob(const string &str);
 
-    static bool ch_dot(const string &str);
+    static bool ch_double_dot(const string &str);
 
-    static bool ch_all_znak(const string &str);
+    static bool ch_double_znak(const string &str);
+
+    static bool ch_znak_first_elem(const string &str);
+
+    static bool ch_znak_after_skob(const string &str);
+
+    static bool ch_znak_after_operand(const string &str);
 
     static bool ch_all_func(const string &str);
 
@@ -75,7 +81,7 @@ private:
 
     static list<string> split(const string &str, char sep);
 
-    static list<lexem> obr_poz_zap_to_lexem(const string &str);
+    static list<lexem> obr_pol_zap_to_lexem(const string &str);
 
     //CALCULATE
     static double calculate_func(const string &str, double x);
@@ -98,6 +104,8 @@ private:
     void make_result();
 
 public:
+    Arithmetic() = default;
+
     explicit Arithmetic(string str) : input_str(std::move(str)) {};
 
     ~Arithmetic() = default;
@@ -105,6 +113,8 @@ public:
     void launch();
 
     void print() const;
+
+    void set_input_string(const string &str);
 
     string get_input_str() const;
 

@@ -10,7 +10,6 @@ int prioretet(const string &s) {
                                             : -1;
 }
 
-
 //CHECKERS
 bool Arithmetic::is_it_substr_of_str(const string &str, const string &substr) {
     return str.find(substr) != string::npos;
@@ -47,30 +46,93 @@ list<string> Arithmetic::find_func_in_str(const string &str) {
 }
 
 bool Arithmetic::ch_skob(const string &str) {
+    bool f = true;
     int count_open = 0, count_close = 0;
-    for (auto i: str) {
-        if (i == '(') {
+
+    for (int i = 0; f && i < str.size(); ++i) {
+        if (str[i] == '(') {
             ++count_open;
         }
-        if (i == ')') {
+        if (str[i] == ')') {
             ++count_close;
+            f = count_close <= count_open && f;
         }
     }
-    return count_open == count_close;
+
+    return f
+           && count_open == count_close
+           && !is_it_substr_of_str(str, "()")
+           && !is_it_substr_of_str(str, ")(");
 }
 
-bool Arithmetic::ch_dot(const string &str) {
+bool Arithmetic::ch_double_dot(const string &str) {
     return !is_it_substr_of_str(str, "..");
 }
 
-bool Arithmetic::ch_all_znak(const string &str) {
-    bool f = true;
+bool Arithmetic::ch_double_znak(const string &str) {
+    bool have_double_znak = false;
     string znak = "+*-/^";
 
     for (auto i: znak) {
         for (auto j: znak) {
             if (is_it_substr_of_str(str, string(1, i) + string(1, j))) {
+                have_double_znak = true;
+            }
+        }
+    }
+
+    return !have_double_znak;
+}
+
+bool Arithmetic::ch_znak_first_elem(const string &str) {
+    bool f = true;
+    string znak = "+*/^";
+
+    for (int i = 0; f && i < znak.size(); ++i) {
+        if (str[0] == znak[i]) {
+            f = false;
+        }
+    }
+
+    return f;
+}
+
+bool Arithmetic::ch_znak_after_skob(const string &str) {
+    bool f = true;
+    string znak = "+*/^";
+
+    for (int i = 0; f && i < znak.size(); ++i) {
+        for (int j = 0; f && j < str.size() - 1; ++j) {
+            if (str[j] == '(' && str[j + 1] == znak[i]) {
                 f = false;
+            }
+        }
+    }
+
+    return f;
+}
+
+bool Arithmetic::ch_znak_after_operand(const string &str) {
+    bool f = true;
+    string znak = "+-*/^";
+
+    if (str.size() <= 2) {
+        if (prioretet(string(1, str[0])) == OPERAND) {
+            if (prioretet(string(1, str[1])) > OPERAND) {
+                f = false;
+            }
+        }
+    } else {
+        for (int i = 0; f && i < str.size() - 2; ++i) {
+            if (prioretet(string(1, str[i])) == OPERAND) {
+                for (int j = 0; f && j < znak.size(); ++j) {
+                    if (str[i + 1] == znak[j]) {
+                        if (prioretet(string(1, str[i + 2])) != OPERAND
+                            && prioretet(string(1, str[i + 2])) != SKOBKA) {
+                            f = false;
+                        }
+                    }
+                }
             }
         }
     }
@@ -239,7 +301,7 @@ list<string> Arithmetic::split(const string &str, char sep) {
     return tokens;
 }
 
-list<lexem> Arithmetic::obr_poz_zap_to_lexem(const string &str) {
+list<lexem> Arithmetic::obr_pol_zap_to_lexem(const string &str) {
     return token_to_lexem(split(str, ' '));
 }
 
@@ -332,55 +394,65 @@ double Arithmetic::calculate(const list<lexem> &lexems_) {
 //check
 bool Arithmetic::check_all(const string &str) {
     if (!ch_skob(str)) {
-        throw logic_error("ERROR SKOBKA");
+        throw logic_error("ERROR SKOB");
     }
-    if (!ch_dot(str)) {
+    if (!ch_double_dot(str)) {
         throw logic_error("ERROR DOUBLE DOT");
     }
-    if (!ch_all_znak(str)) {
+    if (!ch_double_znak(str)) {
         throw logic_error("ERROR DOUBLE ZNAK");
     }
-    if (!ch_all_func(str)) {
-        throw logic_error("ERROR DOUBLE FUNC WITHOUT SKOBKA");
+    if (!ch_znak_first_elem(str)) {
+        throw logic_error("ERROR ZNAK AS FIRST ELEM");
     }
-    return ch_skob(str) && ch_dot(str) && ch_all_znak(str) && ch_all_func(str);
+    if (!ch_znak_after_skob(str)) {
+        throw logic_error("ERROR ZNAK AFTER SKOB");
+    }
+    if (!ch_znak_after_operand(str)) {
+        throw logic_error("ERROR ZNAK AFTER OPERAND");
+    }
+    if (!ch_all_func(str)) {
+        throw logic_error("ERROR DOUBLE FUNC WITHOUT SKOB");
+    }
+    return true;
+    //ch_skob(str) && ch_double_dot(str) && ch_double_znak(str) && ch_all_func(str);
 }
 
 //prepare str
 void Arithmetic::prepare_str() {
-    if (check_all(input_str)) {
+    if (check_all(erase_space(input_str))) {
         corrected_str = erase_space(input_str);
         corrected_str = make_unary_minus(corrected_str);
     }
 }
 
-//
 void Arithmetic::make_lexems_of_corrected_str() {
     lexems_of_corrected_str = token_to_lexem(split_string_to_tokens(corrected_str));
 }
 
-//
 void Arithmetic::make_obr_pol_zap_str() {
     obr_pol_zap_str = obr_pol_zap(lexems_of_corrected_str);
 }
 
-//
 void Arithmetic::make_lexems_after_obr_pol_zap() {
-    lexems_after_obr_pol_zap = obr_poz_zap_to_lexem(obr_pol_zap_str);
+    lexems_after_obr_pol_zap = obr_pol_zap_to_lexem(obr_pol_zap_str);
 }
 
-//
 void Arithmetic::make_result() {
     res = calculate(lexems_after_obr_pol_zap);
 }
 
 void Arithmetic::launch() {
-    prepare_str();
-    make_lexems_of_corrected_str();
-    make_obr_pol_zap_str();
-    make_lexems_after_obr_pol_zap();
-    make_result();
-    print();
+    if (!input_str.empty()) {
+        prepare_str();
+        make_lexems_of_corrected_str();
+        make_obr_pol_zap_str();
+        make_lexems_after_obr_pol_zap();
+        make_result();
+        //print();
+    } else {
+        std::cout << "Please, setup input string!" << std::endl;
+    }
 }
 
 void Arithmetic::print() const {
@@ -398,6 +470,10 @@ void Arithmetic::print() const {
     }
     cout << endl;
     cout << "Result : " << res << endl;
+}
+
+void Arithmetic::set_input_string(const string &str) {
+    input_str = str;
 }
 
 string Arithmetic::get_input_str() const {
