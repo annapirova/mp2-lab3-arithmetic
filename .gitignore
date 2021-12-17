@@ -257,3 +257,9 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# cmake build debug folder
+cmake-build-debug/
+
+# exclude idea folder
+.idea/
