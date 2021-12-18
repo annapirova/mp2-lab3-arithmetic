@@ -1,7 +1,6 @@
 // реализация функций и классов для вычисления арифметических выражений
 
-//#include "arithmetic.h"
-#include "C:\Game\mp2-lab3-arithmetic\include\arithmetic.h"
+#include "../include/arithmetic.h"
 
 
 string operations = "+*-/";
@@ -71,6 +70,8 @@ Arithmetic::Arithmetic(string str)
 			lexem[nLexem].settype(open_br);
 			nLexem += 1;
 			nbr += 1;
+			i++;
+			continue;
 		}
 		//закрывающие скобки
 		p2 = closebrackets.find(s[i]);
@@ -82,6 +83,8 @@ Arithmetic::Arithmetic(string str)
 			lexem[nLexem].settype(close_br);
 			nLexem += 1;
 			nbr += 1;
+			i++;
+			continue;
 		}
 		//операции +*-/
 		p3 = operations.find(s[i]);
@@ -92,6 +95,8 @@ Arithmetic::Arithmetic(string str)
 			lexem[nLexem].setlex(ops);
 			lexem[nLexem].settype(oper);
 			nLexem += 1;
+			i++;
+			continue;
 		}
 		//переменные
 		if (isalpha(s[i]) != 0)
@@ -127,6 +132,8 @@ Arithmetic::Arithmetic(string str)
 			lexem[nLexem].setlex(as);
 			lexem[nLexem].settype(var);
 			nLexem += 1;
+			i++;
+			continue;
 		}
 		//цифры
 		if (isdigit(s[i]) != 0)
@@ -148,29 +155,10 @@ Arithmetic::Arithmetic(string str)
 			lexem[nLexem].setlex(cs);
 			lexem[nLexem].settype(val);
 			nLexem += 1;
+			i++;
+			continue;
 		}
-		i++;
 	}
-
-	//конечный массив лексем:
-	Lexem* l1;
-	l1 = new Lexem[nLexem];
-	for (int i = 0; i < nLexem; i++)
-		l1[i] = lexem[i];
-	delete[] lexem;
-	lexem = new Lexem[nLexem];
-	for (int i = 0; i < nLexem; i++)
-		lexem[i] = l1[i];
-
-	//конечный массив переменных:
-	Variable* v1;
-	v1 = new Variable[nVars];
-	for (int i = 0; i < nVars; i++)
-		v1[i] = vars[i];
-	delete[] vars;
-	vars = new Variable[nVars];
-	for (int i = 0; i < nVars; i++)
-		vars[i] = v1[i];
 
 	//создали поле для перевода в польскую
 	polish = new Lexem[nLexem - nbr];
@@ -196,8 +184,9 @@ int Arithmetic::check()
 			{
 				if (S.isempty() == true)
 				{
-					cout << "Нельзя перед открытием поставить закрывающуюся скобку";
-					return 0;
+					throw "Нельзя перед открытием поставить закрывающуюся скобку";
+//					cout << "Нельзя перед открытием поставить закрывающуюся скобку";
+//					return 0;
 				}
 
 				p4 = roundbrackets.find(S.top());
@@ -205,8 +194,9 @@ int Arithmetic::check()
 
 				if (!(((p3 != std::string::npos) && (p4 != std::string::npos)) || ((p5 != std::string::npos) && (p6 != std::string::npos))))
 				{
-					cout << "Нельзя поставить закрывающуюся скобку";
-					return 0;
+					throw "Нельзя поставить закрывающуюся скобку";
+//					cout << "Нельзя поставить закрывающуюся скобку";
+//					return 0;
 				}
 				else
 					S.pop();
@@ -224,15 +214,17 @@ int Arithmetic::check()
 			//Проверка выражений "(+","(*","(/" 
 			if ((s[i] == '(') && (p2 != std::string::npos) && (s[i + 1] != '-'))
 			{
-				cout << "Ошибка выражений (+,(*,(/";
-				return 0;
+				throw "Ошибка выражений (+,(*,(/";
+//				cout << "Ошибка выражений (+,(*,(/";
+//				return 0;
 			}
 
 			//Проверка выражений "-)","+)","/)","*)"
 			if ((p1 != std::string::npos) && (s[i + 1] == ')'))
 			{
-				cout << "Ошибка выражений -),+),/),*)";
-				return 0;
+				throw "Ошибка выражений -),+),/),*)";
+//				cout << "Ошибка выражений -),+),/),*)";
+//				return 0;
 			}
 		}
 
@@ -333,4 +325,60 @@ double Arithmetic::calculate()
 	if (!st.isempty())
 		throw "Ошибка";
 	return res;
+}
+
+string unary_minus(string s)
+{
+	size_t p;
+	if (s[0] == '-')
+	{
+		s.insert(0, "0");
+	}
+	for (int i = 1; i < s.length(); i++)
+	{
+		p = openbrackets.find(s[i - 1]);
+		if ((s[i] == '-') && (p != std::string::npos))
+		{
+			s.insert(i, "0");
+		}
+	}
+	return s;
+}
+
+void Arithmetic::set_vars()
+{
+	bool f = true;
+	double tmp;
+	for (int i = 0; i < nVars; i++) {
+		f = true;
+		for (int j = 0; (j < i) && (f); j++)
+		{
+			if (vars[i].getname() == vars[j].getname())
+			{
+				vars[i].setvalue(vars[j].getvalue());
+				f = false;
+			}
+		}
+		if (f)
+		{
+			string str = vars[i].getname();
+			cout << "Введите значение переменной - " << str << endl;
+			cin >> tmp;
+			vars[i].setvalue(tmp);
+		}
+	}
+}
+
+void Arithmetic::print_polish()
+{
+	for (int i = 0; i < nPolish; i++)
+		cout << polish[i].getstr() << "\n";
+}
+
+string Arithmetic::print_polish_1()
+{
+	string s;
+	for (int i = 0; i < nPolish; i++)
+		s += polish[i].getstr();
+	return s;
 }

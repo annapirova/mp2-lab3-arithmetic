@@ -87,4 +87,8 @@ public:
 	int check();
 	double calculate();
 	void Polish();
+	void set_vars();
+	void print_polish();
+	string print_polish_1();
 };
+string unary_minus(string s);
