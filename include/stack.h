@@ -28,7 +28,7 @@ public:
 	T Stack<T>::pop();
 	T Stack<T>::getsize();
 	int Getcapasity() { return capasity; }
-	void Stack<T>::clear(const T& v);
+	void Stack<T>::clear(/*const T& v*/);
 };  
 	template <typename T>
 	Stack<T>::Stack() {
@@ -50,7 +50,7 @@ public:
 		st = new T[capasity];
 		size = otherStack.size;
 		for (int i = 0; i < capasity; i++)
-			st[i] = otherStack.size[i];
+			st[i] = otherStack.st[i];
 	}
 
 	template <typename T>
@@ -62,7 +62,7 @@ public:
 	template <typename T>
 	bool Stack<T> ::isFull() { // проверка на полноту
 		if (size == capasity) { 
-			return true
+			return true;
 		}
 		else {
 			return false;
@@ -81,7 +81,7 @@ public:
 
 	template <typename T>
 	void Stack<T>::push(const T& v) { // добавить элемент
-		if (capasity == top) {
+		/*if (capasity == size + 1) {
 			int tmpCapasity = capasity;
 			T* tmpSt = new T[tmpCapasity];
 			for (int i = 0; i < tmpCapasity; i++)
@@ -94,20 +94,36 @@ public:
 			{
 				st[i] = tmpSt[i];
 			}
+			delete[]tmpSt;
 		}
 		st[size] = v;
+		size++;*/
+		if (size == capasity) {
+			auto tmpCapasity = capasity;
+			T* tmpContent = new T[tmpCapasity];
+			for (int i = 0; i < size; ++i) {
+				tmpContent[i] = st[i];
+			}
+			delete[]st;
+			capasity = capasity + capasity;
+			st = new T[capasity];
+			for (int i = 0; i < tmpCapasity; ++i) {
+				st[i] = tmpContent[i];
+			}
+		}
 		size++;
+		st[size - 1] = v;
 	}
 
 	template <typename T>
 	T Stack<T>::getsize() { // извлечь элемент
 		return st[size - 1];
-		st[size - 1] = NULL;
+		st[size - 1] == NULL;
 		size--;
 	}
 
 	template<typename T>
-    void Stack<T>::clear(const T& v)
+    void Stack<T>::clear(/*const T& v*/)
 	{
 		size = 0;
 	}
@@ -116,4 +132,5 @@ public:
 	T Stack<T>::pop() { // просмотр вершины
 			return st[size -1];
 	}
+
 #endif
