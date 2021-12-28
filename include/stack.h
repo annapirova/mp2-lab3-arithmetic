@@ -26,7 +26,7 @@ public:
 	bool Stack<T> ::isNotFull();
 	void Stack<T>::push(const T& v);
 	T Stack<T>::pop();
-	T Stack<T>::getsize();
+	T Stack<T>::getStack();
 	int Getcapasity() { return capasity; }
 	void Stack<T>::clear(/*const T& v*/);
 };  
@@ -116,7 +116,7 @@ public:
 	}
 
 	template <typename T>
-	T Stack<T>::getsize() { // извлечь элемент
+	T Stack<T>::getStack() { // извлечь элемент
 		return st[size - 1];
 		st[size - 1] == NULL;
 		size--;

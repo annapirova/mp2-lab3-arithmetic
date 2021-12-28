@@ -17,6 +17,8 @@ TEST(Stack, value_stack)
 	Stack<int> stack(1);
 	stack.push(1);
 	stack.push(2);
+	cout << stack.pop();
+	cout << stack.isFull();
 	ASSERT_EQ(stack.Getcapasity(), 2);
 }
 
@@ -74,7 +76,7 @@ TEST(Stack, get_value_stack)
 	Stack<int> stack(2);
 	stack.push(1);
 	stack.push(2);
-	ASSERT_EQ(stack.getsize(), 2);
+	ASSERT_EQ(stack.getStack(), 2);
 }
 
 TEST(Stack, const_stack)
